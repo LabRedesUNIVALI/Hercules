@@ -1,2 +1,2 @@
 # Hercules
-Servidor de Provas Objetivas Hercules
+Sistema de Provas Objetivas Hercules
