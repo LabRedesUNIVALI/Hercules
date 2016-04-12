@@ -34,3 +34,13 @@ Nesta reunião, foram introduzidos os seguintes requisitos funcionais:
 * A interface deverá apresentar um botão de enviar a prova definitivamente para avaliação;
 * O professor não poderá alterar uma prova em execução;
 * O sistema deverá oferecer uma pré-visualização da prova gerada.
+
+**Reunião nº 2**: Proposta <br>
+**Data**: 08/04/2016. <br>
+**Horário**: 18hrs às 18:30hrs. <br>
+**Participantes**: Fabrício Bortoluzzi, André L. Vargas, Gustavo Dal Pont.
+
+A partir desta reunião, os participantes chegaram às seguintes conclusões:
+
+* O sistema deverá permitir que o professor, ao gerar uma prova, selecione questões que ele deseja que estejam nela. As restantes serão adicionadas aleatoriamente pelo sistema.
+* O professor poderá selecionar quantas questões a prova terá. O máximo de questões que uma prova pode ter é igual ao número de questões cadastradas.
