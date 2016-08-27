@@ -1,14 +1,26 @@
 'use strict';
 
-const Hapi = require('hapi');
+const Glue = require('glue');
 
-const server = new Hapi.Server();
-server.connection({ port: 3000 });
+const options = {
+    relativeTo: __dirname
+};
 
-server.start((err) => {
+Glue.compose(require('./plugins.js'), options, (err, server) => {
 
     if (err) {
         throw err;
     }
-    console.log(`Server running at: ${server.info.uri}`);
+
+    server.start((err) => {
+
+        if (err) {
+            throw err;
+        }
+
+        console.log(`Server running at: ${server.info.uri}`);
+    });
+
+    module.exports = server;
+
 });
