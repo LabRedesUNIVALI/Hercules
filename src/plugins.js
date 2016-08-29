@@ -27,6 +27,11 @@ module.exports = exports = {
     registrations: [
         {
             plugin: {
+                register: 'inert'
+            }
+        },
+        {
+            plugin: {
                 register: 'good',
                 options: {
                     ops: {
@@ -55,6 +60,11 @@ module.exports = exports = {
                         }
                     ]
                 }
+            }
+        },
+        {
+            plugin: {
+                register: './plugins/staticFiles'
             }
         },
         {

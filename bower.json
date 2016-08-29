@@ -1,0 +1,24 @@
+{
+  "name": "hercules",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "André Vargas <andrelv510@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/LabRedesUNIVALI/Hercules",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/public/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "materialize": "^0.97.7",
+    "angular": "^1.5.8",
+    "angular-route": "^1.5.8"
+  }
+}
