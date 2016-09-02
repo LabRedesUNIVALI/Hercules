@@ -64,7 +64,7 @@ module.exports = exports = {
         },
         {
             plugin: {
-                register: './plugins/staticFiles'
+                register: './controllers/assetsController.js'
             }
         },
         {

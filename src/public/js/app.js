@@ -1,5 +1,7 @@
-var app = angular.module('hercules', ['ngRoute']);
+var app = angular.module('hercules', [
+    'ngMaterial'
+]);
 
-app.config(function($routeProvider, $locationProvider){
-
+app.config(function($mdIconProvider) {
+    //Configure!
 });
