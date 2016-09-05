@@ -6,8 +6,8 @@ angular.module('hercules').directive('compareTo', function () {
             originalValue: '=compareTo'
         },
         link: function ($scope, $element, $attrs, ngModel) {
-            ngModel.$validators.compareTo = function(confirmValue) {
-                return confirmValue == $scope.originalValue;
+            ngModel.$validators.compareTo = function(comparedValue) {
+                return comparedValue == $scope.originalValue;
             };
             $scope.$watch("originalValue", function() {
                 ngModel.$validate();

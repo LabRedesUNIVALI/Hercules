@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
+        <base href="/" />
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Hercules</title>
         <!-- CSS -->
-        <link rel="stylesheet" href="public/app/assets/libs/angular-material/angular-material.min.css" />
-        <link rel="stylesheet" href="public/app/assets/css/app.css" />
+        <link rel="stylesheet" href="public/assets/libs/angular-material/angular-material.min.css" />
+        <link rel="stylesheet" href="public/assets/css/app.css" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" />
     </head>
@@ -15,28 +16,28 @@
         <div ng-view></div>
 
         <!-- Libraries -->
-        <script src="public/app/assets/libs/angular/angular.min.js" type="text/javascript"></script>
-        <script src="public/app/assets/libs/angular-route/angular-route.min.js" type="text/javascript"></script>
-        <script src="public/app/assets/libs/angular-aria/angular-aria.min.js" type="text/javascript"></script>
-        <script src="public/app/assets/libs/angular-animate/angular-animate.min.js" type="text/javascript"></script>
-        <script src="public/app/assets/libs/angular-messages/angular-messages.min.js" type="text/javascript"></script>
-        <script src="public/app/assets/libs/angular-material/angular-material.min.js" type="text/javascript"></script>
+        <script src="public/assets/libs/angular/angular.min.js" type="text/javascript"></script>
+        <script src="public/assets/libs/angular-route/angular-route.min.js" type="text/javascript"></script>
+        <script src="public/assets/libs/angular-aria/angular-aria.min.js" type="text/javascript"></script>
+        <script src="public/assets/libs/angular-animate/angular-animate.min.js" type="text/javascript"></script>
+        <script src="public/assets/libs/angular-messages/angular-messages.min.js" type="text/javascript"></script>
+        <script src="public/assets/libs/angular-material/angular-material.min.js" type="text/javascript"></script>
 
         <!-- Modules -->
-        <script src="public/app/app.module.js" type="text/javascript"></script>
+        <script src="public/app.module.js" type="text/javascript"></script>
 
         <!-- Configuration -->
-        <script src="public/app/app.routes.js" type="text/javascript"></script>
+        <script src="public/app.routes.js" type="text/javascript"></script>
 
         <!-- Controllers -->
-        <script src="public/app/components/registration/RegistrationCtrl.js" type="text/javascript"></script>
-        <script src="public/app/components/login/LoginCtrl.js" type="text/javascript"></script>
+        <script src="public/components/registration/registration.controller.js" type="text/javascript"></script>
+        <script src="public/components/login/login.controller.js" type="text/javascript"></script>
 
         <!-- Directives -->
-        <script src="public/app/shared/compareToDirective.js" type="text/javascript"></script>
+        <script src="public/shared/compare-to.directive.js" type="text/javascript"></script>
 
         <!-- Services -->
-        <script src="public/app/components/user/userAPIService.js" type="text/javascript"></script>
+        <script src="public/components/user/user-api.service.js" type="text/javascript"></script>
 
 
     </body>
