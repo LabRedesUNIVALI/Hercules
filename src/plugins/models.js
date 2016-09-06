@@ -7,7 +7,9 @@ exports.register = function(server, options, next) {
     let models = [];
 
     for (let i in options.models) {
-        models[options.models[i].name] = mongoose.model(options.models[i].name, options.models[i].schema);
+        let model = options.models[i];
+
+        models[model.name] = mongoose.model(model.name, require(options.path + model.schema));
     }
 
     server.decorate('server', 'models', models);
