@@ -13,17 +13,16 @@ exports.register = (server, options, next) => {
                 auth: false,
                 handler: {
                     directory: {
-                        path: Path.join(__dirname, '..', 'public'),
+                        path: Path.join(__dirname, '..', 'public', 'app'),
                         index: false,
                         listing: false
                     }
                 }
             }
         },
-        //TODO: Verificar se há necessidade de colocar em um controlador mais apropriado.
         {
             method: 'GET',
-            path: '/',
+            path: '/{path*}',
             config: {
                 description: 'Send index file managed by AngularJS.',
                 handler: (request, reply) => {

@@ -1,48 +1,44 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
+        <base href="/" />
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Hercules</title>
         <!-- CSS -->
-        <link rel="stylesheet" href="public/components/angular-material/angular-material.min.css" />
+        <link rel="stylesheet" href="public/assets/libs/angular-material/angular-material.min.css" />
+        <link rel="stylesheet" href="public/assets/css/app.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" />
     </head>
-    <body ng-app="hercules" ng-cloak layout="row">
+    <body ng-app="hercules" ng-cloak>
 
-        <div layout="column", layout-align="center center", layout-fill>
-            <div layout="column" class="md-whiteframe-z1" style="width: 500px; max-width: 90%;">
-                <md-toolbar class="md-primary">
-                    <h2 class="md-toolbar-tools">Login</h2>
-                </md-toolbar>
-                <md-content class="md-padding" layout="column">
-                    <md-input-container class="md-icon-floar md-block">
-                        <label>Nome de usuário</label>
-                        <input type="email" />
-                    </md-input-container>
-                    <md-input-container>
-                        <label>Senha</label>
-                        <input type="password" />
-                    </md-input-container>
-                    <md-checkbox>
-                        Lembre-se de mim
-                    </md-checkbox>
-                    <div layout="row" layout-align="center center">
-                        <md-button class="md-raised md-primary">Entrar</md-button>
-                        <div flex></div>
-                        <md-button href="" class="md-no-ink">Esqueci minha senha</md-button>
-                    </div>
-                </md-content>
-            </div>
-        </div>
+        <div ng-view></div>
 
-        <!-- JS -->
-        <script src="public/components/angular/angular.min.js" type="text/javascript"></script>
-        <script src="public/components/angular-animate/angular-animate.min.js" type="text/javascript"></script>
-        <script src="public/components/angular-aria/angular-aria.min.js" type="text/javascript"></script>
-        <script src="public/components/angular-messages/angular-messages.min.js" type="text/javascript"></script>
-        <script src="public/components/angular-material/angular-material.min.js" type="text/javascript"></script>
+        <!-- Libraries -->
+        <script src="public/assets/libs/angular/angular.min.js" type="text/javascript"></script>
+        <script src="public/assets/libs/angular-route/angular-route.min.js" type="text/javascript"></script>
+        <script src="public/assets/libs/angular-aria/angular-aria.min.js" type="text/javascript"></script>
+        <script src="public/assets/libs/angular-animate/angular-animate.min.js" type="text/javascript"></script>
+        <script src="public/assets/libs/angular-messages/angular-messages.min.js" type="text/javascript"></script>
+        <script src="public/assets/libs/angular-material/angular-material.min.js" type="text/javascript"></script>
+
         <!-- Modules -->
-        <script src="public/js/app.js" type="text/javascript"></script>
+        <script src="public/app.module.js" type="text/javascript"></script>
+
+        <!-- Configuration -->
+        <script src="public/app.routes.js" type="text/javascript"></script>
+
+        <!-- Controllers -->
+        <script src="public/components/registration/registration.controller.js" type="text/javascript"></script>
+        <script src="public/components/login/login.controller.js" type="text/javascript"></script>
+
+        <!-- Directives -->
+        <script src="public/shared/compare-to.directive.js" type="text/javascript"></script>
+
+        <!-- Services -->
+        <script src="public/components/user/user-api.service.js" type="text/javascript"></script>
+
 
     </body>
 </html>

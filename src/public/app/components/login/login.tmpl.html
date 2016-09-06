@@ -1,0 +1,43 @@
+<md-content layout="row" layout-align="center center" layout-fill layout-margin>
+    <md-whiteframe layout="column" flex layout-fill class="md-whiteframe-z2" flex-lg="33">
+        <md-toolbar class="md-primary" layout="column" layout-align="end" layout-fill>
+            <div layout="row" class="md-toolbar-tools">
+                <h3 class="md-display-1">Realizar Login no Hercules</h3>
+            </div>
+        </md-toolbar>
+        <div layout="column" layout-fill layout-margin layout-padding>
+            <form name="loginForm" class="authComponent" layout="column" layout-fill layout-padding>
+                <md-input-container class="md-icon-float md-block">
+                    <label>Nome de usuário</label>
+                    <md-icon class="material-icons">person</md-icon>
+                    <input type="text" placeholder="Nome de usuário" ng-model="credentials.username" name="username" aria-label="username" required />
+                    <div ng-messages="loginForm.username.$error">
+                        <div ng-message="required">Este campo é obrigatório.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-icon-float md-block">
+                    <label>Senha</label>
+                    <md-icon class="material-icons">lock</md-icon>
+                    <input type="password" placeholder="Senha" ng-model="credentials.password" name="password" aria-label="password" required />
+                    <div ng-messages="loginForm.password.$error">
+                        <div ng-message="required">Este campo é obrigatório.</div>
+                    </div>
+                </md-input-container>
+                <div layout="row" layout-aling="center center">
+                    <md-button class="md-raised md-primary" aria-label="register" flex="40" flex-offset="30" ng-disabled="loginForm.$invalid">
+                        <md-icon class="material-icons">send</md-icon>
+                        Entrar
+                    </md-button>
+                </div>
+                <div layout="column" layout-aling="center center">
+                    <md-button href="/#/register" class="md-no-ink md-small md-primary" aria-label="register" flex-offset="30">
+                        Cadastre-se
+                    </md-button>
+                    <md-button href="" class="md-no-ink md-small md-primary" aria-label="register" flex-offset="30">
+                        Esqueci minha senha
+                    </md-button>
+                </div>
+            </form>
+        </div>
+    </md-whiteframe>
+</md-content>

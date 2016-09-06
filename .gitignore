@@ -1,4 +1,4 @@
 /node_modules/
-/src/public/components/
+/src/public/app/assets/libs/
 .idea/
 /config/local.js
