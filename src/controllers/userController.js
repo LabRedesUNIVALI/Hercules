@@ -2,7 +2,7 @@
 
 const Joi = require('joi');
 const mongoose = require('mongoose');
-// const Boom = require('boom');
+const Boom = require('boom');
 
 exports.register = function (server, options, next) {
 
@@ -15,7 +15,6 @@ exports.register = function (server, options, next) {
                 validate: {
                     payload: {
                         name: Joi.string().min(2).max(50).required(),
-                        username: Joi.string().min(2).max(20).required(),
                         email: Joi.string().email().required(),
                         password: Joi.string().min(5).max(50).required()
                     }
@@ -32,8 +31,7 @@ exports.register = function (server, options, next) {
                reply(entity);
             })
             .catch((err) => {
-                reply(err);
-                // reply(Boom.wrap(err));
+                reply(Boom.wrap(err));
             });
     }
 

@@ -111,6 +111,16 @@ module.exports = exports = {
         },
         {
             plugin: {
+                register: './controllers/userController.js'
+            },
+            options: {
+                routes: {
+                    prefix: '/api'
+                }
+            }
+        },
+        {
+            plugin: {
                 register: './controllers/kittenController.js'
             },
             options: {
