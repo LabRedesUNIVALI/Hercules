@@ -14,6 +14,7 @@
     "inert": "^4.0.2",
     "joi": "^9.0.4",
     "mongoose": "^4.5.10",
+    "mongoose-delete": "^0.3.4",
     "mongoose-paginate": "^5.0.0",
     "nodemailer": "^2.5.0",
     "promise": "^7.1.1",

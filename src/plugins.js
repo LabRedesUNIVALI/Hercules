@@ -62,6 +62,48 @@ module.exports = exports = {
                 }
             }
         },
+        // {
+        //     plugin: {
+        //         register: './plugins/models',
+        //         options: {
+        //             path: __dirname + '/schemas/',
+        //             models: [
+        //                 {
+        //                     name: 'Answer',
+        //                     schema: 'answerSchema'
+        //                 },
+        //                 {
+        //                     name: 'Discipline',
+        //                     schema: 'disciplineSchema'
+        //                 },
+        //                 {
+        //                     name: 'Option',
+        //                     schema: 'optionSchema'
+        //                 },
+        //                 {
+        //                     name: 'Question',
+        //                     schema: 'questionSchema'
+        //                 },
+        //                 {
+        //                     name: 'Test',
+        //                     schema: 'testSchema'
+        //                 },
+        //                 {
+        //                     name: 'Theme',
+        //                     schema: 'themeSchema'
+        //                 },
+        //                 {
+        //                     name: 'Token',
+        //                     schema: 'tokenSchema'
+        //                 },
+        //                 {
+        //                     name: 'User',
+        //                     schema: 'userSchema'
+        //                 }
+        //             ]
+        //         }
+        //     }
+        // },
         {
             plugin: {
                 register: './controllers/assetsController.js'
