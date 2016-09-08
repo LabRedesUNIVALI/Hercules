@@ -2,6 +2,7 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const studentSchema = require('./studentSchema');
 
 const disciplineSchema = new Schema({
     name: {
@@ -15,7 +16,8 @@ const disciplineSchema = new Schema({
     semester: {
         type: Number,
         required: true
-    }
+    },
+    students: [ studentSchema ]
 }, { timestamps: true });
 
 disciplineSchema.plugin(require('mongoose-delete'), { deletedBy : true, deletedAt: true, overrideMethods: true });

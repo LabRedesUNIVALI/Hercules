@@ -26,11 +26,14 @@ exports.register = function (server, options, next) {
     server.route(routes);
 
     function createUserHandler(request, reply) {
+
         request.models.User.create(request.payload)
             .then((entity) => {
+
                reply(entity);
             })
             .catch((err) => {
+
                 reply(Boom.wrap(err));
             });
     }

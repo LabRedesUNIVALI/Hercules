@@ -17,16 +17,14 @@ const userSchema = new Schema({
         type: String,
         bcrypt: true
     },
-    typeOf: {
-        type: String,
-        enum: ['teacher', 'student']
-    },
-    theme: {
+    theme: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Theme'
-    }
+    }]
 }, { timestamps: true });
 
 userSchema.plugin(require('mongoose-delete'), { deletedBy : true, deletedAt: true, overrideMethods: true });
+userSchema.plugin(require('mongoose-beautiful-unique-validation'));
+userSchema.plugin(require('mongoose-bcrypt'), {rounds: 8});
 
 module.exports = userSchema;
