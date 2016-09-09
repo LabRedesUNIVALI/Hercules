@@ -2,22 +2,25 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const optionSchema = require('./optionSchema');
 
 const questionSchema = new Schema({
     correctOption: {
-        type: String
+        type: String,
+        required: true
     },
     chosenOption: {
         type: String
     },
-    title: {
+    name: {
         type: String,
         required: true
     },
     theme: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Theme'
-    }
+    },
+    options: [ optionSchema ]
 }, { timestamps: true });
 
 questionSchema.plugin(require('mongoose-delete'), { deletedBy : true, deletedAt: true, overrideMethods: true });

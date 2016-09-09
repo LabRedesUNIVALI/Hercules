@@ -153,6 +153,16 @@ module.exports = exports = {
                     prefix: '/api'
                 }
             }
+        },
+        {
+            plugin: {
+                register: './controllers/questionController.js'
+            },
+            options: {
+                routes: {
+                    prefix: '/api'
+                }
+            }
         }
     ]
 };
