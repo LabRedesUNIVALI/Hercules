@@ -3,7 +3,6 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
 const Boom = require('boom');
-const Hoek = require('hoek');
 
 exports.register = function (server, options, next) {
 
@@ -13,7 +12,7 @@ exports.register = function (server, options, next) {
             path: '/disciplines',
             handler: createDisciplineHandler,
             config: {
-            //     auth: 'jwt'
+                auth: 'jwt',
                 validate: {
                     payload: {
                         name: Joi.string().min(2).max(20).required(),
@@ -32,9 +31,9 @@ exports.register = function (server, options, next) {
             method: 'GET',
             path: '/disciplines',
             handler: findAllDisciplinesHandler,
-            // config: {
-            //     auth: 'jwt'
-            // }
+            config: {
+                auth: 'jwt'
+            }
         },
         {
             method: 'GET',
@@ -54,7 +53,7 @@ exports.register = function (server, options, next) {
             path: '/disciplines/{disciplineid}',
             handler: updateDisciplineHandler,
             config: {
-                //     auth: 'jwt'
+                auth: 'jwt',
                 validate: {
                     params: {
                         disciplineid: Joi.string().alphanum()
@@ -77,7 +76,7 @@ exports.register = function (server, options, next) {
             path: '/disciplines/{disciplineid}',
             handler: removeDisciplineHandler,
             config: {
-                //     auth: 'jwt'
+                auth: 'jwt',
                 validate: {
                     params: {
                         disciplineid: Joi.string().alphanum()

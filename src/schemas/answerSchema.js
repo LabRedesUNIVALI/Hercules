@@ -10,9 +10,9 @@ const answerSchema = new Schema({
     hash: {
         type: String
     },
-    user: {
+    student: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'Student'
     }
 }, { timestamps: true });
 

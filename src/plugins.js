@@ -64,6 +64,21 @@ module.exports = exports = {
         },
         {
             plugin: {
+                register: 'hapi-auth-jwt2'
+            }
+        },
+        {
+            plugin: {
+                register: './controllers/authenticationController.js'
+            },
+            options: {
+                routes: {
+                    prefix: '/api'
+                }
+            }
+        },
+        {
+            plugin: {
                 register: './plugins/models',
                 options: {
                     path: __dirname + '/schemas/',

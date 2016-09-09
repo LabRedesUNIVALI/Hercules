@@ -4,13 +4,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const tokenSchema = new Schema({
-    beginDate: {
+    expired: {
         type: Boolean,
-         default: false
+        default: false
     },
-    user: {
+    student: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'Student'
     },
     test: {
         type: mongoose.Schema.Types.ObjectId,
