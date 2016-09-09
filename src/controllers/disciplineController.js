@@ -40,7 +40,7 @@ exports.register = function (server, options, next) {
             path: '/disciplines/{disciplineid}',
             handler: findOneDisciplineHandler,
             config: {
-            //     auth: 'jwt'
+                auth: 'jwt',
                 validate: {
                     params: {
                         disciplineid: Joi.string().alphanum()

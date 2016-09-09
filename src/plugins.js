@@ -146,7 +146,7 @@ module.exports = exports = {
         },
         {
             plugin: {
-                register: './controllers/kittenController.js'
+                register: './controllers/themeController.js'
             },
             options: {
                 routes: {
