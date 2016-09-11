@@ -1,4 +1,8 @@
-.authComponent .md-button.md-small {
+.hc-auth-component {
+    background-color: #ffffff;
+}
+
+.hc-auth-component .md-button.hc-small {
     width: 40%;
     line-height: 20px;
     min-height: 20px;

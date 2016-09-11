@@ -1,5 +1,9 @@
 angular.module('hercules', [
     'ngMaterial',
     'ngRoute',
-    'ngMessages'
-]);
+    'ngMessages',
+    'ngCookies'
+])
+    .config(function ($httpProvider) {
+        $httpProvider.interceptors.push('accessTokenInterceptor');
+    });

@@ -20,6 +20,11 @@ exports.register = function (server, options, next) {
                     }
                 }
             }
+        },
+        {
+            method: 'POST',
+            path: '/email/check',
+            handler: checkEmailHandler
         }
     ];
 
@@ -34,6 +39,19 @@ exports.register = function (server, options, next) {
             })
             .catch((err) => {
 
+                reply(Boom.wrap(err));
+            });
+    }
+
+    function checkEmailHandler(request, reply) {
+
+        request.models.User.findOne({ email: request.payload.email }, 'email')
+            .then((email) => {
+                reply({
+                    isUnique: (email) ? false : true
+                });
+            })
+            .catch((err) => {
                 reply(Boom.wrap(err));
             });
     }

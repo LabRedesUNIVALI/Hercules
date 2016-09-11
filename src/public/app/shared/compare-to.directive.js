@@ -1,15 +1,15 @@
-angular.module('hercules').directive('compareTo', function () {
+angular.module('hercules').directive('hcCompareTo', function () {
     return {
         strict: 'A',
         require: 'ngModel',
         scope: {
-            originalValue: '=compareTo'
+            originalValue: '=hcCompareTo'
         },
-        link: function ($scope, $element, $attrs, ngModel) {
+        link: function (scope, element, attrs, ngModel) {
             ngModel.$validators.compareTo = function(comparedValue) {
-                return comparedValue == $scope.originalValue;
+                return comparedValue == scope.originalValue;
             };
-            $scope.$watch("originalValue", function() {
+            scope.$watch("originalValue", function() {
                 ngModel.$validate();
             });
         }

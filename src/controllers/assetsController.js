@@ -4,7 +4,7 @@ const Path = require('path');
 
 exports.register = (server, options, next) => {
 
-    let routes = [
+    const routes = [
         {
             method: 'GET',
             path: '/public/{path*}',
