@@ -1,63 +1,79 @@
-<div layout="row" layout-align="center center" layout-fill layout-margin>
-    <md-whiteframe layout="column" flex layout-fill class="md-whiteframe-z2" flex-lg="33">
-        <md-toolbar class="md-primary" layout="column" layout-align="end" layout-fill>
-            <div layout="row" class="md-toolbar-tools">
-                <h3 class="md-display-1">Criar uma nova conta</h3>
-            </div>
-        </md-toolbar>
-        <div class="hc-auth-component" layout="column" layout-fill layout-margin layout-padding>
-            <form name="registrationForm" layout="column" layout-fill layout-padding ng-submit="register(registration.user)">
-                <md-input-container class="md-icon-float md-block">
-                    <label>Nome completo</label>
-                    <md-icon class="material-icons">person</md-icon>
-                    <input type="text" placeholder="Nome completo" ng-model="registration.user.name" name="name" required ng-minlength="2" ng-maxlength="50"/>
-                    <div ng-messages="registrationForm.name.$error">
-                        <div ng-message="required">Este campo é obrigatório.</div>
-                        <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
-                        <div ng-message="maxlength">Este campo deve ter no máximo 50 caracteres.</div>
-                    </div>
-                </md-input-container>
-                <md-input-container class="md-icon-float md-block">
-                    <label>E-mail</label>
-                    <md-icon class="material-icons">email</md-icon>
-                    <input type="email" placeholder="E-mail" ng-model="registration.user.email" name="email" required hc-unique-email />
-                    <div ng-messages="registrationForm.email.$error">
-                        <div ng-message="required">Este campo é obrigatório.</div>
-                        <div ng-message="email">Informe um endereço de e-mail válido.</div>
-                        <div ng-message="uniqueEmail">O e-mail informado já existe no sistema.</div>
-                    </div>
-                </md-input-container>
-                <md-input-container class="md-icon-float md-block">
-                    <label>Senha</label>
-                    <md-icon class="material-icons">lock</md-icon>
-                    <input type="password" placeholder="Senha" ng-model="registration.user.password" name="password" required ng-minlength="5" ng-maxlength="50" />
-                    <div ng-messages="registrationForm.password.$error">
-                        <div ng-message="required">Este campo é obrigatório.</div>
-                        <div ng-message="minlength">Este campo deve ter ao menos 5 caracteres.</div>
-                        <div ng-message="maxlength">Este campo deve ter no máximo 50 caracteres.</div>
-                    </div>
-                </md-input-container>
-                <md-input-container class="md-icon-float md-block">
-                    <label>Confirmar senha</label>
-                    <md-icon class="material-icons">lock</md-icon>
-                    <input type="password" placeholder="Senha" ng-model="registration.confirmPassword" name="confirmPassword" hc-compare-to="registration.user.password" required />
-                    <div ng-messages="registrationForm.confirmPassword.$error">
-                        <div ng-message="required">Este campo é obrigatório.</div>
-                        <div ng-message="compareTo">As senhas devem ser iguais.</div>
-                    </div>
-                </md-input-container>
-                <div layout="row" layout-aling="center center">
-                    <md-button type="submit" class="md-raised md-primary" flex="40" flex-offset="30" ng-disabled="registrationForm.$invalid">
-                        <md-icon class="material-icons">send</md-icon>
-                        Cadastrar
-                    </md-button>
-                </div>
-                <div layout="row" layout-aling="center center">
-                    <md-button href="/login" class="md-no-ink hc-small md-primary" flex-offset="30">
-                        Fazer login
-                    </md-button>
-                </div>
-            </form>
+<div layout="column" class="auth-page">
+
+    <md-toolbar class="md-whiteframe-z2 background-bar">
+        <div class="logo">
+            <span class="bigger">H</span>ercules
         </div>
-    </md-whiteframe>
+    </md-toolbar>
+
+    <div layout="row" layout-align="center start" layout-fill layout-margin>
+
+        <md-whiteframe layout="column" flex layout-fill class="md-whiteframe-z2 auth-component" flex-lg="45">
+
+            <div layout-align="center center" class="header">
+                <div class="header-icon">
+                    <span class="material-icons icon">account_circle</span>
+                </div>
+                <div class="header-text">
+                    Cadastrar
+                </div>
+            </div>
+
+            <div layout="column" layout-fill layout-margin layout-padding>
+                <form name="registrationForm" layout="column" layout-fill layout-padding ng-submit="register(registration.user)">
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Nome completo</label>
+                        <md-icon class="material-icons">person</md-icon>
+                        <input type="text" placeholder="Nome completo" ng-model="registration.user.name" name="name" required ng-minlength="2" ng-maxlength="50"/>
+                        <div ng-messages="registrationForm.name.$error">
+                            <div ng-message="required">Este campo é obrigatório.</div>
+                            <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
+                            <div ng-message="maxlength">Este campo deve ter no máximo 50 caracteres.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float md-block">
+                        <label>E-mail</label>
+                        <md-icon class="material-icons">email</md-icon>
+                        <input type="email" placeholder="E-mail" ng-model="registration.user.email" name="email" required hc-unique-email />
+                        <div ng-messages="registrationForm.email.$error">
+                            <div ng-message="required">Este campo é obrigatório.</div>
+                            <div ng-message="email">Informe um endereço de e-mail válido.</div>
+                            <div ng-message="uniqueEmail">O e-mail informado já existe no sistema.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Senha</label>
+                        <md-icon class="material-icons">lock</md-icon>
+                        <input type="password" placeholder="Senha" ng-model="registration.user.password" name="password" required ng-minlength="5" ng-maxlength="50" />
+                        <div ng-messages="registrationForm.password.$error">
+                            <div ng-message="required">Este campo é obrigatório.</div>
+                            <div ng-message="minlength">Este campo deve ter ao menos 5 caracteres.</div>
+                            <div ng-message="maxlength">Este campo deve ter no máximo 50 caracteres.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Confirmar senha</label>
+                        <md-icon class="material-icons">lock</md-icon>
+                        <input type="password" placeholder="Senha" ng-model="registration.confirmPassword" name="confirmPassword" hc-compare-to="registration.user.password" required />
+                        <div ng-messages="registrationForm.confirmPassword.$error">
+                            <div ng-message="required">Este campo é obrigatório.</div>
+                            <div ng-message="compareTo">As senhas devem ser iguais.</div>
+                        </div>
+                    </md-input-container>
+                    <div layout="row" layout-aling="center center">
+                        <md-button type="submit" class="md-raised md-primary" flex="30" flex-offset="35" ng-disabled="registrationForm.$invalid">
+                            <md-icon class="material-icons">send</md-icon>
+                            Cadastrar
+                        </md-button>
+                    </div>
+                    <div layout="row" layout-aling="center center">
+                        <md-button href="/login" class="md-no-ink small md-primary" flex-offset="35">
+                            Fazer login
+                        </md-button>
+                    </div>
+                </form>
+            </div>
+        </md-whiteframe>
+
+    </div>
 </div>

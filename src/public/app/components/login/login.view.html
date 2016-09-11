@@ -1,40 +1,59 @@
-<div layout="row" layout-align="center center" layout-fill layout-margin>
-    <md-whiteframe layout="column" flex layout-fill class="md-whiteframe-z2" flex-lg="33">
-        <md-toolbar class="md-primary" layout="column" layout-align="end" layout-fill>
-            <div layout="row" class="md-toolbar-tools">
-                <h3 class="md-display-1">Realizar Login no Hercules</h3>
-            </div>
-        </md-toolbar>
-        <div class="hc-auth-component" layout="column" layout-fill layout-margin layout-padding>
-            <form name="loginForm" layout="column" layout-fill layout-padding ng-submit="login(login.credentials)">
-                <md-input-container class="md-icon-float md-block">
-                    <label>E-mail</label>
-                    <md-icon class="material-icons">person</md-icon>
-                    <input type="text" placeholder="E-mail" ng-model="login.credentials.email" name="email" aria-label="email" required />
-                    <div ng-messages="loginForm.email.$error">
-                        <div ng-message="required">Este campo é obrigatório.</div>
-                    </div>
-                </md-input-container>
-                <md-input-container class="md-icon-float md-block">
-                    <label>Senha</label>
-                    <md-icon class="material-icons">lock</md-icon>
-                    <input type="password" placeholder="Senha" ng-model="login.credentials.password" name="password" aria-label="password" required />
-                    <div ng-messages="loginForm.password.$error">
-                        <div ng-message="required">Este campo é obrigatório.</div>
-                    </div>
-                </md-input-container>
-                <div layout="row" layout-aling="center center">
-                    <md-button type="submit" class="md-raised md-primary" aria-label="register" flex="40" flex-offset="30" ng-disabled="loginForm.$invalid">
-                        <md-icon class="material-icons">send</md-icon>
-                        Entrar
-                    </md-button>
-                </div>
-                <div layout="column" layout-aling="center center">
-                    <md-button href="/register" class="md-no-ink hc-small md-primary" aria-label="register" flex-offset="30">
-                        Cadastre-se
-                    </md-button>
-                </div>
-            </form>
+<div layout="column" class="auth-page">
+
+    <md-toolbar class="md-whiteframe-z2 background-bar">
+        <div class="logo">
+            <span class="bigger">H</span>ercules
         </div>
-    </md-whiteframe>
+    </md-toolbar>
+
+    <div layout="row" layout-align="center start" layout-fill layout-margin>
+
+        <md-whiteframe layout="column" flex layout-fill class="md-whiteframe-z2 auth-component" flex-lg="45">
+
+            <div layout-align="center center" class="header">
+                <div class="header-icon">
+                    <span class="material-icons icon">account_circle</span>
+                </div>
+                <div class="header-text">
+                    Entrar
+                </div>
+            </div>
+
+            <div layout="column" layout-fill layout-margin layout-padding>
+                <form name="loginForm" layout="column" layout-fill layout-padding ng-submit="login(login.credentials)">
+                    <md-input-container class="md-icon-float md-block">
+                        <label>E-mail</label>
+                        <md-icon class="material-icons">person</md-icon>
+                        <input type="email" placeholder="E-mail" ng-model="login.credentials.email" name="email" aria-label="email" required />
+                        <div ng-messages="loginForm.email.$error">
+                            <div ng-message="required">Este campo é obrigatório.</div>
+                            <div ng-message="email">Informe um endereço de e-mail válido.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Senha</label>
+                        <md-icon class="material-icons">lock</md-icon>
+                        <input type="password" placeholder="Senha" ng-model="login.credentials.password" name="password" aria-label="password" required />
+                        <div ng-messages="loginForm.password.$error">
+                            <div ng-message="required">Este campo é obrigatório.</div>
+                        </div>
+                    </md-input-container>
+                    <div layout="row" layout-aling="center center">
+                        <md-button type="submit" class="md-raised md-primary" aria-label="register" flex="30" flex-offset="35" ng-disabled="loginForm.$invalid">
+                            <md-icon class="material-icons">send</md-icon>
+                            Entrar
+                        </md-button>
+                    </div>
+                    <div layout="column" layout-aling="center center">
+                        <md-button href="/register" class="md-no-ink small md-primary" aria-label="register" flex-offset="35">
+                            Cadastre-se
+                        </md-button>
+                    </div>
+                </form>
+            </div>
+
+        </md-whiteframe>
+
+    </div>
+
 </div>

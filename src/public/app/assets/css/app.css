@@ -1,9 +1,51 @@
-.hc-auth-component {
-    background-color: #ffffff;
+.auth-page .background-bar {
+    min-height: 250px;
 }
 
-.hc-auth-component .md-button.hc-small {
-    width: 40%;
+.auth-page .logo {
+    color: #fff;
+    display: block;
+    font-size: 27px;
+    letter-spacing: 1px;
+    margin: 0 auto;
+    position: relative;
+    text-transform: uppercase;
+    top: 30px;
+    z-index: 1;
+    text-align: center;
+}
+
+.auth-page .logo .bigger {
+    font-size: 50px;
+    font-weight:bold;
+    position: relative;
+    top: 6px;
+}
+
+.auth-page .auth-component {
+    background-color: #ffffff;
+    padding: 3rem 3rem 1rem;
+    position: relative;
+    top: -120px;
+    z-index: 2;
+}
+
+.auth-page .auth-component .header {
+    min-height: 120px;
+    text-align: center;
+}
+
+.auth-page .auth-component .header-icon .icon{
+    font-size: 100px;
+    color: rgb(63, 81, 181);
+}
+
+.auth-page .auth-component .header-text {
+    text-transform: uppercase;
+}
+
+.auth-page .auth-component .md-button.small {
+    width: 30%;
     line-height: 20px;
     min-height: 20px;
     vertical-align: top;

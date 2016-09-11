@@ -2,17 +2,18 @@ angular.module('hercules').factory('AuthenticationService', function ($http, $co
 
     var _login = function (credentials, callback) {
 
-        $http.post('/api/auth', credentials).success(function (response) {
-
-            if (response.token) {
-                $cookies.put('accessToken', response.token);
-                callback(true);
-
-            } else {
+        $http.post('/api/auth', credentials)
+            .success(function (response) {
+                if (response.token) {
+                    $cookies.put('accessToken', response.token);
+                    callback(true);
+                } else {
+                    callback(false);
+                }
+            })
+            .error(function (err) {
                 callback(false);
-            }
-
-        });
+            });
 
     };
 
