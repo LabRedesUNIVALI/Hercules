@@ -3,6 +3,7 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
 const Boom = require('boom');
+const Hoek = require('hoek');
 
 exports.register = function (server, options, next) {
 
@@ -90,7 +91,11 @@ exports.register = function (server, options, next) {
 
     function createDisciplineHandler(request, reply) {
 
-        request.models.Discipline.create(request.payload)
+        let discipline = new request.models.Discipline(Hoek.merge(request.payload, {
+            user: request.auth.credentials.user._id
+        }));
+
+        discipline.save()
             .then((entity) => {
 
                 reply(entity);

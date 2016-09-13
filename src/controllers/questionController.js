@@ -3,6 +3,7 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
 const Boom = require('boom');
+const Hoek = require('hoek');
 
 exports.register = function (server, options, next) {
 
@@ -106,10 +107,12 @@ exports.register = function (server, options, next) {
                     reply(Boom.notFound());
                 }
 
-                const entity = new request.models.Question(request.payload);
-                entity.theme = theme._id;
+                let question = new request.models.Question(Hoek.merge(request.payload, {
+                    user: request.auth.credentials.user._id,
+                    theme: theme._id
+                }));
 
-                entity.save()
+                question.save()
                     .then((entity) => {
 
                         reply(entity);

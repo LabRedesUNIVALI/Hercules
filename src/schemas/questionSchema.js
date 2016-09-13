@@ -20,6 +20,10 @@ const questionSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Theme'
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
     options: [ optionSchema ]
 }, { timestamps: true });
 

@@ -3,6 +3,7 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
 const Boom = require('boom');
+const Hoek = require('hoek');
 
 exports.register = function (server, options, next) {
 
@@ -76,10 +77,11 @@ exports.register = function (server, options, next) {
 
     function createThemeHandler(request, reply) {
 
-        const entity = new request.models.Theme(request.payload);
-        entity.user = request.auth.credentials.user._id;
+        let theme = new request.models.Theme(Hoek.merge(request.payload, {
+            user: request.auth.credentials.user._id
+        }));
 
-        entity.save()
+        theme.save()
             .then((entity) => {
 
                 reply(entity);
