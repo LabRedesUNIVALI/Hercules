@@ -107,20 +107,31 @@ exports.register = function (server, options, next) {
                     reply(Boom.notFound());
                 }
 
-                let question = new request.models.Question(Hoek.merge(request.payload, {
-                    user: request.auth.credentials.user._id,
-                    theme: theme._id
-                }));
+                request.server.methods.question.decide(request.auth.credentials.user, 'CREATE', null, (err, authorized) => {
 
-                question.save()
-                    .then((entity) => {
-
-                        reply(entity);
-                    })
-                    .catch((err) => {
-
+                    if (err) {
                         reply(Boom.wrap(err));
-                    });
+                    }
+
+                    if (!authorized) {
+                        reply(Boom.forbidden());
+                    }
+
+                    let question = new request.models.Question(Hoek.merge(request.payload, {
+                        user: request.auth.credentials.user._id,
+                        theme: theme._id
+                    }));
+
+                    question.save()
+                        .then((entity) => {
+
+                            reply(entity);
+                        })
+                        .catch((err) => {
+
+                            reply(Boom.wrap(err));
+                        });
+                });
             })
             .catch((err) => {
 
@@ -137,7 +148,7 @@ exports.register = function (server, options, next) {
                     reply(Boom.notFound());
                 }
 
-                request.models.Question.find({ theme: theme._id })
+                request.models.Question.find({ theme: theme._id, user: request.auth.credentials.user._id })
                     .then((entities) => {
 
                         if (!entities) {
@@ -173,7 +184,18 @@ exports.register = function (server, options, next) {
                             reply(Boom.notFound());
                         }
 
-                        reply(entity);
+                        request.server.methods.question.decide(request.auth.credentials.user, 'VIEW', entity, (err, authorized) => {
+
+                            if (err) {
+                                reply(Boom.wrap(err));
+                            }
+
+                            if (!authorized) {
+                                reply(Boom.forbidden());
+                            }
+
+                            reply(entity);
+                        });
                     })
                     .catch((err) => {
 
@@ -202,19 +224,30 @@ exports.register = function (server, options, next) {
                             reply(Boom.notFound());
                         }
 
-                        entity.name = request.payload.name;
-                        entity.correctOption = request.payload.correctOption;
-                        entity.options = request.payload.options;
+                        request.server.methods.question.decide(request.auth.credentials.user, 'UPDATE', entity, (err, authorized) => {
 
-                        entity.save()
-                            .then((entity) => {
-
-                                reply(entity);
-                            })
-                            .catch((err) => {
-
+                            if (err) {
                                 reply(Boom.wrap(err));
-                            })
+                            }
+
+                            if (!authorized) {
+                                reply(Boom.forbidden());
+                            }
+
+                            entity.name = request.payload.name;
+                            entity.correctOption = request.payload.correctOption;
+                            entity.options = request.payload.options;
+
+                            entity.save()
+                                .then((entity) => {
+
+                                    reply(entity);
+                                })
+                                .catch((err) => {
+
+                                    reply(Boom.wrap(err));
+                                })
+                        });
                     })
                     .catch((err) => {
 
@@ -243,15 +276,26 @@ exports.register = function (server, options, next) {
                             reply(Boom.notFound());
                         }
 
-                        entity.delete()
-                            .then(() => {
+                        request.server.methods.question.decide(request.auth.credentials.user, 'REMOVE', entity, (err, authorized) => {
 
-                                reply(null);
-                            })
-                            .catch((err) => {
-
+                            if (err) {
                                 reply(Boom.wrap(err));
-                            })
+                            }
+
+                            if (!authorized) {
+                                reply(Boom.forbidden());
+                            }
+
+                            entity.delete()
+                                .then(() => {
+
+                                    reply(null);
+                                })
+                                .catch((err) => {
+
+                                    reply(Boom.wrap(err));
+                                })
+                        });
                     })
                     .catch((err) => {
 
