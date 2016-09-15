@@ -17,6 +17,10 @@ const disciplineSchema = new Schema({
         type: Number,
         required: true
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
     students: [ studentSchema ]
 }, { timestamps: true });
 

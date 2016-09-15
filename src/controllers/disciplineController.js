@@ -3,6 +3,7 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
 const Boom = require('boom');
+const Hoek = require('hoek');
 
 exports.register = function (server, options, next) {
 
@@ -90,20 +91,35 @@ exports.register = function (server, options, next) {
 
     function createDisciplineHandler(request, reply) {
 
-        request.models.Discipline.create(request.payload)
-            .then((entity) => {
+        request.server.methods.discipline.decide(request.auth.credentials.user, 'CREATE', null, (err, authorized) => {
 
-                reply(entity);
-            })
-            .catch((err) => {
-
+            if (err) {
                 reply(Boom.wrap(err));
-            });
+            }
+
+            if (!authorized) {
+                reply(Boom.forbidden());
+            }
+
+            let discipline = new request.models.Discipline(Hoek.merge(request.payload, {
+                user: request.auth.credentials.user._id
+            }));
+
+            discipline.save()
+                .then((entity) => {
+
+                    reply(entity);
+                })
+                .catch((err) => {
+
+                    reply(Boom.wrap(err));
+                });
+        });
     }
 
     function findAllDisciplinesHandler(request, reply) {
 
-        request.models.Discipline.find({})
+        request.models.Discipline.find({ user: request.auth.credentials.user._id })
             .then((entities) => {
 
                 if (!entities) {
@@ -127,7 +143,18 @@ exports.register = function (server, options, next) {
                     reply(Boom.notFound());
                 }
 
-                reply(entity);
+                request.server.methods.discipline.decide(request.auth.credentials.user, 'VIEW', entity, (err, authorized) => {
+
+                    if (err) {
+                        reply(Boom.wrap(err));
+                    }
+
+                    if (!authorized) {
+                        reply(Boom.forbidden());
+                    }
+
+                    reply(entity);
+                });
             })
             .catch((err) => {
 
@@ -144,25 +171,36 @@ exports.register = function (server, options, next) {
                     reply(Boom.notFound());
                 }
 
-                entity.name = request.payload.name;
-                entity.year = request.payload.year;
-                entity.semester = request.payload.semester;
-                entity.students = request.payload.students;
+                request.server.methods.discipline.decide(request.auth.credentials.user, 'UPDATE', entity, (err, authorized) => {
 
-                entity.save()
-                    .then((entity) => {
-
-                        reply(entity);
-                    })
-                    .catch((err) => {
-
+                    if (err) {
                         reply(Boom.wrap(err));
-                    })
+                    }
+
+                    if (!authorized) {
+                        reply(Boom.forbidden());
+                    }
+
+                    entity.name = request.payload.name;
+                    entity.year = request.payload.year;
+                    entity.semester = request.payload.semester;
+                    entity.students = request.payload.students;
+
+                    entity.save()
+                        .then((entity) => {
+
+                            reply(entity);
+                        })
+                        .catch((err) => {
+
+                            reply(Boom.wrap(err));
+                        });
+                });
             })
             .catch((err) => {
 
                 reply(Boom.wrap(err));
-            })
+            });
     }
 
     function removeDisciplineHandler(request, reply) {
@@ -174,15 +212,26 @@ exports.register = function (server, options, next) {
                     reply(Boom.notFound());
                 }
 
-                entity.delete()
-                    .then(() => {
+                request.server.methods.discipline.decide(request.auth.credentials.user, 'REMOVE', entity, (err, authorized) => {
 
-                        reply(null);
-                    })
-                    .catch((err) => {
-
+                    if (err) {
                         reply(Boom.wrap(err));
-                    })
+                    }
+
+                    if (!authorized) {
+                        reply(Boom.forbidden());
+                    }
+
+                    entity.delete()
+                        .then(() => {
+
+                            reply(null);
+                        })
+                        .catch((err) => {
+
+                            reply(Boom.wrap(err));
+                        })
+                });
             })
             .catch((err) => {
 

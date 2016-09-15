@@ -10,6 +10,10 @@ const answerSchema = new Schema({
     hash: {
         type: String
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
     student: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Student'

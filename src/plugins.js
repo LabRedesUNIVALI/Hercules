@@ -163,6 +163,18 @@ module.exports = exports = {
                     prefix: '/api'
                 }
             }
+        },
+        {
+            plugin: {
+                register: './plugins/voters.js',
+                options: {
+                    answer: require('./voters/answerVoter.js'),
+                    discipline: require('./voters/disciplineVoter.js'),
+                    question: require('./voters/questionVoter.js'),
+                    test: require('./voters/testVoter.js'),
+                    theme: require('./voters/themeVoter.js')
+                }
+            }
         }
     ]
 };

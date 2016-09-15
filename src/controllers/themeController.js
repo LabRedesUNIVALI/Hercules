@@ -3,6 +3,7 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
 const Boom = require('boom');
+const Hoek = require('hoek');
 
 exports.register = function (server, options, next) {
 
@@ -76,23 +77,35 @@ exports.register = function (server, options, next) {
 
     function createThemeHandler(request, reply) {
 
-        const entity = new request.models.Theme(request.payload);
-        entity.user = request.auth.credentials.user._id;
+        request.server.methods.theme.decide(request.auth.credentials.user, 'CREATE', null, (err, authorized) => {
 
-        entity.save()
-            .then((entity) => {
-
-                reply(entity);
-            })
-            .catch((err) => {
-
+            if (err) {
                 reply(Boom.wrap(err));
-            });
+            }
+
+            if (!authorized) {
+                reply(Boom.forbidden());
+            }
+
+            let theme = new request.models.Theme(Hoek.merge(request.payload, {
+                user: request.auth.credentials.user._id
+            }));
+
+            theme.save()
+                .then((entity) => {
+
+                    reply(entity);
+                })
+                .catch((err) => {
+
+                    reply(Boom.wrap(err));
+                });
+        });
     }
 
     function findAllThemesHandler(request, reply) {
 
-        request.models.Theme.find({})
+        request.models.Theme.find({ user: request.auth.credentials.user._id })
             .then((entities) => {
 
                 if (!entities) {
@@ -116,7 +129,18 @@ exports.register = function (server, options, next) {
                     reply(Boom.notFound());
                 }
 
-                reply(entity);
+                request.server.methods.theme.decide(request.auth.credentials.user, 'VIEW', entity, (err, authorized) => {
+
+                    if (err) {
+                        reply(Boom.wrap(err));
+                    }
+
+                    if (!authorized) {
+                        reply(Boom.forbidden());
+                    }
+
+                    reply(entity);
+                });
             })
             .catch((err) => {
 
@@ -133,17 +157,28 @@ exports.register = function (server, options, next) {
                     reply(Boom.notFound());
                 }
 
-                entity.name = request.payload.name;
+                request.server.methods.theme.decide(request.auth.credentials.user, 'UPDATE', entity, (err, authorized) => {
 
-                entity.save()
-                    .then((entity) => {
-
-                        reply(entity);
-                    })
-                    .catch((err) => {
-
+                    if (err) {
                         reply(Boom.wrap(err));
-                    })
+                    }
+
+                    if (!authorized) {
+                        reply(Boom.forbidden());
+                    }
+
+                    entity.name = request.payload.name;
+
+                    entity.save()
+                        .then((entity) => {
+
+                            reply(entity);
+                        })
+                        .catch((err) => {
+
+                            reply(Boom.wrap(err));
+                        })
+                });
             })
             .catch((err) => {
 
@@ -160,15 +195,26 @@ exports.register = function (server, options, next) {
                     reply(Boom.notFound());
                 }
 
-                entity.delete()
-                    .then(() => {
+                request.server.methods.theme.decide(request.auth.credentials.user, 'REMOVE', entity, (err, authorized) => {
 
-                        reply(null);
-                    })
-                    .catch((err) => {
-
+                    if (err) {
                         reply(Boom.wrap(err));
-                    })
+                    }
+
+                    if (!authorized) {
+                        reply(Boom.forbidden());
+                    }
+
+                    entity.delete()
+                        .then(() => {
+
+                            reply(null);
+                        })
+                        .catch((err) => {
+
+                            reply(Boom.wrap(err));
+                        })
+                });
             })
             .catch((err) => {
 
