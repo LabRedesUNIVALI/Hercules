@@ -12,17 +12,13 @@ angular.module('hercules').controller('LoginController', function ($scope, Authe
     };
 
     $scope.login = function (credentials) {
-
         AuthenticationService.login(credentials, function (success) {
-
             if (success) {
                 $location.path('/admin');
             } else {
                 showIncorrectCredentialsDialog();
             }
-
         });
-
     };
 
 });

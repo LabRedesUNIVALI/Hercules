@@ -4,7 +4,6 @@ angular.module('hercules').directive('hcUniqueEmail', function (UserAPIService) 
         restrict: 'A',
         require: 'ngModel',
         link: function (scope, element, attrs, ngModel) {
-
             element.bind('blur', function () {
                 scope.$apply(function () {
                     UserAPIService.checkEmail({ email: ngModel.$viewValue }).then(function (response) {
@@ -13,7 +12,6 @@ angular.module('hercules').directive('hcUniqueEmail', function (UserAPIService) 
                     });
                 });
             });
-
         }
     };
 
