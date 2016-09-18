@@ -1,0 +1,24 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <span flex></span>
+        <md-menu>
+            <md-button class="md-icon-button" ng-click="ctrl.openMenu($mdOpenMenu, $event)">
+                <md-icon class="material-icons">more_vert</md-icon>
+            </md-button>
+            <md-menu-content width="3">
+                <md-menu-item>
+                    <md-button>
+                        <md-icon class="material-icons" md-menu-align-target>person</md-icon>
+                        Meus dados
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button ng-click="ctrl.logout()">
+                        <md-icon class="material-icons" md-menu-align-target>exit_to_app</md-icon>
+                        Sair
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </div>
+</md-toolbar>
