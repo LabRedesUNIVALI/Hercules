@@ -66,6 +66,7 @@
 .admin-content {
     background-color: #ffffff;
     min-height: 90vh;
+    overflow: hidden;
 }
 
 .admin-menu {

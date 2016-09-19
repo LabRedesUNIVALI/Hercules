@@ -1,4 +1,4 @@
-angular.module('hercules').factory('QuestionService', function ($http) {
+angular.module('hercules').factory('QuestionAPIService', function ($http) {
 
     var _save = function (themeId, question) {
         return $http.post('/api/themes/' + themeId + '/questions', question);

@@ -9,20 +9,20 @@ angular.module('hercules').config(function ($routeProvider, $locationProvider) {
             templateUrl: 'public/components/login/login.view.html',
             controller: 'LoginController'
         })
-        .when('/logout', {
-            controller: 'LogoutController'
-        })
         .when('/admin', {
             templateUrl: 'public/components/dashboard/dashboard.view.html'
         })
         .when('/admin/disciplines', {
-            templateUrl: 'public/components/discipline/discipline.view.html'
+            templateUrl: 'public/components/discipline/discipline.index.view.html',
+            controller: 'DisciplineIndexController'
         })
         .when('/admin/themes', {
-            templateUrl: 'public/components/theme/theme.view.html'
+            templateUrl: 'public/components/theme/theme.index.view.html',
+            controller: 'ThemeIndexController'
         })
-        .when('/admin/questions', {
-            templateUrl: 'public/components/question/question.view.html'
+        .when('/admin/themes/:id/questions', {
+            templateUrl: 'public/components/question/question.index.view.html',
+            controller: 'QuestionIndexController'
         })
         .otherwise({ redirectTo: "/admin" });
 

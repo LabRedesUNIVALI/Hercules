@@ -1,4 +1,4 @@
-angular.module('hercules').factory('DisciplineService', function ($http) {
+angular.module('hercules').factory('DisciplineAPIService', function ($http) {
 
     var _save = function (discipline) {
         return $http.post('/api/disciplines', discipline);
