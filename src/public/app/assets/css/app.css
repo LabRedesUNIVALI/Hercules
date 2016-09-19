@@ -65,8 +65,23 @@
 
 .admin-content {
     background-color: #ffffff;
-    min-height: 90vh;
+    min-height: 93vh;
     overflow: hidden;
+    padding: 20px 20px;
+}
+
+.admin-content .content-header h3 {
+    color: #9e9e9e;
+    font-weight: 100;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: 17px;
+}
+
+.admin-content .content-form {
+    margin-top: 70px;
 }
 
 .admin-menu {

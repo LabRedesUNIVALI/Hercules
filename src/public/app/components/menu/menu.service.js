@@ -3,23 +3,21 @@ angular.module('hercules').factory('MenuService', function () {
     var _sections = [
         {
             name: 'Painel',
-            path: '/admin',
-            icon: 'dashboard'
+            path: '/admin/dashboard',
+            icon: 'dashboard',
+            urlName: 'dashboard'
         },
         {
             name: 'Disciplinas',
             path: '/admin/disciplines',
-            icon: 'people'
-        },
-        {
-            name: 'Conteúdos',
-            path: '/admin/themes',
-            icon: 'class'
+            icon: 'people',
+            urlName: 'disciplines'
         },
         {
             name: 'Questões',
             path: '/admin/questions',
-            icon: 'question_answer'
+            icon: 'question_answer',
+            urlName: 'questions'
         }
     ];
     

@@ -5,7 +5,7 @@ angular.module('hercules').directive('hcMenu', function () {
         strict: 'E',
         templateUrl: 'public/components/menu/menu.tmpl.html',
         controller: function (MenuService, $location) {
-            this.actualPath = $location.path();
+            this.actualPath = $location.url();
             this.sections = MenuService.getSections();
         },
         controllerAs: 'ctrl'
