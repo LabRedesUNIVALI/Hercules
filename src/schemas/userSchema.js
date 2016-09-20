@@ -27,6 +27,13 @@ const userSchema = new Schema({
     authentications: [ authenticationSchema ]
 }, { timestamps: true });
 
+userSchema.methods.toJSON = function() {
+    let obj = this.toObject();
+    delete obj.password;
+    delete obj.authentications;
+    return obj;
+};
+
 userSchema.plugin(require('mongoose-bcrypt'), { rounds: 8 });
 userSchema.plugin(require('mongoose-delete'), { deletedBy : true, deletedAt: true, overrideMethods: true });
 userSchema.plugin(require('mongoose-beautiful-unique-validation'));
