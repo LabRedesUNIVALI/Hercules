@@ -78,14 +78,64 @@
     padding: 0;
     position: relative;
     top: 17px;
+    left: 10px;
 }
 
 .admin-content .content-form {
     margin-top: 70px;
 }
 
+.autocomplete-theme-template li {
+    border-bottom: 1px solid #ccc;
+    height: auto;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    white-space: normal;
+}
+
+.autocomplete-theme-template li:last-child {
+    border-bottom-width: 0;
+}
+
+.autocomplete-theme-template .item-title {
+    display: block;
+    line-height: 2;
+}
+
+.autocomplete-theme-template .item-title .md-icon {
+    height: 18px;
+    width: 18px;
+}
+
+.autocomplete-theme-template .item-title .highlight {
+    color: rgb(255,64,129);
+    font-weight: 700;
+}
+
+.options-container .row {
+    border-top: 1px #e9e9e9 dashed;
+    border-left: 1px #e9e9e9 dashed;
+    border-right: 1px #e9e9e9 dashed;
+}
+
+.options-container .row:last-child {
+    border-bottom: 1px #e9e9e9 dashed;
+}
+
+.options-container .md-checked {
+    background-color: #DFFFDB;
+}
+
+md-sidenav,
+md-sidenav.md-locked-open,
+md-sidenav.md-closed.md-locked-open-add-active {
+    min-width: 20% !important;
+    width: 85vw !important;
+    max-width: 20% !important;
+}
+
 .admin-menu {
-    min-height: 100vh;
+    position: fixed !important;
 }
 
 .admin-menu .menu-header {
