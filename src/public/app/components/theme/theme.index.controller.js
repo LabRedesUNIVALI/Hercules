@@ -1,30 +1,30 @@
-angular.module('hercules').controller('QuestionIndexController', function ($timeout, $scope, QuestionAPIService, $mdToast, $mdDialog) {
+angular.module('hercules').controller('ThemeIndexController', function ($scope, ThemeAPIService, $mdToast, $mdDialog) {
 
     $scope.selected = [];
 
-    var getQuestions = function () {
-        QuestionAPIService.getAll().success(function (result) {
-            $scope.questions = result;
-        });
-    };
-    
-    $scope.delete = function (question, ev) {
+    $scope.delete = function (theme, ev) {
 
         showConfirmDeleteDialog(ev).then(function () {
 
-            QuestionAPIService.delete(question.theme, question._id)
-                .success(function (result) {
-                    getQuestions();
-                    showToast('Registro excluído com sucesso.');
+            ThemeAPIService.delete(theme._id)
+                .success(function () {
+                    getThemes();
+                    showToast("Registro excluído com sucesso.");
                 })
                 .error(function () {
-                    showToast('Não foi possível excluir o registro.')
+                    showToast("Não foi possível excluir o registro");
                 });
-
-        });
-
+            
+        }, null);
     };
-    
+
+    var getThemes = function () {
+        ThemeAPIService.getAll()
+            .success(function (result) {
+                $scope.themes = result;
+            });
+    };
+
     var showToast = function (message) {
         $mdToast.show(
             $mdToast.simple()
@@ -46,6 +46,6 @@ angular.module('hercules').controller('QuestionIndexController', function ($time
         return $mdDialog.show(confirm);
     };
 
-    getQuestions();
+    getThemes();
 
 });

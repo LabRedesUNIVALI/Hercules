@@ -78,11 +78,46 @@
     padding: 0;
     position: relative;
     top: 17px;
-    left: 10px;
+}
+
+.admin-content .content-header .header-button {
+    margin-top: 10px;
+}
+
+.admin-content .content-header .md-fab {
+    margin-top: 10px;
 }
 
 .admin-content .content-form {
     margin-top: 70px;
+}
+
+.admin-content .content-form .form-actions {
+    margin-top: 30px;
+}
+
+.admin-content .table-container {
+    margin-top: 30px;
+}
+
+.admin-content .table-container table tbody tr {
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.admin-content .md-table-toolbar {
+    background: #e3f2fd;
+    padding: 0px;
+    color: #1e88e5;
+}
+
+.admin-content .md-table-toolbar .md-toolbar-tools {
+    font-size: 16px;
+}
+
+.admin-content .zero-data {
+    text-align: center !important;
+    font-size: 16px !important;
 }
 
 .autocomplete-theme-template li {
@@ -112,14 +147,16 @@
     font-weight: 700;
 }
 
-.options-container .row {
-    border-top: 1px #e9e9e9 dashed;
-    border-left: 1px #e9e9e9 dashed;
-    border-right: 1px #e9e9e9 dashed;
+.options-container .radio-group-rows {
+    border: 1px #e9e9e9 dashed;
 }
 
-.options-container .row:last-child {
+.options-container .radio-group-rows .radio-group-row {
     border-bottom: 1px #e9e9e9 dashed;
+}
+
+.options-container .row-container:last-child {
+    border-bottom: none;
 }
 
 .options-container .md-checked {

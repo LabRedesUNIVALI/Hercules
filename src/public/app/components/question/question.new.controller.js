@@ -1,4 +1,7 @@
-angular.module('hercules').controller('QuestionNewController', function ($timeout, $scope, ThemeAPIService, $mdDialog, QuestionAPIService) {
+angular.module('hercules').controller('QuestionNewController', function ($scope, $location, ThemeAPIService, $mdDialog, QuestionAPIService) {
+
+    $scope.question = {};
+    $scope.question.options = [];
 
     $scope.disabled = true;
 
@@ -26,24 +29,33 @@ angular.module('hercules').controller('QuestionNewController', function ($timeou
         }
     };
 
-    // $scope.newTheme = function (ev) {
-    //     showAddThemeDialog(ev);
-    // };
-    //
-    // var showAddThemeDialog = function (ev) {
-    //
-    //     var prompt = $mdDialog.prompt()
-    //         .parent(angular.element(document.body))
-    //         .title('Adicionar conteúdo')
-    //         .textContent('Informe o nome do conteúdo')
-    //         .placeholder('Nome do conteúdo')
-    //         .initialValue($scope.searchText)
-    //         .targetEvent(ev)
-    //         .ok('Adicionar')
-    //         .cancel('Cancelar');
-    //
-    //     $mdDialog.show(prompt);
-    //
-    // }
+    $scope.save = function (question) {
+
+        var themeId = question.theme.id;
+        delete question.theme;
+
+        QuestionAPIService.save(themeId, question)
+            .success(function (result) {
+                if (result) {
+                    $location.path("admin/question/" + result._id);
+                } else {
+                    showGenericErrorDialog();
+                }
+            })
+            .error(function () {
+                showGenericErrorDialog();
+            });
+    };
+
+    var showGenericErrorDialog = function () {
+        $mdDialog.show(
+            $mdDialog.alert()
+                .parent('body')
+                .clickOutsideToClose(true)
+                .title('Erro')
+                .textContent('Ooops! Algo de errado aconteceu. Por favor, tente novamente.')
+                .ok('Fechar')
+        );
+    };
 
 });

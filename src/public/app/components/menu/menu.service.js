@@ -14,6 +14,12 @@ angular.module('hercules').factory('MenuService', function () {
             urlName: 'disciplines'
         },
         {
+            name: 'Conteúdos',
+            path: '/admin/themes',
+            icon: 'class',
+            urlName: 'themes'
+        },
+        {
             name: 'Questões',
             path: '/admin/questions',
             icon: 'question_answer',

@@ -12,12 +12,12 @@ angular.module('hercules').factory('QuestionAPIService', function ($http) {
         return $http.get('/api/themes/' + themeId + '/questions/' + id);
     };
 
-    var _update = function (question) {
-        return $http.put('/api/theme' + question.theme + '/questions/' + question.id, question);
+    var _update = function (themeId, question) {
+        return $http.put('/api/theme' + themeId + '/questions/' + question.id, question);
     };
 
     var _delete = function (themeId, id) {
-        return $http.delete('/api/themes/' + themeId + 'questions/' + id);
+        return $http.delete('/api/themes/' + themeId + '/questions/' + id);
     };
 
     return {
