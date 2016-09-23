@@ -16,12 +16,12 @@ exports.register = function (server, options, next) {
                 auth: 'jwt',
                 validate: {
                     payload: {
-                        name: Joi.string().min(2).max(20).required(),
+                        name: Joi.string().min(2).max(255).required(),
                         year: Joi.number().integer().min(1900).required(),
                         semester: Joi.number().integer().valid([1, 2]).required(),
                         students: Joi.array().items(
                             Joi.object().keys({
-                                name: Joi.string().min(3).max(50).required()
+                                name: Joi.string().min(2).max(255).required()
                             })
                         )
                     }
@@ -60,12 +60,12 @@ exports.register = function (server, options, next) {
                         disciplineid: Joi.string().alphanum()
                     },
                     payload: {
-                        name: Joi.string().min(2).max(20).required(),
+                        name: Joi.string().min(2).max(255).required(),
                         year: Joi.number().integer().min(1900).required(),
                         semester: Joi.number().integer().valid([1, 2]).required(),
                         students: Joi.array().items(
                             Joi.object().keys({
-                                name: Joi.string().min(3).max(50).required()
+                                name: Joi.string().min(2).max(255).required()
                             })
                         )
                     }

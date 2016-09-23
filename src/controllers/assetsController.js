@@ -35,9 +35,9 @@ exports.register = (server, options, next) => {
     server.route(routes);
 
     return next();
-}
+};
 
 exports.register.attributes = {
     name: 'assetsController',
     version: '0.0.1'
-}
+};
