@@ -55,7 +55,7 @@
                                 </thead>
 
                                 <tbody md-body>
-                                    <tr md-row md-select="question" md-select-id="name" md-auto-select ng-repeat="question in questions">
+                                    <tr md-row md-select="question" md-select-id="name" md-auto-select ng-repeat="question in questions track by $index">
                                         <td md-cell>{{question.name}}</td>
                                         <td md-cell>{{question.theme.name}}</td>
                                         <td md-cell>{{question.correctOption}}</td>

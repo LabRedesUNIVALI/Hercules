@@ -50,7 +50,7 @@
                                 </thead>
 
                                 <tbody md-body>
-                                <tr md-row md-select="theme" md-select-id="name" md-auto-select ng-repeat="theme in themes">
+                                <tr md-row md-select="theme" md-select-id="name" md-auto-select ng-repeat="theme in themes track by $index">
                                     <td md-cell>{{theme.name}}</td>
                                 </tr>
                                 <tr md-row ng-show="themes.length < 1">

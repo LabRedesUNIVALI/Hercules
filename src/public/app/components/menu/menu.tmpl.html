@@ -13,7 +13,7 @@
 
     <md-content role="navigation" class="menu-body" flex>
         <ul>
-            <li ng-repeat="section in ctrl.sections">
+            <li ng-repeat="section in ctrl.sections track by $index">
                 <md-button href="{{::section.path}}" class="md-primary md-raised menu-button" ng-class="{'md-hue-2': ctrl.actualPath.indexOf(section.urlName) > -1}">
                     <md-icon class="material-icons menu-icon">{{::section.icon}}</md-icon>
                     <span class="menu-text">{{::section.name}}</span>

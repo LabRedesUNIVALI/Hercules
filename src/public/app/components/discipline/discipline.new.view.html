@@ -1,0 +1,89 @@
+<div layout="row" flex-gt-md="80" flex-offset-gt-md="20" class="admin-container">
+
+    <hc-menu></hc-menu>
+
+    <md-content flex>
+
+        <div layout="column" layout-fill class="admin-content-wrapper">
+
+            <hc-toolbar></hc-toolbar>
+
+            <div layout="row">
+                <md-whiteframe layout-padding flex="80" flex-offset="10" layout="column" class="md-whiteframe-z2 admin-content">
+                    <div layout="row" class="content-header">
+                        <div flex="90">
+                            <h3 class="md-headline">
+                                Disciplinas
+                            </h3>
+                        </div>
+                        <div flex>
+                            <md-button class="header-button" href="/admin/disciplines">
+                                Voltar
+                            </md-button>
+                        </div>
+                    </div>
+                    <form layout="row" layout-fill class="content-form" name="disciplineNewForm" ng-submit="save(discipline)">
+                        <div flex="70" layout="column" flex-offset="15">
+
+                            <md-input-container>
+                                <label>Nome</label>
+                                <input type="text" ng-model="discipline.name" name="name" required ng-minlength="1" ng-maxlength="50">
+                                <div ng-messages="disciplineNewForm.name.$error">
+                                    <div ng-message="required">Este campo é obrigatório.</div>
+                                    <div ng-message="minlength">Este campo deve ter ao menos 1 caractere.</div>
+                                    <div ng-message="maxlength">Este campo deve ter no máximo 50 caracteres.</div>
+                                </div>
+                            </md-input-container>
+
+                            <div layout="row" flex>
+
+                                <md-input-container flex="45">
+                                    <label>Ano</label>
+                                    <input type="number" ng-model="discipline.year" name="year" required ng-minlength="1" ng-maxlength="4" ng-pattern="/^[0-9]{4}$/">
+                                    <div ng-messages="disciplineNewForm.year.$error">
+                                        <div ng-message="required">Este campo é obrigatório.</div>
+                                        <div ng-message="minlength">Este campo deve ter ao menos 1 caractere.</div>
+                                        <div ng-message="maxlength">Este campo deve ter no máximo 4 caracteres.</div>
+                                    </div>
+                                </md-input-container>
+                                <span flex></span>
+                                <md-input-container flex="45">
+                                    <label>Semestre</label>
+                                    <md-select ng-model="discipline.semester" name="semester" ng-disabled="disciplineNewForm.year.$invalid" required>
+                                        <md-option><em>Selecione uma opção</em></md-option>
+                                        <md-option ng-value="1">{{discipline.year}}/1</md-option>
+                                        <md-option ng-value="2">{{discipline.year}}/2</md-option>
+                                    </md-select>
+                                    <div ng-messages="disciplineNewForm.semester.$error">
+                                        <div ng-message="required">Este campo é obrigatório.</div>
+                                    </div>
+                                </md-input-container>
+
+                            </div>
+
+                            <div layout="row" layout-align="center center" class="form-actions">
+                                <md-toolbar class="md-primary" md-theme="greyscale">
+                                    <div class="md-toolbar-tools" layout-align="center center">
+                                        <md-button href="/admin/themes" class="md-warn md-raised" md-theme="default" flex="30">
+                                            <md-icon class="material-icons">close</md-icon>
+                                            Cancelar
+                                        </md-button>
+                                        <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="disciplineNewForm.$invalid">
+                                            <md-icon class="material-icons">send</md-icon>
+                                            Cadastrar
+                                        </md-button>
+                                    </div>
+                                </md-toolbar>
+                            </div>
+
+                        </div>
+                    </form>
+
+                </md-whiteframe>
+            </div>
+
+        </div>
+
+    </md-content>
+
+</div>
