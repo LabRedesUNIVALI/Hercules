@@ -33,7 +33,7 @@ exports.register = function (server, options, next) {
         {
             method: 'GET',
             path: '/themes/{themeid}/questions',
-            handler: findAllQuestionsHandler,
+            handler: findAllThemeQuestionsHandler,
             config: {
                 auth: 'jwt',
                 validate: {
@@ -45,13 +45,34 @@ exports.register = function (server, options, next) {
         },
         {
             method: 'GET',
+            path: '/questions',
+            handler: findAllQuestionsHandler,
+            config: {
+                auth: 'jwt'
+            }
+        },
+        {
+            method: 'GET',
             path: '/themes/{themeid}/questions/{questionid}',
-            handler: findOneQuestionHandler,
+            handler: findOneThemeQuestionHandler,
             config: {
                 auth: 'jwt',
                 validate: {
                     params: {
                         themeid: Joi.string().alphanum(),
+                        questionid: Joi.string().alphanum()
+                    }
+                }
+            }
+        },
+        {
+            method: 'GET',
+            path: '/questions/{questionid}',
+            handler: findOneQuestionHandler,
+            config: {
+                auth: 'jwt',
+                validate: {
+                    params: {
                         questionid: Joi.string().alphanum()
                     }
                 }
@@ -139,7 +160,7 @@ exports.register = function (server, options, next) {
             });
     }
 
-    function findAllQuestionsHandler(request, reply) {
+    function findAllThemeQuestionsHandler(request, reply) {
 
         request.models.Theme.findById(request.params.themeid)
             .then((theme) => {
@@ -149,6 +170,7 @@ exports.register = function (server, options, next) {
                 }
 
                 request.models.Question.find({ theme: theme._id, user: request.auth.credentials.user._id })
+                    .populate('theme')
                     .then((entities) => {
 
                         if (!entities) {
@@ -168,7 +190,25 @@ exports.register = function (server, options, next) {
             });
     }
 
-    function findOneQuestionHandler(request, reply) {
+    function findAllQuestionsHandler(request, reply) {
+
+        request.models.Question.find({ user: request.auth.credentials.user._id })
+            .populate('theme')
+            .then((entities) => {
+
+                if (!entities) {
+                    reply({});
+                }
+
+                reply(entities);
+            })
+            .catch((err) => {
+
+                reply(Boom.wrap(err));
+            });
+    }
+
+    function findOneThemeQuestionHandler(request, reply) {
 
         request.models.Theme.findById(request.params.themeid)
             .then((theme) => {
@@ -178,6 +218,7 @@ exports.register = function (server, options, next) {
                 }
 
                 request.models.Question.findOne({ _id: request.params.questionid, theme: request.params.themeid })
+                    .populate('theme')
                     .then((entity) => {
 
                         if (!entity) {
@@ -201,6 +242,35 @@ exports.register = function (server, options, next) {
 
                         reply(Boom.wrap(err));
                     });
+            })
+            .catch((err) => {
+
+                reply(Boom.wrap(err));
+            });
+    }
+
+    function findOneQuestionHandler(request, reply) {
+
+        request.models.Question.findOne({ _id: request.params.questionid })
+            .populate('theme')
+            .then((entity) => {
+
+                if (!entity) {
+                    reply(Boom.notFound());
+                }
+
+                request.server.methods.question.decide(request.auth.credentials.user, 'VIEW', entity, (err, authorized) => {
+
+                    if (err) {
+                        reply(Boom.wrap(err));
+                    }
+
+                    if (!authorized) {
+                        reply(Boom.forbidden());
+                    }
+
+                    reply(entity);
+                });
             })
             .catch((err) => {
 
