@@ -16,11 +16,11 @@ exports.register = function (server, options, next) {
                 auth: 'jwt',
                 validate: {
                     payload: {
-                        name: Joi.string().min(2).max(20).required(),
+                        name: Joi.string().min(2).max(255).required(),
                         correctOption: Joi.number().integer().valid([1, 2, 3, 4, 5]).required(),
                         options: Joi.array().length(5).items(
                             Joi.object().keys({
-                                text: Joi.string().min(3).max(50).required()
+                                text: Joi.string().min(1).max(255).required()
                             }).required()
                         ).required()
                     },
@@ -90,11 +90,11 @@ exports.register = function (server, options, next) {
                         questionid: Joi.string().alphanum()
                     },
                     payload: {
-                        name: Joi.string().min(2).max(20).required(),
+                        name: Joi.string().min(2).max(255).required(),
                         correctOption: Joi.number().integer().valid([1, 2, 3, 4, 5]).required(),
                         options: Joi.array().length(5).items(
                             Joi.object().keys({
-                                text: Joi.string().min(3).max(50).required()
+                                text: Joi.string().min(1).max(255).required()
                             }).required()
                         ).required()
                     },

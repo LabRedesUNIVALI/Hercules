@@ -16,7 +16,7 @@ exports.register = function (server, options, next) {
                 auth: 'jwt',
                 validate: {
                     payload: {
-                        name: Joi.string().min(2).max(20).required()
+                        name: Joi.string().min(2).max(255).required()
                     }
                 }
             }
@@ -53,7 +53,7 @@ exports.register = function (server, options, next) {
                         themeid: Joi.string().alphanum()
                     },
                     payload: {
-                        name: Joi.string().min(2).max(20).required()
+                        name: Joi.string().min(2).max(255).required()
                     }
                 }
             }
