@@ -14,6 +14,12 @@ angular.module('hercules').config(function ($routeProvider, $locationProvider) {
             controller: 'LoginController'
         })
 
+        //Profile
+        .when('/admin/profile/me', {
+            templateUrl: 'public/components/user/profile.me.view.html',
+            controller: 'ProfileMeController'
+        })
+
         //Dashboard
         .when('/admin/dashboard', {
             templateUrl: 'public/components/dashboard/dashboard.view.html'

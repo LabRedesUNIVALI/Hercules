@@ -8,9 +8,14 @@ angular.module('hercules').factory('UserAPIService', function ($http) {
         return $http.post('/api/email/check', email);
     };
 
+    var _profileMe = function() {
+        return $http.get('/api/profile/me');
+    };
+
     return {
         createUser: _createUser,
-        checkEmail: _checkEmail
+        checkEmail: _checkEmail,
+        profileMe: _profileMe
     };
 
 });
