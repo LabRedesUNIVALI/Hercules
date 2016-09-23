@@ -39,6 +39,20 @@ angular.module('hercules').config(function ($routeProvider, $locationProvider) {
             controller: 'DisciplineEditController'
         })
 
+        //Themes
+        .when('/admin/themes', {
+            templateUrl: 'public/components/theme/theme.index.view.html',
+            controller: 'ThemeIndexController'
+        })
+        .when('/admin/themes/new', {
+            templateUrl: 'public/components/theme/theme.new.view.html',
+            controller: 'ThemeNewController'
+        })
+        .when('/admin/themes/:id/edit', {
+            templateUrl: 'public/components/theme/theme.edit.view.html',
+            controller: 'ThemeEditController'
+        })
+
         //Questions
         .when('/admin/questions', {
             templateUrl: 'public/components/question/question.index.view.html',

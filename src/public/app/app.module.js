@@ -3,7 +3,8 @@ angular.module('hercules', [
     'ngRoute',
     'ngMessages',
     'ngCookies',
-    'ngAria'
+    'ngAria',
+    'md.data.table'
 ])
     .config(function ($httpProvider) {
         $httpProvider.interceptors.push('accessTokenInterceptor');
@@ -11,6 +12,8 @@ angular.module('hercules', [
     .config(function ($mdThemingProvider) {
         $mdThemingProvider.theme('success')
             .primaryPalette('green', {'default': '800'});
+        $mdThemingProvider.theme('greyscale')
+            .primaryPalette('grey', {'default': '200'});
     })
     .run(function ($rootScope, $location, $cookies) {
         $rootScope.$on('$locationChangeStart', function (event, next, current) {

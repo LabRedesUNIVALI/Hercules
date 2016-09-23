@@ -12,8 +12,8 @@ angular.module('hercules').factory('ThemeAPIService', function ($http) {
         return $http.get('/api/themes/' + id);
     };
 
-    var _update = function (theme) {
-        return $http.put('/api/themes/' + theme.id, theme);
+    var _update = function (id, theme) {
+        return $http.put('/api/themes/' + id, theme);
     };
 
     var _delete = function (id) {

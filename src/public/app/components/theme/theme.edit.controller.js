@@ -1,26 +1,20 @@
-angular.module('hercules').controller('QuestionEditController', function ($scope, $location, $routeParams, QuestionAPIService, $mdDialog) {
+angular.module('hercules').controller('ThemeEditController', function ($scope, $routeParams, $location, ThemeAPIService, $mdDialog) {
 
-    QuestionAPIService.getById($routeParams.id)
+    ThemeAPIService.getById($routeParams.id)
         .success(function (result) {
-            $scope.question = result;
+            $scope.theme = result;
         });
 
-    $scope.update = function (question) {
+    $scope.update = function (theme) {
 
-        var updatedQuestion = {
-            name: question.name,
-            correctOption: question.correctOption,
-            options: question.options.map(function (option) {
-                return {
-                    text: option.text
-                }
-            })
+        var updatedTheme = {
+            name: theme.name
         };
 
-        QuestionAPIService.update(question.theme._id, question._id, updatedQuestion)
+        ThemeAPIService.update(theme._id, updatedTheme)
             .success(function (result) {
                 if (result) {
-                    $location.path('/admin/questions');
+                    $location.path('/admin/themes');
                 } else {
                     showGenericErrorDialog();
                 }
