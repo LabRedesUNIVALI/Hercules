@@ -118,6 +118,7 @@
 .admin-content .zero-data {
     text-align: center !important;
     font-size: 16px !important;
+    cursor: text;
 }
 
 .autocomplete-theme-template li {

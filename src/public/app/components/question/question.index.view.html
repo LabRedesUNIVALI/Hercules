@@ -18,7 +18,7 @@
                             </h3>
                         </div>
                         <div flex>
-                            <md-button class="md-fab md-accent" href="/admin/questions/new">
+                            <md-button class="md-fab md-accent" ng-click="addQuestion($event)">
                                 <md-icon class="material_icons">add</md-icon>
                             </md-button>
                         </div>
@@ -57,7 +57,7 @@
                                 <tbody md-body>
                                     <tr md-row md-select="question" md-select-id="name" md-auto-select ng-repeat="question in questions">
                                         <td md-cell>{{question.name}}</td>
-                                        <td md-cell>{{question.theme}}</td>
+                                        <td md-cell>{{question.theme.name}}</td>
                                         <td md-cell>{{question.correctOption}}</td>
                                     </tr>
                                     <tr md-row ng-show="questions.length < 1">

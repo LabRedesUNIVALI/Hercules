@@ -1,4 +1,4 @@
-angular.module('hercules').controller('QuestionIndexController', function ($timeout, $scope, QuestionAPIService, $mdToast, $mdDialog) {
+angular.module('hercules').controller('QuestionIndexController', function ($scope, $location, QuestionAPIService, ThemeAPIService, $mdToast, $mdDialog) {
 
     $scope.selected = [];
 
@@ -12,7 +12,7 @@ angular.module('hercules').controller('QuestionIndexController', function ($time
 
         showConfirmDeleteDialog(ev).then(function () {
 
-            QuestionAPIService.delete(question.theme, question._id)
+            QuestionAPIService.delete(question.theme._id, question._id)
                 .success(function (result) {
                     getQuestions();
                     showToast('Registro excluído com sucesso.');
@@ -22,6 +22,19 @@ angular.module('hercules').controller('QuestionIndexController', function ($time
                 });
 
         });
+
+    };
+
+    $scope.addQuestion = function (ev) {
+
+        ThemeAPIService.getAll()
+            .success(function (result) {
+                if (result.length > 0) {
+                    $location.path('/admin/questions/new');
+                } else {
+                    showNoThemesDialog(ev);
+                }
+            });
 
     };
     
@@ -44,6 +57,18 @@ angular.module('hercules').controller('QuestionIndexController', function ($time
             .cancel('Não');
 
         return $mdDialog.show(confirm);
+    };
+
+    var showNoThemesDialog = function (ev) {
+
+        $mdDialog.show(
+            $mdDialog.alert()
+                .title('Não há conteúdos cadastrados!')
+                .textContent('Você deve cadastrar conteúdos para poder adicionar questões.')
+                .clickOutsideToClose(true)
+                .targetEvent(ev)
+                .ok('Entendi')
+        );
     };
 
     getQuestions();

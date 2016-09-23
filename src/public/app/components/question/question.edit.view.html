@@ -22,7 +22,7 @@
                             </md-button>
                         </div>
                     </div>
-                    <form layout="row" layout-fill class="content-form" name="questionNewForm" ng-submit="save(question)">
+                    <form layout="row" layout-fill class="content-form" name="questionNewForm" ng-submit="update(question)">
                         <div flex="70" layout="column" flex-offset="15">
                             <md-autocomplete
                                     ng-disabled="disabled"
@@ -152,7 +152,7 @@
                                         </md-button>
                                         <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="registrationForm.$invalid">
                                             <md-icon class="material-icons">send</md-icon>
-                                            Cadastrar
+                                            Salvar
                                         </md-button>
                                     </div>
                                 </md-toolbar>
