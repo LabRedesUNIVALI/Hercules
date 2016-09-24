@@ -56,9 +56,9 @@
 
                                 <tbody md-body>
                                     <tr md-row md-select="question" md-select-id="name" md-auto-select ng-repeat="question in questions track by $index">
-                                        <td md-cell>{{question.name}}</td>
-                                        <td md-cell>{{question.theme.name}}</td>
-                                        <td md-cell>{{question.correctOption}}</td>
+                                        <td md-cell>{{::question.name}}</td>
+                                        <td md-cell>{{::question.theme.name}}</td>
+                                        <td md-cell>{{::question.correctOption}}</td>
                                     </tr>
                                     <tr md-row ng-show="questions.length < 1">
                                         <td md-cell colspan="3" class="zero-data">Nenhum registro econtrado</td>

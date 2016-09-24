@@ -1,4 +1,4 @@
-<div layout="row" flex class="admin-container">
+<div layout="row" flex-gt-md="80" flex-offset-gt-md="20" class="admin-container">
 
     <hc-menu></hc-menu>
 
@@ -10,6 +10,66 @@
 
             <div layout="row">
                 <md-whiteframe layout-padding flex="80" flex-offset="10" layout="column" class="md-whiteframe-z2 admin-content">
+
+                    <div layout="row" class="content-header">
+                        <div flex="90">
+                            <h3 class="md-headline">
+                                Disciplinas
+                            </h3>
+                        </div>
+                        <div flex>
+                            <md-button class="md-fab md-accent" href="admin/disciplines/new">
+                                <md-icon class="material_icons">add</md-icon>
+                            </md-button>
+                        </div>
+                    </div>
+
+                    <div flex class="table-container">
+
+                        <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
+                            <div class="md-toolbar-tools">
+                                <span>{{selected.length}} item selecionado</span>
+                                <span flex></span>
+                                <md-button ng-href="/admin/disciplines/{{selected[0]._id}}" class="md-icon-button">
+                                    <md-icon class="material-icons">remove_red_eye</md-icon>
+                                </md-button>
+                                <md-button ng-href="/admin/disciplines/{{selected[0]._id}}/edit" class="md-icon-button">
+                                    <md-icon class="material-icons">edit</md-icon>
+                                </md-button>
+                                <md-button ng-click="delete(selected[0], $event)" class="md-icon-button">
+                                    <md-icon class="material-icons">delete</md-icon>
+                                </md-button>
+                            </div>
+                        </md-toolbar>
+
+                        <md-table-container>
+
+                            <table md-table md-row-select ng-model="selected" class="table">
+
+                                <thead md-head>
+                                <tr md-row>
+                                    <th md-column>Nome</th>
+                                    <th md-column>Ano/Semestre</th>
+                                    <th md-column>Nº de alunos</th>
+                                </tr>
+                                </thead>
+
+                                <tbody md-body>
+                                <tr md-row md-select="discipline" md-select-id="name" md-auto-select ng-repeat="discipline in disciplines track by $index">
+                                    <td md-cell>{{::discipline.name}}</td>
+                                    <td md-cell>{{::discipline.year}}/{{::discipline.semester}}</td>
+                                    <td md-cell>{{::discipline.students.length}}</td>
+                                </tr>
+                                <tr md-row ng-show="disciplines.length < 1">
+                                    <td md-cell colspan="3" class="zero-data">Nenhum registro econtrado</td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+
+                        </md-table-container>
+
+                    </div>
 
                 </md-whiteframe>
             </div>

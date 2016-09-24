@@ -21,7 +21,7 @@ angular.module('hercules').controller('QuestionIndexController', function ($scop
                     showToast('Não foi possível excluir o registro.')
                 });
 
-        });
+        }, null);
 
     };
 

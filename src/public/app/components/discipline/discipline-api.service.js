@@ -12,8 +12,8 @@ angular.module('hercules').factory('DisciplineAPIService', function ($http) {
         return $http.get('/api/disciplines/' + id);
     };
 
-    var _update = function (discipline) {
-        return $http.put('/api/disciplines/' + discipline.id, discipline);
+    var _update = function (id, discipline) {
+        return $http.put('/api/disciplines/' + id, discipline);
     };
 
     var _delete = function (id) {

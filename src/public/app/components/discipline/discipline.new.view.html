@@ -39,7 +39,7 @@
 
                                 <md-input-container flex="45">
                                     <label>Ano</label>
-                                    <input type="number" ng-model="discipline.year" name="year" required ng-minlength="1" ng-maxlength="4" ng-pattern="/^[0-9]{4}$/">
+                                    <input type="text" ng-model="discipline.year" name="year" required ng-minlength="1" ng-maxlength="4" ng-pattern="/^[0-9]{4}$/">
                                     <div ng-messages="disciplineNewForm.year.$error">
                                         <div ng-message="required">Este campo é obrigatório.</div>
                                         <div ng-message="minlength">Este campo deve ter ao menos 1 caractere.</div>
@@ -58,13 +58,37 @@
                                         <div ng-message="required">Este campo é obrigatório.</div>
                                     </div>
                                 </md-input-container>
+                            </div>
+
+                            <md-divider></md-divider>
+                            <h6 class="md-headline">Alunos</h6>
+
+                            <div layout="row" layout-align="center center" ng-repeat="student in discipline.students track by $index">
+
+                                    <div>
+                                        <md-input-container>
+                                            <label>Aluno</label>
+                                            <input type="text" ng-model="student.name" name="studentName{{$index}}" required ng-minlength="2" ng-maxlength="50">
+                                            <div ng-messages="disciplineNewForm['studentName' + $index].$error">
+                                                <div ng-message="required">Este campo é obrigatório.</div>
+                                                <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
+                                                <div ng-message="maxlength">Este campo deve ter no máximo 50 caracteres.</div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-button ng-click="addStudentField()" class="md-icon-button md-primary md-raised" flex>
+                                            <md-icon class="material-icons">add</md-icon>
+                                        </md-button>
+                                        <md-button ng-click="removeStudentField($index)" class="md-icon-button md-warn md-raised" ng-disabled="discipline.students.length < 2" flex>
+                                            <md-icon class="material-icons">delete_forever</md-icon>
+                                        </md-button>
+                                    </div>
 
                             </div>
 
                             <div layout="row" layout-align="center center" class="form-actions">
                                 <md-toolbar class="md-primary" md-theme="greyscale">
                                     <div class="md-toolbar-tools" layout-align="center center">
-                                        <md-button href="/admin/themes" class="md-warn md-raised" md-theme="default" flex="30">
+                                        <md-button href="/admin/disciplines" class="md-warn md-raised" md-theme="default" flex="30">
                                             <md-icon class="material-icons">close</md-icon>
                                             Cancelar
                                         </md-button>
