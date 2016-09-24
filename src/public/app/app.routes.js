@@ -38,6 +38,10 @@ angular.module('hercules').config(function ($routeProvider, $locationProvider) {
             templateUrl: 'public/components/discipline/discipline.edit.view.html',
             controller: 'DisciplineEditController'
         })
+        .when('/admin/disciplines/:id', {
+            templateUrl: 'public/components/discipline/discipline.detail.view.html',
+            controller: 'DisciplineDetailController'
+        })
 
         //Themes
         .when('/admin/themes', {
@@ -65,6 +69,10 @@ angular.module('hercules').config(function ($routeProvider, $locationProvider) {
         .when('/admin/questions/:id/edit', {
             templateUrl: 'public/components/question/question.edit.view.html',
             controller: 'QuestionEditController'
+        })
+        .when('/admin/questions/:id', {
+            templateUrl: 'public/components/question/question.detail.view.html',
+            controller: 'QuestionDetailController'
         })
 
         //Whatever
