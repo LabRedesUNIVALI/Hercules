@@ -1,76 +1,50 @@
-angular.module('hercules').controller('QuestionIndexController', function ($scope, $location, QuestionAPIService, ThemeAPIService, $mdToast, $mdDialog) {
+angular.module('hercules').controller('QuestionIndexController', [
+    '$scope',
+    'entities',
+    'QuestionAPIService',
+    'ThemeAPIService',
+    'hcCommonToasts',
+    'hcCommonDialogs',
+    '$mdDialog',
+    '$location',
+    function ($scope, entities, QuestionAPIService, ThemeAPIService, hcCommonToasts, hcCommonDialogs, $mdDialog, $location) {
 
-    $scope.selected = [];
+        $scope.entities = entities.data;
+        $scope.selected = [];
 
-    var getQuestions = function () {
-        QuestionAPIService.getAll().success(function (result) {
-            $scope.questions = result;
-        });
-    };
-    
-    $scope.delete = function (question, ev) {
+        $scope.delete = function (entity, ev) {
+            hcCommonDialogs.confirmDelete(ev).then(function () {
+                QuestionAPIService.delete(entity.theme._id, entity._id)
+                    .success(function (result) {
+                        var index = $scope.entities.indexOf(entity);
+                        $scope.entities.splice(index, 1);
+                        hcCommonToasts.notice('Registro excluído com sucesso.');
+                    })
+                    .error(function () {
+                        hcCommonToasts.notice('Não foi possível excluir o registro.')
+                    });
+            }, null);
+        };
 
-        showConfirmDeleteDialog(ev).then(function () {
-
-            QuestionAPIService.delete(question.theme._id, question._id)
+        $scope.addQuestion = function (ev) {
+            ThemeAPIService.getAll()
                 .success(function (result) {
-                    getQuestions();
-                    showToast('Registro excluído com sucesso.');
-                })
-                .error(function () {
-                    showToast('Não foi possível excluir o registro.')
+                    if (result.length > 0) {
+                        $location.path('/admin/questions/new');
+                    } else {
+                        showNoThemesDialog(ev);
+                    }
                 });
+        };
 
-        }, null);
-
-    };
-
-    $scope.addQuestion = function (ev) {
-
-        ThemeAPIService.getAll()
-            .success(function (result) {
-                if (result.length > 0) {
-                    $location.path('/admin/questions/new');
-                } else {
-                    showNoThemesDialog(ev);
-                }
-            });
-
-    };
-    
-    var showToast = function (message) {
-        $mdToast.show(
-            $mdToast.simple()
-                .textContent(message)
-                .position('right bottom')
-                .hideDelay('2000')
-        )
-    };
-
-    var showConfirmDeleteDialog = function (ev) {
-
-        var confirm = $mdDialog.confirm()
-            .title('Deseja realmente excluir este registro?')
-            .textContent('Você não poderá recuperá-lo mais tarde.')
-            .targetEvent(ev)
-            .ok('Sim')
-            .cancel('Não');
-
-        return $mdDialog.show(confirm);
-    };
-
-    var showNoThemesDialog = function (ev) {
-
-        $mdDialog.show(
-            $mdDialog.alert()
-                .title('Não há conteúdos cadastrados!')
-                .textContent('Você deve cadastrar conteúdos para poder adicionar questões.')
-                .clickOutsideToClose(true)
-                .targetEvent(ev)
-                .ok('Entendi')
-        );
-    };
-
-    getQuestions();
-
-});
+        var showNoThemesDialog = function (ev) {
+            $mdDialog.show(
+                $mdDialog.alert()
+                    .title('Não há conteúdos cadastrados!')
+                    .textContent('Você deve cadastrar conteúdos para poder adicionar questões.')
+                    .clickOutsideToClose(true)
+                    .targetEvent(ev)
+                    .ok('Entendi')
+            );
+        };
+}]);

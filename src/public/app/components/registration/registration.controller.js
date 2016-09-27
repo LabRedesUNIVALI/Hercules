@@ -1,30 +1,32 @@
-angular.module('hercules').controller('RegistrationController', function ($scope, UserAPIService, AuthenticationService, $location, $mdDialog) {
+angular.module('hercules').controller('RegistrationController', [
+    '$scope',
+    'UserAPIService',
+    'AuthenticationService',
+    'hcCommonDialogs',
+    '$location',
+    function ($scope, UserAPIService, AuthenticationService, hcCommonDialogs, $location) {
 
-    var showGenericErrorDialog = function () {
-        $mdDialog.show(
-            $mdDialog.alert()
-                .parent('body')
-                .clickOutsideToClose(true)
-                .title('Erro')
-                .textContent('Ocorreu um erro durante o cadastro. Por favor, tente novamente.')
-                .ok('Fechar')
-        );
-    };
+        $scope.processing = false;
 
-    $scope.register = function(user) {
-        UserAPIService.createUser(user)
-            .success(function(response){
-                if (response) {
-                    AuthenticationService.login({ email: user.email, password: user.password }, function (success) {
-                        $location.path('/admin');
-                    });
-                } else {
-                    showGenericErrorDialog();
-                }
-            })
-            .error(function (err) {
-                showGenericErrorDialog();
-            });
-    };
+        $scope.register = function(user) {
 
-});
+            $scope.processing = true;
+
+            UserAPIService.createUser(user)
+                .success(function(response){
+                    if (response) {
+                        AuthenticationService.login({ email: user.email, password: user.password }, function (success) {
+                            $location.path('/admin');
+                        });
+                    } else {
+                        hcCommonDialogs.genericError();
+                    }
+                })
+                .error(function () {
+                    hcCommonDialogs.genericError();
+                })
+                .then(function () {
+                    $scope.processing = false;
+                });
+        };
+}]);

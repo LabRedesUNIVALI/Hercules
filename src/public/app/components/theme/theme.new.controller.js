@@ -1,28 +1,27 @@
-angular.module('hercules').controller('ThemeNewController', function ($scope, $location, ThemeAPIService, $mdDialog) {
+angular.module('hercules').controller('ThemeNewController', [
+    '$scope',
+    'ThemeAPIService',
+    'hcCommonDialogs',
+    '$location',
+    function ($scope, ThemeAPIService, hcCommonDialogs, $location) {
 
-    $scope.save = function (theme) {
-        ThemeAPIService.save(theme)
-            .success(function (result) {
-                if (result) {
-                    $location.path('admin/themes');
-                } else {
-                    showGenericErrorDialog();
-                }
-            })
-            .error(function () {
-                showGenericErrorDialog();
-            });
-    };
+        $scope.processing = false;
 
-    var showGenericErrorDialog = function () {
-        $mdDialog.show(
-            $mdDialog.alert()
-                .parent('body')
-                .clickOutsideToClose(true)
-                .title('Erro')
-                .textContent('Ooops! Algo de errado aconteceu. Por favor, tente novamente.')
-                .ok('Fechar')
-        );
-    };
-
-});
+        $scope.save = function (entity) {
+            $scope.processing = true;
+            ThemeAPIService.save(entity)
+                .success(function (result) {
+                    if (result) {
+                        $location.path('admin/themes');
+                    } else {
+                        hcCommonDialogs.genericError();
+                    }
+                })
+                .error(function () {
+                    hcCommonDialogs.genericError();
+                })
+                .then(function () {
+                    $scope.processing = false;
+                });
+        };
+}]);

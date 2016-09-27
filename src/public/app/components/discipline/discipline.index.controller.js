@@ -1,51 +1,25 @@
-angular.module('hercules').controller('DisciplineIndexController', function ($scope, DisciplineAPIService, $mdToast, $mdDialog) {
+angular.module('hercules').controller('DisciplineIndexController', [
+    '$scope',
+    'entities',
+    'DisciplineAPIService',
+    'hcCommonToasts',
+    'hcCommonDialogs',
+    function ($scope, entities, DisciplineAPIService, hcCommonToasts, hcCommonDialogs) {
 
-    $scope.selected = [];
+        $scope.entities = entities.data;
+        $scope.selected = [];
 
-    $scope.delete = function (discipline, ev) {
-
-        showConfirmDeleteDialog(ev).then(function () {
-
-            DisciplineAPIService.delete(discipline._id)
-                .success(function (result) {
-                    getDisciplines();
-                    showToast('Registro excluído com sucesso.');
-                })
-                .error(function () {
-                    showToast('Não foi possível excluir o registro.')
-                });
-
-        }, null);
-
-    };
-
-    var getDisciplines = function () {
-        DisciplineAPIService.getAll().success(function (result) {
-            $scope.disciplines = result;
-        });
-    };
-
-    var showToast = function (message) {
-        $mdToast.show(
-            $mdToast.simple()
-                .textContent(message)
-                .position('right bottom')
-                .hideDelay('2000')
-        )
-    };
-
-    var showConfirmDeleteDialog = function (ev) {
-
-        var confirm = $mdDialog.confirm()
-            .title('Deseja realmente excluir este registro?')
-            .textContent('Você não poderá recuperá-lo mais tarde.')
-            .targetEvent(ev)
-            .ok('Sim')
-            .cancel('Não');
-
-        return $mdDialog.show(confirm);
-    };
-
-    getDisciplines();
-
-});
+        $scope.delete = function (entity, ev) {
+            hcCommonDialogs.confirmDelete(ev).then(function () {
+                DisciplineAPIService.delete(entity._id)
+                    .success(function (result) {
+                        var index = $scope.entities.indexOf(entity);
+                        $scope.entities.splice(index, 1);
+                        hcCommonToasts.notice('Registro excluído com sucesso.');
+                    })
+                    .error(function () {
+                        hcCommonToasts.notice('Não foi possível excluir o registro.')
+                    });
+            }, null);
+        };
+}]);

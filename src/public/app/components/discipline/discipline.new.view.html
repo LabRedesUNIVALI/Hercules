@@ -22,12 +22,12 @@
                             </md-button>
                         </div>
                     </div>
-                    <form layout="row" layout-fill class="content-form" name="disciplineNewForm" ng-submit="save(discipline)">
+                    <form layout="row" layout-fill class="content-form" name="disciplineNewForm" ng-submit="save(entity)">
                         <div flex="70" layout="column" flex-offset="15">
 
                             <md-input-container>
                                 <label>Nome</label>
-                                <input type="text" ng-model="discipline.name" name="name" required ng-minlength="1" ng-maxlength="50">
+                                <input type="text" ng-model="entity.name" name="name" required ng-minlength="1" ng-maxlength="50">
                                 <div ng-messages="disciplineNewForm.name.$error">
                                     <div ng-message="required">Este campo é obrigatório.</div>
                                     <div ng-message="minlength">Este campo deve ter ao menos 1 caractere.</div>
@@ -39,20 +39,21 @@
 
                                 <md-input-container flex="45">
                                     <label>Ano</label>
-                                    <input type="text" ng-model="discipline.year" name="year" required ng-minlength="1" ng-maxlength="4" ng-pattern="/^[0-9]{4}$/">
+                                    <input type="text" ng-model="entity.year" name="year" required ng-minlength="1" ng-maxlength="4" ng-pattern="/^[0-9]{4}$/">
                                     <div ng-messages="disciplineNewForm.year.$error">
                                         <div ng-message="required">Este campo é obrigatório.</div>
                                         <div ng-message="minlength">Este campo deve ter ao menos 1 caractere.</div>
                                         <div ng-message="maxlength">Este campo deve ter no máximo 4 caracteres.</div>
+                                        <div ng-message="pattern">Informe um ano válido.</div>
                                     </div>
                                 </md-input-container>
                                 <span flex></span>
                                 <md-input-container flex="45">
                                     <label>Semestre</label>
-                                    <md-select ng-model="discipline.semester" name="semester" ng-disabled="disciplineNewForm.year.$invalid" required>
+                                    <md-select ng-model="entity.semester" name="semester" ng-disabled="disciplineNewForm.year.$invalid" required>
                                         <md-option><em>Selecione uma opção</em></md-option>
-                                        <md-option ng-value="1">{{discipline.year}}/1</md-option>
-                                        <md-option ng-value="2">{{discipline.year}}/2</md-option>
+                                        <md-option ng-value="1">{{entity.year}}/1</md-option>
+                                        <md-option ng-value="2">{{entity.year}}/2</md-option>
                                     </md-select>
                                     <div ng-messages="disciplineNewForm.semester.$error">
                                         <div ng-message="required">Este campo é obrigatório.</div>
@@ -63,7 +64,7 @@
                             <md-divider></md-divider>
                             <h6 class="md-headline">Alunos</h6>
 
-                            <div layout="row" layout-align="center center" ng-repeat="student in discipline.students track by $index">
+                            <div layout="row" layout-align="center center" ng-repeat="student in entity.students track by $index">
 
                                     <div>
                                         <md-input-container>
@@ -78,7 +79,7 @@
                                         <md-button ng-click="addStudentField()" class="md-icon-button md-primary md-raised" flex>
                                             <md-icon class="material-icons">add</md-icon>
                                         </md-button>
-                                        <md-button ng-click="removeStudentField($index)" class="md-icon-button md-warn md-raised" ng-disabled="discipline.students.length < 2" flex>
+                                        <md-button ng-click="removeStudentField($index)" class="md-icon-button md-warn md-raised" ng-disabled="entity.students.length < 2" flex>
                                             <md-icon class="material-icons">delete_forever</md-icon>
                                         </md-button>
                                     </div>
@@ -92,7 +93,7 @@
                                             <md-icon class="material-icons">close</md-icon>
                                             Cancelar
                                         </md-button>
-                                        <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="disciplineNewForm.$invalid">
+                                        <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="disciplineNewForm.$invalid || processing">
                                             <md-icon class="material-icons">send</md-icon>
                                             Cadastrar
                                         </md-button>

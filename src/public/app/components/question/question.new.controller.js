@@ -1,61 +1,61 @@
-angular.module('hercules').controller('QuestionNewController', function ($scope, $location, ThemeAPIService, $mdDialog, QuestionAPIService) {
+angular.module('hercules').controller('QuestionNewController', [
+    '$scope',
+    'themes',
+    'QuestionAPIService',
+    '$location',
+    function ($scope, themes, QuestionAPIService, $location) {
 
-    $scope.question = {};
-    $scope.question.options = [];
+        $scope.entity = {};
 
-    $scope.disabled = true;
+        $scope.entity.options = [
+            {text: ''},
+            {text: ''},
+            {text: ''},
+            {text: ''},
+            {text: ''}
+        ];
 
-    ThemeAPIService.getAll().success(function (result) {
-        $scope.themes = result.map(function (theme) {
+        $scope.processing = false;
+
+        $scope.themes = themes.data.map(function (theme) {
             return {
                 id: theme._id,
                 name: theme.name
-            };
+            }
         });
-    })
-    .then(function () {
-        $scope.disabled = false;
-    });
 
-    $scope.querySearch = function (query) {
-        return results = query ? $scope.themes.filter(createFilterFor(query)) : $scope.themes;
-    };
+        $scope.querySearch = function (query) {
+            return results = query ? $scope.themes.filter(createFilterFor(query)) : $scope.themes;
+        };
 
-    var createFilterFor = function (query) {
-        var lowercaseQuery = angular.lowercase(query);
-        return function filterFn(theme) {
-            var lowercaseName = angular.lowercase(theme.name);
-            return (lowercaseName.indexOf(lowercaseQuery) > -1);
-        }
-    };
+        var createFilterFor = function (query) {
+            var lowercaseQuery = angular.lowercase(query);
+            return function filterFn(theme) {
+                var lowercaseName = angular.lowercase(theme.name);
+                return (lowercaseName.indexOf(lowercaseQuery) > -1);
+            }
+        };
 
-    $scope.save = function (question) {
+        $scope.save = function (entity) {
 
-        var themeId = question.theme.id;
-        delete question.theme;
+            $scope.processing = true;
 
-        QuestionAPIService.save(themeId, question)
-            .success(function (result) {
-                if (result) {
-                    $location.path("admin/question/" + result._id);
-                } else {
-                    showGenericErrorDialog();
-                }
-            })
-            .error(function () {
-                showGenericErrorDialog();
-            });
-    };
+            var themeId = entity.theme.id;
+            delete entity.theme;
 
-    var showGenericErrorDialog = function () {
-        $mdDialog.show(
-            $mdDialog.alert()
-                .parent('body')
-                .clickOutsideToClose(true)
-                .title('Erro')
-                .textContent('Ooops! Algo de errado aconteceu. Por favor, tente novamente.')
-                .ok('Fechar')
-        );
-    };
-
-});
+            QuestionAPIService.save(themeId, entity)
+                .success(function (result) {
+                    if (result) {
+                        $location.path("admin/question/" + result._id);
+                    } else {
+                        hcCommonDialogs.genericError();
+                    }
+                })
+                .error(function () {
+                    hcCommonDialogs.genericError();
+                })
+                .then(function () {
+                    $scope.processing = false;
+                });
+        };
+}]);

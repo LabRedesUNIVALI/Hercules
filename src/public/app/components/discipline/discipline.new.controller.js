@@ -1,47 +1,43 @@
-angular.module('hercules').controller('DisciplineNewController', function ($scope, $location,DisciplineAPIService, $mdDialog) {
+angular.module('hercules').controller('DisciplineNewController', [
+    '$scope',
+    'DisciplineAPIService',
+    'hcCommonDialogs',
+    '$location',
+    function ($scope, DisciplineAPIService, hcCommonDialogs, $location) {
 
-    $scope.discipline = {};
+        $scope.entity = {};
 
-    $scope.discipline.students = [
-        {name: ''}
-    ];
+        $scope.entity.students = [
+            {name: ''}
+        ];
 
-    $scope.addStudentField = function () {
-        $scope.discipline.students.push({name: ''});
-    };
+        $scope.processing = false;
 
-    $scope.removeStudentField = function (index) {
-        $scope.discipline.students.splice(index, 1);
-    };
+        $scope.addStudentField = function () {
+            $scope.entity.students.push({name: ''});
+        };
 
-    $scope.save = function (discipline) {
+        $scope.removeStudentField = function (index) {
+            $scope.entity.students.splice(index, 1);
+        };
 
-        DisciplineAPIService.save(discipline)
-            .success(function (result) {
-                if (result) {
-                    $location.path('/admin/disciplines');
-                } else {
-                    showGenericErrorDialog();
-                }
-            })
-            .error(function () {
-                showGenericErrorDialog();
-            })
+        $scope.save = function (entity) {
 
-    };
+            $scope.processing = true;
 
-    var showGenericErrorDialog = function () {
-        $mdDialog.show(
-            $mdDialog.alert()
-                .parent('body')
-                .clickOutsideToClose(true)
-                .title('Erro')
-                .textContent('Ooops! Algo de errado aconteceu. Por favor, tente novamente.')
-                .ok('Fechar')
-        );
-    };
-
-
-
-
-});
+            DisciplineAPIService.save(entity)
+                .success(function (result) {
+                    if (result) {
+                        $location.path('/admin/disciplines');
+                    } else {
+                        hcCommonDialogs.genericError();
+                    }
+                })
+                .error(function () {
+                    hcCommonDialogs.genericError();
+                })
+                .then(function () {
+                    $scope.processing = false;
+                });
+        };
+}]);

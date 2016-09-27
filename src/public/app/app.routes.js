@@ -28,7 +28,12 @@ angular.module('hercules').config(function ($routeProvider, $locationProvider) {
         //Disciplines
         .when('/admin/disciplines', {
             templateUrl: 'public/components/discipline/discipline.index.view.html',
-            controller: 'DisciplineIndexController'
+            controller: 'DisciplineIndexController',
+            resolve: {
+                entities: function (DisciplineAPIService) {
+                    return DisciplineAPIService.getAll();
+                }
+            }
         })
         .when('/admin/disciplines/new', {
             templateUrl: 'public/components/discipline/discipline.new.view.html',
@@ -36,17 +41,32 @@ angular.module('hercules').config(function ($routeProvider, $locationProvider) {
         })
         .when('/admin/disciplines/:id/edit', {
             templateUrl: 'public/components/discipline/discipline.edit.view.html',
-            controller: 'DisciplineEditController'
+            controller: 'DisciplineEditController',
+            resolve: {
+                entity: function (DisciplineAPIService, $route) {
+                    return DisciplineAPIService.getById($route.current.params.id);
+                }
+            }
         })
         .when('/admin/disciplines/:id', {
             templateUrl: 'public/components/discipline/discipline.detail.view.html',
-            controller: 'DisciplineDetailController'
+            controller: 'DisciplineDetailController',
+            resolve: {
+                entity: function (DisciplineAPIService, $route) {
+                    return DisciplineAPIService.getById($route.current.params.id);
+                }
+            }
         })
 
         //Themes
         .when('/admin/themes', {
             templateUrl: 'public/components/theme/theme.index.view.html',
-            controller: 'ThemeIndexController'
+            controller: 'ThemeIndexController',
+            resolve: {
+                entities: function (ThemeAPIService) {
+                    return ThemeAPIService.getAll();
+                }
+            }
         })
         .when('/admin/themes/new', {
             templateUrl: 'public/components/theme/theme.new.view.html',
@@ -54,21 +74,44 @@ angular.module('hercules').config(function ($routeProvider, $locationProvider) {
         })
         .when('/admin/themes/:id/edit', {
             templateUrl: 'public/components/theme/theme.edit.view.html',
-            controller: 'ThemeEditController'
+            controller: 'ThemeEditController',
+            resolve: {
+                entity: function (ThemeAPIService, $route) {
+                    return ThemeAPIService.getById($route.current.params.id);
+                }
+            }
         })
 
         //Questions
         .when('/admin/questions', {
             templateUrl: 'public/components/question/question.index.view.html',
-            controller: 'QuestionIndexController'
+            controller: 'QuestionIndexController',
+            resolve: {
+                entities: function (ThemeAPIService) {
+                    return ThemeAPIService.getAll();
+                }
+            }
         })
         .when('/admin/questions/new', {
             templateUrl: 'public/components/question/question.new.view.html',
-            controller: 'QuestionNewController'
+            controller: 'QuestionNewController',
+            resolve: {
+                themes: function (ThemeAPIService) {
+                    return ThemeAPIService.getAll();
+                }
+            }
         })
         .when('/admin/questions/:id/edit', {
             templateUrl: 'public/components/question/question.edit.view.html',
-            controller: 'QuestionEditController'
+            controller: 'QuestionEditController',
+            resolve: {
+                entity: function (QuestionAPIService, $route) {
+                    return QuestionAPIService.getById($route.current.params.id);
+                },
+                themes: function (ThemeAPIService) {
+                    return ThemeAPIService.getAll();
+                }
+            }
         })
         .when('/admin/questions/:id', {
             templateUrl: 'public/components/question/question.detail.view.html',

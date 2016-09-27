@@ -55,12 +55,12 @@
                                 </thead>
 
                                 <tbody md-body>
-                                <tr md-row md-select="discipline" md-select-id="name" md-auto-select ng-repeat="discipline in disciplines track by $index">
-                                    <td md-cell>{{::discipline.name}}</td>
-                                    <td md-cell>{{::discipline.year}}/{{::discipline.semester}}</td>
-                                    <td md-cell>{{::discipline.students.length}}</td>
+                                <tr md-row md-select="entity" md-select-id="name" md-auto-select ng-repeat="entity in entities track by $index">
+                                    <td md-cell>{{::entity.name}}</td>
+                                    <td md-cell>{{::entity.year}}/{{::entity.semester}}</td>
+                                    <td md-cell>{{::entity.students.length}}</td>
                                 </tr>
-                                <tr md-row ng-show="disciplines.length < 1">
+                                <tr md-row ng-show="entity.length < 1">
                                     <td md-cell colspan="3" class="zero-data">Nenhum registro econtrado</td>
                                 </tr>
                                 </tbody>

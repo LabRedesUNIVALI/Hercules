@@ -20,11 +20,11 @@
             </div>
 
             <div layout="column" layout-fill layout-margin layout-padding>
-                <form name="loginForm" layout="column" layout-fill layout-padding ng-submit="login(login.credentials)">
+                <form name="loginForm" layout="column" layout-fill layout-padding ng-submit="login(credentials)">
                     <md-input-container class="md-icon-float md-block">
                         <label>E-mail</label>
                         <md-icon class="material-icons">person</md-icon>
-                        <input type="email" placeholder="E-mail" ng-model="login.credentials.email" name="email" aria-label="email" required />
+                        <input type="email" placeholder="E-mail" ng-model="credentials.email" name="email" required />
                         <div ng-messages="loginForm.email.$error">
                             <div ng-message="required">Este campo é obrigatório.</div>
                             <div ng-message="email">Informe um endereço de e-mail válido.</div>
@@ -33,19 +33,19 @@
                     <md-input-container class="md-icon-float md-block">
                         <label>Senha</label>
                         <md-icon class="material-icons">lock</md-icon>
-                        <input type="password" placeholder="Senha" ng-model="login.credentials.password" name="password" aria-label="password" required />
+                        <input type="password" placeholder="Senha" ng-model="credentials.password" name="password" required />
                         <div ng-messages="loginForm.password.$error">
                             <div ng-message="required">Este campo é obrigatório.</div>
                         </div>
                     </md-input-container>
                     <div layout="row" layout-align="center center">
-                        <md-button type="submit" class="md-raised md-primary" aria-label="register" flex="30" ng-disabled="loginForm.$invalid">
+                        <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="loginForm.$invalid">
                             <md-icon class="material-icons">send</md-icon>
                             Entrar
                         </md-button>
                     </div>
                     <div layout="column" layout-align="center center">
-                        <md-button href="/register" class="md-no-ink small md-primary" aria-label="register">
+                        <md-button href="/register" class="md-no-ink small md-primary">
                             Cadastre-se
                         </md-button>
                     </div>

@@ -22,58 +22,40 @@
                             </md-button>
                         </div>
                     </div>
-                    <form layout="row" layout-fill class="content-form" name="disciplineNewForm" ng-submit="update(discipline)">
+                    <form layout="row" layout-fill class="content-form" name="disciplineDetailForm" ng-submit="update(entity)">
                         <div flex="70" layout="column" flex-offset="15">
 
                             <md-input-container>
                                 <label>Nome</label>
-                                <input disabled type="text" ng-model="discipline.name" name="name" required ng-minlength="1" ng-maxlength="50">
-                                <div ng-messages="disciplineNewForm.name.$error">
-                                    <div ng-message="required">Este campo é obrigatório.</div>
-                                    <div ng-message="minlength">Este campo deve ter ao menos 1 caractere.</div>
-                                    <div ng-message="maxlength">Este campo deve ter no máximo 50 caracteres.</div>
-                                </div>
+                                <input disabled type="text" ng-model="entity.name" name="name" required ng-minlength="1" ng-maxlength="50">
                             </md-input-container>
 
                             <div layout="row" flex>
 
                                 <md-input-container flex="45">
                                     <label>Ano</label>
-                                    <input disabled type="text" ng-model="discipline.year" name="year" required ng-minlength="1" ng-maxlength="4" ng-pattern="/^[0-9]{4}$/">
-                                    <div ng-messages="disciplineNewForm.year.$error">
-                                        <div ng-message="required">Este campo é obrigatório.</div>
-                                        <div ng-message="minlength">Este campo deve ter ao menos 1 caractere.</div>
-                                        <div ng-message="maxlength">Este campo deve ter no máximo 4 caracteres.</div>
-                                    </div>
+                                    <input disabled type="text" ng-model="entity.year" name="year" required ng-minlength="1" ng-maxlength="4" ng-pattern="/^[0-9]{4}$/">
                                 </md-input-container>
                                 <span flex></span>
                                 <md-input-container flex="45">
                                     <label>Semestre</label>
-                                    <md-select disabled ng-model="discipline.semester" name="semester" ng-disabled="true" required>
+                                    <md-select disabled ng-model="entity.semester" name="semester" ng-disabled="true" required>
                                         <md-option><em>Selecione uma opção</em></md-option>
-                                        <md-option ng-value="1">{{discipline.year}}/1</md-option>
-                                        <md-option ng-value="2">{{discipline.year}}/2</md-option>
+                                        <md-option ng-value="1">{{entity.year}}/1</md-option>
+                                        <md-option ng-value="2">{{entity.year}}/2</md-option>
                                     </md-select>
-                                    <div ng-messages="disciplineNewForm.semester.$error">
-                                        <div ng-message="required">Este campo é obrigatório.</div>
-                                    </div>
                                 </md-input-container>
                             </div>
 
                             <md-divider></md-divider>
                             <h6 class="md-headline">Alunos</h6>
 
-                            <div layout="row" layout-align="center center" ng-repeat="student in discipline.students track by $index">
+                            <div layout="row" layout-align="center center" ng-repeat="student in entity.students track by $index">
 
                                 <div>
                                     <md-input-container>
                                         <label>Aluno</label>
                                         <input disabled type="text" ng-model="student.name" name="studentName{{$index}}" required ng-minlength="2" ng-maxlength="50">
-                                        <div ng-messages="disciplineNewForm['studentName' + $index].$error">
-                                            <div ng-message="required">Este campo é obrigatório.</div>
-                                            <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
-                                            <div ng-message="maxlength">Este campo deve ter no máximo 50 caracteres.</div>
-                                        </div>
                                     </md-input-container>
                                     <md-button ng-click="addStudentField()" class="md-icon-button md-primary md-raised" ng-disabled="true" flex>
                                         <md-icon class="material-icons">add</md-icon>
@@ -92,7 +74,7 @@
                                             <md-icon class="material-icons">arrow_back</md-icon>
                                             Voltar
                                         </md-button>
-                                        <md-button ng-click="delete(discipline, $event)" class="md-raised md-warn" md-theme="default" flex="30" ng-disabled="disciplineNewForm.$invalid">
+                                        <md-button ng-click="delete(entity, $event)" class="md-raised md-warn" md-theme="default" flex="30" ng-disabled="processing">
                                             <md-icon class="material-icons">delete</md-icon>
                                             Excluir
                                         </md-button>

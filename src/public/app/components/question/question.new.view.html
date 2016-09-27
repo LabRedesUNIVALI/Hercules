@@ -22,7 +22,7 @@
                             </md-button>
                         </div>
                     </div>
-                    <form layout="row" layout-fill class="content-form" name="questionNewForm" ng-submit="save(question)">
+                    <form layout="row" layout-fill class="content-form" name="questionNewForm" ng-submit="save(entity)">
                         <div flex="70" layout="column" flex-offset="15">
                             <md-autocomplete
                                     ng-disabled="disabled"
@@ -30,7 +30,7 @@
                                     md-items="theme in querySearch(searchText)"
                                     md-item-text="theme.name"
                                     placeholder="Selecione um conteúdo"
-                                    md-selected-item="question.theme"
+                                    md-selected-item="entity.theme"
                                     md-input-name="theme"
                                     md-menu-class="autocomplete-theme-template"
                                     md-floating-label="Conteúdo"
@@ -54,7 +54,7 @@
 
                             <md-input-container>
                                 <label>Enunciado</label>
-                                <textarea rows="5" ng-model="question.name" name="name" required ng-minlength="2"></textarea>
+                                <textarea rows="5" ng-model="entity.name" name="name" required ng-minlength="2"></textarea>
                                 <div ng-messages="questionNewForm.name.$error">
                                     <div ng-message="required">Este campo é obrigatório.</div>
                                     <div ng-message="minlength">O enunciado deve ter mais de 2 caracteres.</div>
@@ -62,80 +62,20 @@
                             </md-input-container>
 
                             <div class="options-container">
-                                <md-radio-group ng-model="question.correctOption" ng-required="true">
+                                <md-radio-group ng-model="entity.correctOption" ng-required="true">
                                     <div class="radio-group-rows">
-                                        <div flex layout="row" layout-padding layout-align="start center" class="radio-group-row">
+                                        <div flex layout="row" ng-repeat="option in entity.options track by $index" layout-padding layout-align="start center" class="radio-group-row">
                                             <md-input-container flex="65" class="md-icon-float md-block">
-                                                <label>Alternativa 1</label>
+                                                <label>Alternativa {{::$index + 1}}</label>
                                                 <md-icon class="material-icons">view_headline</md-icon>
-                                                <textarea rows="2" required ng-minlength="2" name="option1" ng-model="question.options[0].text" ></textarea>
-                                                <div ng-messages="questionNewForm.option1.$error">
+                                                <textarea rows="2" required ng-minlength="2" name="option{{::$index}}" ng-model="options[$index].text" ></textarea>
+                                                <div ng-messages="questionNewForm['option' + $index].$error">
                                                     <div ng-message="required">Este campo é obrigatório</div>
                                                     <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
                                                 </div>
                                             </md-input-container>
                                             <span flex></span>
-                                            <md-radio-button flex="30" class="md-primary" md-theme="success" value="1">
-                                                Alternativa correta?
-                                            </md-radio-button>
-                                        </div>
-                                        <div flex layout="row" layout-padding layout-align="start center" class="radio-group-row">
-                                            <md-input-container flex="65" class="md-icon-float md-block">
-                                                <label>Alternativa 2</label>
-                                                <md-icon class="material-icons">view_headline</md-icon>
-                                                <textarea rows="2" required ng-minlength="2" name="option2" ng-model="question.options[1].text" ></textarea>
-                                                <div ng-messages="questionNewForm.option2.$error">
-                                                    <div ng-message="required">Este campo é obrigatório</div>
-                                                    <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
-                                                </div>
-                                            </md-input-container>
-                                            <span flex></span>
-                                            <md-radio-button flex="30" class="md-primary" md-theme="success" value="2">
-                                                Alternativa correta?
-                                            </md-radio-button>
-                                        </div>
-                                        <div flex layout="row" layout-padding layout-align="start center" class="radio-group-row">
-                                            <md-input-container flex="65" class="md-icon-float md-block">
-                                                <label>Alternativa 3</label>
-                                                <md-icon class="material-icons">view_headline</md-icon>
-                                                <textarea rows="2" required ng-minlength="2" name="option3" ng-model="question.options[2].text" ></textarea>
-                                                <div ng-messages="questionNewForm.option3.$error">
-                                                    <div ng-message="required">Este campo é obrigatório</div>
-                                                    <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
-                                                </div>
-                                            </md-input-container>
-                                            <span flex></span>
-                                            <md-radio-button flex="30" class="md-primary" md-theme="success" value="3">
-                                                Alternativa correta?
-                                            </md-radio-button>
-                                        </div>
-                                        <div flex layout="row" layout-padding layout-align="start center" class="radio-group-row">
-                                            <md-input-container flex="65" class="md-icon-float md-block">
-                                                <label>Alternativa 4</label>
-                                                <md-icon class="material-icons">view_headline</md-icon>
-                                                <textarea rows="2" required ng-minlength="2" name="option4" ng-model="question.options[3].text" ></textarea>
-                                                <div ng-messages="questionNewForm.option4.$error">
-                                                    <div ng-message="required">Este campo é obrigatório</div>
-                                                    <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
-                                                </div>
-                                            </md-input-container>
-                                            <span flex></span>
-                                            <md-radio-button flex="30" class="md-primary" md-theme="success" value="4">
-                                                Alternativa correta?
-                                            </md-radio-button>
-                                        </div>
-                                        <div flex layout="row" layout-padding layout-align="start center" class="radio-group-row">
-                                            <md-input-container flex="65" class="md-icon-float md-block">
-                                                <label>Alternativa 5</label>
-                                                <md-icon class="material-icons">view_headline</md-icon>
-                                                <textarea rows="2" required ng-minlength="2" name="option5" ng-model="question.options[4].text" ></textarea>
-                                                <div ng-messages="questionNewForm.option5.$error">
-                                                    <div ng-message="required">Este campo é obrigatório</div>
-                                                    <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
-                                                </div>
-                                            </md-input-container>
-                                            <span flex></span>
-                                            <md-radio-button flex="30" class="md-primary" md-theme="success" value="5">
+                                            <md-radio-button flex="30" class="md-primary" md-theme="success" value="{{::$index + 1}}">
                                                 Alternativa correta?
                                             </md-radio-button>
                                         </div>
@@ -150,7 +90,7 @@
                                             <md-icon class="material-icons">close</md-icon>
                                             Cancelar
                                         </md-button>
-                                        <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="questionNewForm.$invalid">
+                                        <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="questionNewForm.$invalid || processing">
                                             <md-icon class="material-icons">send</md-icon>
                                             Cadastrar
                                         </md-button>

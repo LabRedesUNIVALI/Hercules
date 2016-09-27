@@ -22,13 +22,13 @@
                             </md-button>
                         </div>
                     </div>
-                    <form layout="row" layout-fill class="content-form" name="themeUpdateForm" ng-submit="update(theme)">
+                    <form layout="row" layout-fill class="content-form" name="themeEditForm" ng-submit="update(entity)">
                         <div flex="70" layout="column" flex-offset="15">
 
                             <md-input-container>
                                 <label>Nome</label>
-                                <input type="text" ng-model="theme.name" name="name" required ng-minlength="2" ng-maxlength="50">
-                                <div ng-messages="themeUpdateForm.name.$error">
+                                <input type="text" ng-model="entity.name" name="name" required ng-minlength="2" ng-maxlength="50">
+                                <div ng-messages="themeEditForm.name.$error">
                                     <div ng-message="required">Este campo é obrigatório.</div>
                                     <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
                                     <div ng-message="maxlength">Este campo deve ter no máximo 50 caracteres.</div>
@@ -42,7 +42,7 @@
                                             <md-icon class="material-icons">close</md-icon>
                                             Cancelar
                                         </md-button>
-                                        <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="themeUpdateForm.$invalid">
+                                        <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="themeEditForm.$invalid || processing">
                                             <md-icon class="material-icons">send</md-icon>
                                             Salvar
                                         </md-button>

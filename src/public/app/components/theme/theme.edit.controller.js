@@ -1,38 +1,36 @@
-angular.module('hercules').controller('ThemeEditController', function ($scope, $routeParams, $location, ThemeAPIService, $mdDialog) {
+angular.module('hercules').controller('ThemeEditController', [
+    '$scope',
+    'entity',
+    'ThemeAPIService',
+    'hcCommonDialogs',
+    '$location',
+    function ($scope, entity, ThemeAPIService, hcCommonDialogs, $location) {
 
-    ThemeAPIService.getById($routeParams.id)
-        .success(function (result) {
-            $scope.theme = result;
-        });
+        $scope.entity = entity.data;
+        $scope.processing = false;
 
-    $scope.update = function (theme) {
+        $scope.update = function (entity) {
 
-        var updatedTheme = {
-            name: theme.name
+            $scope.processing = true;
+
+            var updatedEntity = {
+                name: entity.name
+            };
+
+            ThemeAPIService.update(entity._id, updatedEntity)
+                .success(function (result) {
+                    if (result) {
+                        $location.path('/admin/themes');
+                    } else {
+                        hcCommonDialogs.genericError();
+                    }
+                })
+                .error(function () {
+                    hcCommonDialogs.genericError();
+                })
+                .then(function () {
+                    $scope.processing = false;
+                });
         };
 
-        ThemeAPIService.update(theme._id, updatedTheme)
-            .success(function (result) {
-                if (result) {
-                    $location.path('/admin/themes');
-                } else {
-                    showGenericErrorDialog();
-                }
-            })
-            .error(function () {
-                showGenericErrorDialog();
-            })
-    };
-
-    var showGenericErrorDialog = function () {
-        $mdDialog.show(
-            $mdDialog.alert()
-                .parent('body')
-                .clickOutsideToClose(true)
-                .title('Erro')
-                .textContent('Ooops! Algo de errado aconteceu. Por favor, tente novamente.')
-                .ok('Fechar')
-        );
-    };
-
-});
+}]);

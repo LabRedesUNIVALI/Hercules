@@ -1,4 +1,4 @@
-angular.module('hercules').factory('MenuService', function () {
+angular.module('hercules').service('MenuService', function () {
 
     var _sections = [
         {
@@ -27,12 +27,8 @@ angular.module('hercules').factory('MenuService', function () {
         }
     ];
     
-    var _getSections = function () {
+    this.getSections = function () {
         return _sections;
-    };
-
-    return {
-        getSections: _getSections
     };
 
 });
