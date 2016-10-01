@@ -14,6 +14,13 @@ const themeSchema = new Schema({
     }
 }, { timestamps: true });
 
+themeSchema.post('save', (doc) => {
+
+    if (doc.deleted) {
+        mongoose.model('Question').delete({ theme: mongoose.Types.ObjectId(doc._id) }).exec();
+    }
+});
+
 themeSchema.plugin(require('mongoose-delete'), { deletedBy : true, deletedAt: true, overrideMethods: true });
 
 module.exports = themeSchema;
