@@ -24,11 +24,11 @@
                     <md-input-container class="md-icon-float md-block">
                         <label>Nome completo</label>
                         <md-icon class="material-icons">person</md-icon>
-                        <input type="text" placeholder="Nome completo" ng-model="registration.user.name" name="name" required ng-minlength="2" ng-maxlength="50"/>
+                        <input type="text" placeholder="Nome completo" ng-model="registration.user.name" name="name" required ng-minlength="2" ng-maxlength="255"/>
                         <div ng-messages="registrationForm.name.$error">
                             <div ng-message="required">Este campo é obrigatório.</div>
                             <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
-                            <div ng-message="maxlength">Este campo deve ter no máximo 50 caracteres.</div>
+                            <div ng-message="maxlength">Este campo deve ter no máximo 255 caracteres.</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-icon-float md-block">

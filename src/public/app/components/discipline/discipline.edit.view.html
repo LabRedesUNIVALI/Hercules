@@ -27,11 +27,11 @@
 
                             <md-input-container>
                                 <label>Nome</label>
-                                <input type="text" ng-model="entity.name" name="name" required ng-minlength="1" ng-maxlength="50">
+                                <input type="text" ng-model="entity.name" name="name" required ng-minlength="2" ng-maxlength="255">
                                 <div ng-messages="disciplineEditForm.name.$error">
                                     <div ng-message="required">Este campo é obrigatório.</div>
-                                    <div ng-message="minlength">Este campo deve ter ao menos 1 caractere.</div>
-                                    <div ng-message="maxlength">Este campo deve ter no máximo 50 caracteres.</div>
+                                    <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
+                                    <div ng-message="maxlength">Este campo deve ter no máximo 255 caracteres.</div>
                                 </div>
                             </md-input-container>
 
@@ -39,12 +39,13 @@
 
                                 <md-input-container flex="45">
                                     <label>Ano</label>
-                                    <input type="text" ng-model="entity.year" name="year" required ng-minlength="1" ng-maxlength="4" ng-pattern="/^[0-9]{4}$/">
+                                    <input type="number" ng-model="entity.year" name="year" required ng-minlength="1" ng-maxlength="4" ng-pattern="/^[0-9]{4}$/" ng-min="1900">
                                     <div ng-messages="disciplineEditForm.year.$error">
                                         <div ng-message="required">Este campo é obrigatório.</div>
                                         <div ng-message="minlength">Este campo deve ter ao menos 1 caractere.</div>
                                         <div ng-message="maxlength">Este campo deve ter no máximo 4 caracteres.</div>
                                         <div ng-message="pattern">Informe um ano válido.</div>
+                                        <div ng-message="min">O ano informado deve ser posterior à 1900.</div>
                                     </div>
                                 </md-input-container>
                                 <span flex></span>
@@ -69,11 +70,11 @@
                                 <div>
                                     <md-input-container>
                                         <label>Aluno</label>
-                                        <input type="text" ng-model="student.name" name="studentName{{$index}}" required ng-minlength="2" ng-maxlength="50">
+                                        <input type="text" ng-model="student.name" name="studentName{{$index}}" required ng-minlength="2" ng-maxlength="255">
                                         <div ng-messages="disciplineEditForm['studentName' + $index].$error">
                                             <div ng-message="required">Este campo é obrigatório.</div>
                                             <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
-                                            <div ng-message="maxlength">Este campo deve ter no máximo 50 caracteres.</div>
+                                            <div ng-message="maxlength">Este campo deve ter no máximo 255 caracteres.</div>
                                         </div>
                                     </md-input-container>
                                     <md-button ng-click="addStudentField()" class="md-icon-button md-primary md-raised" flex>
@@ -95,7 +96,7 @@
                                         </md-button>
                                         <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="disciplineEditForm.$invalid || processing">
                                             <md-icon class="material-icons">send</md-icon>
-                                            Cadastrar
+                                            Salvar
                                         </md-button>
                                     </div>
                                 </md-toolbar>

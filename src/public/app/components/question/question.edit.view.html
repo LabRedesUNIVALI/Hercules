@@ -67,10 +67,11 @@
                                             <md-input-container flex="65" class="md-icon-float md-block">
                                                 <label>Alternativa {{::$index + 1}}</label>
                                                 <md-icon class="material-icons">view_headline</md-icon>
-                                                <textarea rows="2" required ng-minlength="2" name="option{{::$index}}" ng-model="entity.options[$index].text" ></textarea>
+                                                <textarea rows="2" required ng-minlength="2" ng-maxlength="255" name="option{{::$index}}" ng-model="entity.options[$index].text" ></textarea>
                                                 <div ng-messages="questionEditForm['option' + $index].$error">
                                                     <div ng-message="required">Este campo é obrigatório</div>
                                                     <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
+                                                    <div ng-message="minlength">Este campo deve ter no máximo 255 caracteres.</div>
                                                 </div>
                                             </md-input-container>
                                             <span flex></span>
