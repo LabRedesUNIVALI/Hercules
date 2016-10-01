@@ -2,8 +2,9 @@ angular.module('hercules').controller('QuestionNewController', [
     '$scope',
     'themes',
     'QuestionAPIService',
+    'hcCommonDialogs',
     '$location',
-    function ($scope, themes, QuestionAPIService, $location) {
+    function ($scope, themes, QuestionAPIService, hcCommonDialogs, $location) {
 
         $scope.entity = {};
 
@@ -46,7 +47,7 @@ angular.module('hercules').controller('QuestionNewController', [
             QuestionAPIService.save(themeId, entity)
                 .success(function (result) {
                     if (result) {
-                        $location.path("admin/question/" + result._id);
+                        $location.path("admin/questions");
                     } else {
                         hcCommonDialogs.genericError();
                     }

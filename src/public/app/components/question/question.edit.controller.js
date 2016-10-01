@@ -4,13 +4,15 @@ angular.module('hercules').controller('QuestionEditController', [
     'themes',
     'QuestionAPIService',
     'hcCommonDialogs',
-    function ($scope, entity, themes, QuestionAPIService, hcCommonDialogs) {
+    '$location',
+    function ($scope, entity, themes, QuestionAPIService, hcCommonDialogs, $location) {
 
         $scope.entity = entity.data;
+        $scope.processing = false;
 
         $scope.themes = themes.data.map(function (theme) {
             return {
-                id: theme._id,
+                _id: theme._id,
                 name: theme.name
             }
         });
@@ -28,6 +30,8 @@ angular.module('hercules').controller('QuestionEditController', [
         };
 
         $scope.update = function (entity) {
+
+            $scope.processing = true;
 
             var updatedEntity = {
                 name: entity.name,
@@ -49,6 +53,9 @@ angular.module('hercules').controller('QuestionEditController', [
                 })
                 .error(function () {
                     hcCommonDialogs.genericError();
+                })
+                .then(function () {
+                    $scope.processing = false;
                 });
         };
 }]);

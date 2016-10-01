@@ -6,7 +6,7 @@ angular.module('hercules').controller('DisciplineEditController', [
     '$location',
     function ($scope, entity, DisciplineAPIService, hcCommonDialogs, $location) {
 
-        $scope.entity = entity;
+        $scope.entity = entity.data;
         $scope.processing = false;
 
         $scope.addStudentField = function () {

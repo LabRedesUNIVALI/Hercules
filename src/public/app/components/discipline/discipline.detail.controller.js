@@ -10,10 +10,10 @@ angular.module('hercules').controller('DisciplineDetailController', [
         $scope.processing = false;
 
         $scope.delete = function (entity, ev) {
-
-            $scope.processing = true;
-
             hcCommonDialogs.confirmDelete(ev).then(function () {
+
+                $scope.processing = true;
+
                 DisciplineAPIService.delete(entity._id)
                     .success(function (result) {
                         $location.path('admin/disciplines')

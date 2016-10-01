@@ -25,7 +25,6 @@
                     <form layout="row" layout-fill class="content-form" name="questionEditForm" ng-submit="update(entity)">
                         <div flex="70" layout="column" flex-offset="15">
                             <md-autocomplete
-                                    ng-disabled="disabled"
                                     md-search-text="searchText"
                                     md-items="theme in querySearch(searchText)"
                                     md-item-text="theme.name"
@@ -68,7 +67,7 @@
                                             <md-input-container flex="65" class="md-icon-float md-block">
                                                 <label>Alternativa {{::$index + 1}}</label>
                                                 <md-icon class="material-icons">view_headline</md-icon>
-                                                <textarea rows="2" required ng-minlength="2" name="option{{::$index}}" ng-model="options[$index].text" ></textarea>
+                                                <textarea rows="2" required ng-minlength="2" name="option{{::$index}}" ng-model="entity.options[$index].text" ></textarea>
                                                 <div ng-messages="questionEditForm['option' + $index].$error">
                                                     <div ng-message="required">Este campo é obrigatório</div>
                                                     <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
@@ -92,7 +91,7 @@
                                         </md-button>
                                         <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="questionEditForm.$invalid || processing">
                                             <md-icon class="material-icons">send</md-icon>
-                                            Cadastrar
+                                            Salvar
                                         </md-button>
                                     </div>
                                 </md-toolbar>

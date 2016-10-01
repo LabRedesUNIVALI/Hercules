@@ -87,8 +87,8 @@ angular.module('hercules').config(function ($routeProvider, $locationProvider) {
             templateUrl: 'public/components/question/question.index.view.html',
             controller: 'QuestionIndexController',
             resolve: {
-                entities: function (ThemeAPIService) {
-                    return ThemeAPIService.getAll();
+                entities: function (QuestionAPIService) {
+                    return QuestionAPIService.getAll();
                 }
             }
         })
@@ -115,7 +115,12 @@ angular.module('hercules').config(function ($routeProvider, $locationProvider) {
         })
         .when('/admin/questions/:id', {
             templateUrl: 'public/components/question/question.detail.view.html',
-            controller: 'QuestionDetailController'
+            controller: 'QuestionDetailController',
+            resolve: {
+                entity: function (QuestionAPIService, $route) {
+                    return QuestionAPIService.getById($route.current.params.id);
+                }
+            }
         })
 
         //Whatever

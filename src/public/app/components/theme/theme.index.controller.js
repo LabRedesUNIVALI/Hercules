@@ -8,9 +8,13 @@ angular.module('hercules').controller('ThemeIndexController', [
 
         $scope.entities = entities.data;
         $scope.selected = [];
+        $scope.processing = false;
 
         $scope.delete = function (entity, ev) {
             hcCommonDialogs.confirmDelete(ev).then(function () {
+
+                $scope.processing = true;
+
                 ThemeAPIService.delete(entity._id)
                     .success(function () {
                         var index = $scope.entities.indexOf(entity);
@@ -19,6 +23,9 @@ angular.module('hercules').controller('ThemeIndexController', [
                     })
                     .error(function () {
                         hcCommonToasts.notice("Não foi possível excluir o registro");
+                    })
+                    .then(function () {
+                        $scope.processing = false;
                     });
             }, null);
         };
