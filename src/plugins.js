@@ -166,6 +166,16 @@ module.exports = exports = {
         },
         {
             plugin: {
+                register: './controllers/testController.js'
+            },
+            options: {
+                routes: {
+                    prefix: '/api'
+                }
+            }
+        },
+        {
+            plugin: {
                 register: './plugins/voters.js',
                 options: {
                     answer: require('./voters/answerVoter.js'),
