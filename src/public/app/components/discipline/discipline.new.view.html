@@ -1,4 +1,4 @@
-<hc-admin-layout flex>
+<hc-admin-layout layout="row" flex>
 
     <div layout="row" class="content-header">
         <div flex="90">
@@ -14,6 +14,7 @@
     </div>
 
     <form layout="row" layout-fill class="content-form" name="disciplineNewForm" ng-submit="save(entity)">
+
         <div flex="70" layout="column" flex-offset="15">
 
             <md-input-container>
@@ -26,9 +27,8 @@
                 </div>
             </md-input-container>
 
-            <div layout="row" flex>
-
-                <md-input-container flex="45">
+            <div layout="row">
+                <md-input-container class="md-block" flex="50">
                     <label>Ano</label>
                     <input type="number" ng-model="entity.year" name="year" required ng-minlength="1" ng-maxlength="4" ng-pattern="/^[0-9]{4}$/" ng-min="1900">
                     <div ng-messages="disciplineNewForm.year.$error">
@@ -40,12 +40,12 @@
                     </div>
                 </md-input-container>
                 <span flex></span>
-                <md-input-container flex="45">
+                <md-input-container class="md-block" flex="45">
                     <label>Semestre</label>
                     <md-select ng-model="entity.semester" name="semester" ng-disabled="disciplineNewForm.year.$invalid" required>
                         <md-option><em>Selecione uma opção</em></md-option>
-                        <md-option ng-value="1">{{entity.year}}/1</md-option>
-                        <md-option ng-value="2">{{entity.year}}/2</md-option>
+                        <md-option ng-value="1">{{::entity.year}}/1</md-option>
+                        <md-option ng-value="2">{{::entity.year}}/2</md-option>
                     </md-select>
                     <div ng-messages="disciplineNewForm.semester.$error">
                         <div ng-message="required">Este campo é obrigatório.</div>
@@ -53,10 +53,33 @@
                 </md-input-container>
             </div>
 
-            <md-divider></md-divider>
-            <h6 class="md-headline">Alunos</h6>
+            <div layout="row">
+                <md-input-container class="md-block" flex>
+                    <label>Aluno</label>
+                    <input type="text" placeholder="Nome do aluno" required/>
+                </md-input-container>
+                <div>
+                    <md-button class="md-icon-button md-warn">
+                        <md-icon class="material-icons">delete_forever</md-icon>
+                    </md-button>
+                </div>
+            </div>
 
-            <div layout="row" layout-align="center center" ng-repeat="student in entity.students track by $index">
+        <div layout="column">
+            <div layout="row" ng-repeat="i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] track by $index">
+                <md-input-container class="md-block" flex>
+                    <label>Aluno</label>
+                    <input type="text" placeholder="Nome do aluno" required/>
+                </md-input-container>
+                <div>
+                    <md-button class="md-icon-button md-warn">
+                        <md-icon class="material-icons">delete_forever</md-icon>
+                    </md-button>
+                </div>
+            </div>
+        </div>
+
+            <!-- <div ng-repeat="student in entity.students track by $index">
 
                     <div>
                         <md-input-container>
@@ -76,21 +99,19 @@
                         </md-button>
                     </div>
 
-            </div>
+            </div> -->
 
-            <div layout="row" layout-align="center center" class="form-actions">
-                <md-toolbar class="md-primary" md-theme="greyscale">
-                    <div class="md-toolbar-tools" layout-align="center center">
-                        <md-button href="/admin/disciplines" class="md-warn md-raised" md-theme="default" flex="30">
-                            <md-icon class="material-icons">close</md-icon>
-                            Cancelar
-                        </md-button>
-                        <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="disciplineNewForm.$invalid || processing">
-                            <md-icon class="material-icons">send</md-icon>
-                            Cadastrar
-                        </md-button>
-                    </div>
-                </md-toolbar>
+            <div layout="center center" layout-padding layout-margin>
+                <div layout="row" flex>
+                    <md-button href="/admin/disciplines" class="md-warn md-raised" md-theme="default" flex="30" flex-offset="20">
+                        <md-icon class="material-icons">close</md-icon>
+                        Cancelar
+                    </md-button>
+                    <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="disciplineNewForm.$invalid || processing">
+                        <md-icon class="material-icons">send</md-icon>
+                        Cadastrar
+                    </md-button>
+                </div>
             </div>
 
         </div>

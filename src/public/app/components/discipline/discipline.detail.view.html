@@ -1,4 +1,4 @@
-<hc-admin-layout flex>
+<hc-admin-layout layout="row" flex>
 
     <div layout="row" class="content-header">
         <div flex="90">
@@ -32,8 +32,8 @@
                     <label>Semestre</label>
                     <md-select disabled ng-model="entity.semester" name="semester" ng-disabled="true" required>
                         <md-option><em>Selecione uma opção</em></md-option>
-                        <md-option ng-value="1">{{entity.year}}/1</md-option>
-                        <md-option ng-value="2">{{entity.year}}/2</md-option>
+                        <md-option ng-value="1">{{::entity.year}}/1</md-option>
+                        <md-option ng-value="2">{{::entity.year}}/2</md-option>
                     </md-select>
                 </md-input-container>
             </div>

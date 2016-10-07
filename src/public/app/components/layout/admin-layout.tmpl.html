@@ -1,12 +1,7 @@
-<div layout="row" flex class="admin-container">
-    <hc-menu></hc-menu>
-    <md-content flex>
-        <div layout="column" layout-fill class="admin-content-wrapper">
-            <hc-toolbar></hc-toolbar>
-            <div layout="row">
-                <md-whiteframe layout-padding flex="80" flex-offset="10" layout="column" class="md-whiteframe-z2 admin-content" ng-transclude>
-                </md-whiteframe>
-            </div>
-        </div>
-    </md-content>
-</div>
+<hc-menu layout="row"></hc-menu>
+<md-content flex layout="column" class="admin-content-wrapper">
+    <hc-toolbar></hc-toolbar>
+    <div layout="row" flex flex-offset="10">
+        <md-whiteframe layout-paddin flex="90" class="md-whiteframe-z2 admin-content" ng-transclude></md-whiteframe>
+    </div>
+</md-content>
