@@ -1,111 +1,95 @@
-<div layout="row" flex-gt-md="80" flex-offset-gt-md="20" class="admin-container">
+<hc-admin-layout flex>
 
-    <hc-menu></hc-menu>
+    <div layout="row" class="content-header">
+        <div flex="90">
+            <h3 class="md-headline">
+                Questões
+            </h3>
+        </div>
+        <div flex>
+            <md-button class="header-button" href="/admin/questions">
+                Voltar
+            </md-button>
+        </div>
+    </div>
 
-    <md-content flex>
+    <form layout="row" layout-fill class="content-form" name="questionDetailForm">
+        <div flex="70" layout="column" flex-offset="15">
+            <md-autocomplete
+                    ng-disabled="true"
+                    md-search-text="searchText"
+                    md-items="theme in querySearch(searchText)"
+                    md-item-text="theme.name"
+                    placeholder="Selecione um conteúdo"
+                    md-selected-item="entity.theme"
+                    md-input-name="theme"
+                    md-menu-class="autocomplete-theme-template"
+                    md-floating-label="Conteúdo"
+                    md-require-match
+                    required
+            >
+                <md-item-template>
+                   <span class="item-title">
+                        <md-icon class="material-icons">class</md-icon>
+                        <span md-highlight-text="searchText" md-highlight-flags="i">{{theme.name}}</span>
+                    </span>
+                </md-item-template>
+                <div ng-messages="questionDetailForm.theme.$error">
+                    <div ng-message="required">Você deve escolher um conteúdo.</div>
+                    <div ng-message="md-require-match">Escolha um conteúdo existente.</div>
+                </div>
+                <md-not-found>
+                    Não foi encontrado nenhum conteúdo contendo "{{searchText}}".
+                </md-not-found>
+            </md-autocomplete>
 
-        <div layout="column" layout-fill class="admin-content-wrapper">
+            <md-input-container>
+                <label>Enunciado</label>
+                <textarea ng-disabled="true" rows="5" ng-model="entity.name" name="name" required ng-minlength="2"></textarea>
+                <div ng-messages="questionDetailForm.name.$error">
+                    <div ng-message="required">Este campo é obrigatório.</div>
+                    <div ng-message="minlength">O enunciado deve ter mais de 2 caracteres.</div>
+                </div>
+            </md-input-container>
 
-            <hc-toolbar></hc-toolbar>
-
-            <div layout="row">
-                <md-whiteframe layout-padding flex="80" flex-offset="10" layout="column" class="md-whiteframe-z2 admin-content">
-                    <div layout="row" class="content-header">
-                        <div flex="90">
-                            <h3 class="md-headline">
-                                Questões
-                            </h3>
-                        </div>
-                        <div flex>
-                            <md-button class="header-button" href="/admin/questions">
-                                Voltar
-                            </md-button>
-                        </div>
-                    </div>
-                    <form layout="row" layout-fill class="content-form" name="questionDetailForm">
-                        <div flex="70" layout="column" flex-offset="15">
-                            <md-autocomplete
-                                    ng-disabled="true"
-                                    md-search-text="searchText"
-                                    md-items="theme in querySearch(searchText)"
-                                    md-item-text="theme.name"
-                                    placeholder="Selecione um conteúdo"
-                                    md-selected-item="entity.theme"
-                                    md-input-name="theme"
-                                    md-menu-class="autocomplete-theme-template"
-                                    md-floating-label="Conteúdo"
-                                    md-require-match
-                                    required
-                            >
-                                <md-item-template>
-                                   <span class="item-title">
-                                        <md-icon class="material-icons">class</md-icon>
-                                        <span md-highlight-text="searchText" md-highlight-flags="i">{{theme.name}}</span>
-                                    </span>
-                                </md-item-template>
-                                <div ng-messages="questionDetailForm.theme.$error">
-                                    <div ng-message="required">Você deve escolher um conteúdo.</div>
-                                    <div ng-message="md-require-match">Escolha um conteúdo existente.</div>
-                                </div>
-                                <md-not-found>
-                                    Não foi encontrado nenhum conteúdo contendo "{{searchText}}".
-                                </md-not-found>
-                            </md-autocomplete>
-
-                            <md-input-container>
-                                <label>Enunciado</label>
-                                <textarea ng-disabled="true" rows="5" ng-model="entity.name" name="name" required ng-minlength="2"></textarea>
-                                <div ng-messages="questionDetailForm.name.$error">
-                                    <div ng-message="required">Este campo é obrigatório.</div>
-                                    <div ng-message="minlength">O enunciado deve ter mais de 2 caracteres.</div>
+            <div class="options-container">
+                <md-radio-group ng-model="entity.correctOption" ng-required="true">
+                    <div class="radio-group-rows">
+                        <div flex layout="row" ng-repeat="option in entity.options track by $index" layout-padding layout-align="start center" class="radio-group-row">
+                            <md-input-container flex="65" class="md-icon-float md-block">
+                                <label>Alternativa {{::$index + 1}}</label>
+                                <md-icon class="material-icons">view_headline</md-icon>
+                                <textarea rows="2" required ng-minlength="2" name="option{{::$index}}" ng-model="entity.options[$index].text" ></textarea>
+                                <div ng-messages="questionDetailForm['option' + $index].$error">
+                                    <div ng-message="required">Este campo é obrigatório</div>
+                                    <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
                                 </div>
                             </md-input-container>
-
-                            <div class="options-container">
-                                <md-radio-group ng-model="entity.correctOption" ng-required="true">
-                                    <div class="radio-group-rows">
-                                        <div flex layout="row" ng-repeat="option in entity.options track by $index" layout-padding layout-align="start center" class="radio-group-row">
-                                            <md-input-container flex="65" class="md-icon-float md-block">
-                                                <label>Alternativa {{::$index + 1}}</label>
-                                                <md-icon class="material-icons">view_headline</md-icon>
-                                                <textarea rows="2" required ng-minlength="2" name="option{{::$index}}" ng-model="entity.options[$index].text" ></textarea>
-                                                <div ng-messages="questionDetailForm['option' + $index].$error">
-                                                    <div ng-message="required">Este campo é obrigatório</div>
-                                                    <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
-                                                </div>
-                                            </md-input-container>
-                                            <span flex></span>
-                                            <md-radio-button flex="30" class="md-primary" md-theme="success" value="{{::$index + 1}}">
-                                                Alternativa correta?
-                                            </md-radio-button>
-                                        </div>
-                                    </div>
-                                </md-radio-group>
-                            </div>
-
-                            <div layout="row" layout-align="center center" class="form-actions">
-                                <md-toolbar class="md-primary" md-theme="greyscale">
-                                    <div class="md-toolbar-tools" layout-align="center center">
-                                        <md-button href="/admin/questions" class="md-raised" md-theme="default" flex="30">
-                                            <md-icon class="material-icons">arrow_back</md-icon>
-                                            Voltar
-                                        </md-button>
-                                        <md-button ng-click="delete(entity, $event)" class="md-raised md-warn" md-theme="default" flex="30" ng-disabled="processing">
-                                            <md-icon class="material-icons">delete</md-icon>
-                                            Excluir
-                                        </md-button>
-                                    </div>
-                                </md-toolbar>
-                            </div>
-
+                            <span flex></span>
+                            <md-radio-button flex="30" class="md-primary" md-theme="success" value="{{::$index + 1}}">
+                                Alternativa correta?
+                            </md-radio-button>
                         </div>
-                    </form>
+                    </div>
+                </md-radio-group>
+            </div>
 
-                </md-whiteframe>
+            <div layout="row" layout-align="center center" class="form-actions">
+                <md-toolbar class="md-primary" md-theme="greyscale">
+                    <div class="md-toolbar-tools" layout-align="center center">
+                        <md-button href="/admin/questions" class="md-raised" md-theme="default" flex="30">
+                            <md-icon class="material-icons">arrow_back</md-icon>
+                            Voltar
+                        </md-button>
+                        <md-button ng-click="delete(entity, $event)" class="md-raised md-warn" md-theme="default" flex="30" ng-disabled="processing">
+                            <md-icon class="material-icons">delete</md-icon>
+                            Excluir
+                        </md-button>
+                    </div>
+                </md-toolbar>
             </div>
 
         </div>
+    </form>
 
-    </md-content>
-
-</div>
+</hc-admin-layout>

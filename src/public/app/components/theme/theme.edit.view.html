@@ -1,63 +1,46 @@
-<div layout="row" flex-gt-md="80" flex-offset-gt-md="20" class="admin-container">
+<hc-admin-layout flex>
 
-    <hc-menu></hc-menu>
+    <div layout="row" class="content-header">
+        <div flex="90">
+            <h3 class="md-headline">
+                Conteúdos
+            </h3>
+        </div>
+        <div flex>
+            <md-button class="header-button" href="/admin/themes">
+                Voltar
+            </md-button>
+        </div>
+    </div>
+    <form layout="row" layout-fill class="content-form" name="themeEditForm" ng-submit="update(entity)">
+        <div flex="70" layout="column" flex-offset="15">
 
-    <md-content flex>
+            <md-input-container>
+                <label>Nome</label>
+                <input type="text" ng-model="entity.name" name="name" required ng-minlength="2" ng-maxlength="255">
+                <div ng-messages="themeEditForm.name.$error">
+                    <div ng-message="required">Este campo é obrigatório.</div>
+                    <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
+                    <div ng-message="maxlength">Este campo deve ter no máximo 255 caracteres.</div>
+                </div>
+            </md-input-container>
 
-        <div layout="column" layout-fill class="admin-content-wrapper">
-
-            <hc-toolbar></hc-toolbar>
-
-            <div layout="row">
-                <md-whiteframe layout-padding flex="80" flex-offset="10" layout="column" class="md-whiteframe-z2 admin-content">
-                    <div layout="row" class="content-header">
-                        <div flex="90">
-                            <h3 class="md-headline">
-                                Conteúdos
-                            </h3>
-                        </div>
-                        <div flex>
-                            <md-button class="header-button" href="/admin/themes">
-                                Voltar
-                            </md-button>
-                        </div>
+            <div layout="row" layout-align="center center" class="form-actions">
+                <md-toolbar class="md-primary" md-theme="greyscale">
+                    <div class="md-toolbar-tools" layout-align="center center">
+                        <md-button href="/admin/themes" class="md-warn md-raised" md-theme="default" flex="30">
+                            <md-icon class="material-icons">close</md-icon>
+                            Cancelar
+                        </md-button>
+                        <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="themeEditForm.$invalid || processing">
+                            <md-icon class="material-icons">send</md-icon>
+                            Salvar
+                        </md-button>
                     </div>
-                    <form layout="row" layout-fill class="content-form" name="themeEditForm" ng-submit="update(entity)">
-                        <div flex="70" layout="column" flex-offset="15">
-
-                            <md-input-container>
-                                <label>Nome</label>
-                                <input type="text" ng-model="entity.name" name="name" required ng-minlength="2" ng-maxlength="255">
-                                <div ng-messages="themeEditForm.name.$error">
-                                    <div ng-message="required">Este campo é obrigatório.</div>
-                                    <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
-                                    <div ng-message="maxlength">Este campo deve ter no máximo 255 caracteres.</div>
-                                </div>
-                            </md-input-container>
-
-                            <div layout="row" layout-align="center center" class="form-actions">
-                                <md-toolbar class="md-primary" md-theme="greyscale">
-                                    <div class="md-toolbar-tools" layout-align="center center">
-                                        <md-button href="/admin/themes" class="md-warn md-raised" md-theme="default" flex="30">
-                                            <md-icon class="material-icons">close</md-icon>
-                                            Cancelar
-                                        </md-button>
-                                        <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="themeEditForm.$invalid || processing">
-                                            <md-icon class="material-icons">send</md-icon>
-                                            Salvar
-                                        </md-button>
-                                    </div>
-                                </md-toolbar>
-                            </div>
-
-                        </div>
-                    </form>
-
-                </md-whiteframe>
+                </md-toolbar>
             </div>
 
         </div>
+    </form>
 
-    </md-content>
-
-</div>
+</hc-admin-layout>
