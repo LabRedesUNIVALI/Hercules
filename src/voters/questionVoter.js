@@ -13,6 +13,12 @@ const decide = function (user, action, entity, cb) {
             return cb(null, true);
             break;
         case view:
+            if (user._id.toString() === entity.user.toString()) {
+                return cb(null, true);
+            }
+
+            return cb(null, false);
+            break;
         case update:
         case remove:
             if (user._id.toString() === entity.user.toString()) {

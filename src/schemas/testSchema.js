@@ -23,7 +23,15 @@ const testSchema = new Schema({
     discipline: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Discipline'
-    }
+    },
+    tokens: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Token'
+    }],
+    questions: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Question'
+    }]
 }, { timestamps: true });
 
 testSchema.plugin(require('mongoose-delete'), { deletedBy : true, deletedAt: true, overrideMethods: true });

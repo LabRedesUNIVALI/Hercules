@@ -3,6 +3,7 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
 const Boom = require('boom');
+const RandToken = require('rand-token');
 const Hoek = require('hoek');
 
 exports.register = function (server, options, next) {
@@ -16,10 +17,11 @@ exports.register = function (server, options, next) {
                 auth: 'jwt',
                 validate: {
                     payload: {
-                        beginDate: Joi.date().required(),
-                        endDate: Joi.date().required(),
+                        beginDate: Joi.date().format('DD/MM/YYYY H:m').min('now').required(),
+                        endDate: Joi.date().format('DD/MM/YYYY H:m').required(),
                         name: Joi.string().min(2).max(255).required(),
-                        discipline: Joi.string().alphanum().required()
+                        discipline: Joi.string().alphanum().required(),
+                        questions: Joi.array().items(Joi.string().alphanum()).required()
                     }
                 }
             }
@@ -47,7 +49,7 @@ exports.register = function (server, options, next) {
         },
         {
             method: 'PUT',
-            path: '/test/{testid}',
+            path: '/tests/{testid}',
             handler: updateTestHandler,
             config: {
                 auth: 'jwt',
@@ -56,18 +58,18 @@ exports.register = function (server, options, next) {
                         testid: Joi.string().alphanum()
                     },
                     payload: {
-                        beginDate: Joi.date().required(),
-                        endDate: Joi.date().required(),
+                        beginDate: Joi.date().format('DD/MM/YYYY H:m').min('now').required(),
+                        endDate: Joi.date().format('DD/MM/YYYY H:m').required(),
                         name: Joi.string().min(2).max(255).required(),
-                        discipline: Joi.string().alphanum().required()
+                        discipline: Joi.string().alphanum().required(),
+                        questions: Joi.array().items(Joi.string().alphanum()).required()
                     }
                 }
             }
         },
-
         {
             method: 'DELETE',
-            path: '/test/{testid}',
+            path: '/tests/{testid}',
             handler: removeTestHandler,
             config: {
                 auth: 'jwt',
@@ -99,17 +101,23 @@ exports.register = function (server, options, next) {
                 user: request.auth.credentials.user._id
             }));
 
+            if (test.endDate <= test.beginDate) {
+                reply(Boom.badData("Data limite não pode ser menor ou igual a data inicial", test.endDate));
+            }
+
             request.models.Discipline.findById(test.discipline)
                 .then((discipline) => {
 
-                    // TODO: generate random tokens
-                    let i = 0;
-                    discipline.students.map(function (student) {
-                        i++;
-                        request.models.Token.create({value: i, student: student, test: test});
+                    const date = new Date();
+                    // TODO: create util function to get YYYYMMDD
+                    const yyyymmdd = date.getFullYear().toString() + (date.getMonth()+1).toString() + date.getDate().toString();
+                    discipline.students.forEach(function (student) {
+                        const tokenValue = yyyymmdd + RandToken.uid(8);
+                        let token = request.models.Token({value: tokenValue, student: student, test: test});
+                        test.tokens.push(token);
+                        token.save();
                     });
 
-                    // TODO: save all theme and questions object in database, then a user can't change data
                     test.save()
                         .then((entity) => {
 
@@ -129,6 +137,8 @@ exports.register = function (server, options, next) {
     function findAllTestsHandler(request, reply) {
 
         request.models.Test.find({ user: request.auth.credentials.user._id })
+            .populate('questions')
+            .populate('tokens')
             .then((entities) => {
 
                 if (!entities) {
@@ -146,6 +156,8 @@ exports.register = function (server, options, next) {
     function findOneTestHandler(request, reply) {
 
         request.models.Test.findById(request.params.testid)
+            .populate('questions')
+            .populate('tokens')
             .then((entity) => {
 
                 if (!entity) {
@@ -190,22 +202,35 @@ exports.register = function (server, options, next) {
                         reply(Boom.forbidden());
                     }
 
+                    const date = new Date();
+                    if (date <= entity.endDate && date >= entity.beginDate) {
+                        reply(Boom.badData('Não pode alterar uma prova em execução'))
+                    }
+
                     entity.name = request.payload.name;
                     entity.beginDate = request.payload.beginDate;
                     entity.endDate = request.payload.endDate;
                     entity.discipline = request.payload.discipline;
+                    entity.questions = request.payload.questions;
+                    entity.tokens = [];
+
+                    if (entity.endDate <= entity.beginDate) {
+                        reply(Boom.badData("Data limite não pode ser menor ou igual a data inicial", entity.endDate));
+                    }
 
                     request.models.Discipline.findById(entity.discipline)
                         .then((discipline) => {
 
-                            // TODO: generate random tokens
-                            let i = 0;
-                            discipline.students.map(function (student) {
-                                i++;
-                                request.models.Token.create({value: i, student: student, test: test});
+                            const date = new Date();
+                            // TODO: create util function to get YYYYMMDD
+                            const yyyymmdd = date.getFullYear().toString() + (date.getMonth()+1).toString() + date.getDate().toString();
+                            discipline.students.forEach(function (student) {
+                                const tokenValue = yyyymmdd + RandToken.uid(8);
+                                let token = request.models.Token({value: tokenValue, student: student, test: entity});
+                                entity.tokens.push(token);
+                                token.save();
                             });
 
-                            // TODO: save all theme and questions object in database, then a user can't change data
                             entity.save()
                                 .then((entity) => {
 
@@ -244,6 +269,11 @@ exports.register = function (server, options, next) {
 
                     if (!authorized) {
                         reply(Boom.forbidden());
+                    }
+
+                    const date = new Date();
+                    if (date <= entity.endDate && date >= entity.beginDate) {
+                        reply(Boom.badData('Não pode excluir uma prova em execução'))
                     }
 
                     entity.delete()
