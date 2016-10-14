@@ -44,8 +44,8 @@
                     <label>Semestre</label>
                     <md-select ng-model="entity.semester" name="semester" ng-disabled="disciplineNewForm.year.$invalid" required>
                         <md-option><em>Selecione uma opção</em></md-option>
-                        <md-option ng-value="1">{{::entity.year}}/1</md-option>
-                        <md-option ng-value="2">{{::entity.year}}/2</md-option>
+                        <md-option ng-value="1">{{entity.year}}/1</md-option>
+                        <md-option ng-value="2">{{entity.year}}/2</md-option>
                     </md-select>
                     <div ng-messages="disciplineNewForm.semester.$error">
                         <div ng-message="required">Este campo é obrigatório.</div>
@@ -53,20 +53,9 @@
                 </md-input-container>
             </div>
 
-            <div layout="row">
-                <md-input-container class="md-block" flex>
-                    <label>Aluno</label>
-                    <input type="text" placeholder="Nome do aluno" required/>
-                </md-input-container>
-                <div>
-                    <md-button class="md-icon-button md-warn">
-                        <md-icon class="material-icons">delete_forever</md-icon>
-                    </md-button>
-                </div>
-            </div>
 
         <div layout="column">
-            <div layout="row" ng-repeat="i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] track by $index">
+            <div layout="row" ng-repeat="i in [0, 1, 2, 3, 4, 5] track by $index">
                 <md-input-container class="md-block" flex>
                     <label>Aluno</label>
                     <input type="text" placeholder="Nome do aluno" required/>
@@ -78,6 +67,7 @@
                 </div>
             </div>
         </div>
+
 
             <!-- <div ng-repeat="student in entity.students track by $index">
 

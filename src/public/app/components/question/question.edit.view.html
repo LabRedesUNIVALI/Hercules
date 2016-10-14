@@ -6,7 +6,7 @@
                 Questões
             </h3>
         </div>
-        <div flex="10" flex-offset="25">
+        <div flex>
             <md-button class="header-button" href="/admin/questions">
                 Voltar
             </md-button>
@@ -16,16 +16,16 @@
     <form layout="row" layout-fill class="content-form" name="questionEditForm" ng-submit="update(entity)">
         <div flex="70" layout="column" flex-offset="15">
             <md-autocomplete
-                    md-search-text="searchText"
-                    md-items="theme in querySearch(searchText)"
-                    md-item-text="theme.name"
-                    placeholder="Selecione um conteúdo"
-                    md-selected-item="entity.theme"
-                    md-input-name="theme"
-                    md-menu-class="autocomplete-theme-template"
-                    md-floating-label="Conteúdo"
-                    md-require-match
-                    required
+                md-search-text="searchText"
+                md-items="theme in querySearch(searchText)"
+                md-item-text="theme.name"
+                placeholder="Selecione um conteúdo"
+                md-selected-item="entity.theme"
+                md-input-name="theme"
+                md-menu-class="autocomplete-theme-template"
+                md-floating-label="Conteúdo"
+                md-require-match
+                required
             >
                 <md-item-template>
                    <span class="item-title">
