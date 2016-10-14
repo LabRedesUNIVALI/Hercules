@@ -9,6 +9,8 @@ angular.module('hercules').controller('DisciplineEditController', [
         $scope.entity = entity.data;
         $scope.processing = false;
 
+        $scope.entity.year = parseInt($scope.entity.year, 10);
+
         $scope.addStudentField = function () {
             $scope.entity.students.push({name: ''});
         };

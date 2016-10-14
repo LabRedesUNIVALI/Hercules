@@ -13,9 +13,9 @@
         </div>
     </div>
 
-    <form layout="row" layout-fill class="content-form" name="disciplineNewForm" ng-submit="save(entity)">
+    <form layout="row" class="content-form" name="disciplineNewForm" ng-submit="save(entity)">
 
-        <div flex="70" layout="column" flex-offset="15">
+        <div layout="column" flex="70" class="form-container" layout-fill>
 
             <md-input-container>
                 <label>Nome</label>
@@ -53,43 +53,27 @@
                 </md-input-container>
             </div>
 
+            <h3 class="md-headline">Alunos</h3>
 
-        <div layout="column">
-            <div layout="row" ng-repeat="i in [0, 1, 2, 3, 4, 5] track by $index">
+            <div layout="row" flex="10" layout-align="center center" ng-repeat="student in entity.students track by $index">
                 <md-input-container class="md-block" flex>
                     <label>Aluno</label>
-                    <input type="text" placeholder="Nome do aluno" required/>
+                    <input type="text" ng-model="student.name" name="studentName{{$index}}" placeholder="Nome do aluno" required ng-minlength="2" ng-maxlength="255"/>
+                    <div ng-messages="disciplineNewForm['studentName' + $index].$error">
+                        <div ng-message="required">Este campo é obrigatório.</div>
+                        <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
+                        <div ng-message="maxlength">Este campo deve ter no máximo 255 caracteres.</div>
+                    </div>
                 </md-input-container>
                 <div>
-                    <md-button class="md-icon-button md-warn">
+                    <md-button class="md-icon-button md-primary" ng-click="addStudentField()">
+                        <md-icon class="material-icons">add</md-icon>
+                    </md-button>
+                    <md-button class="md-icon-button md-warn" ng-click="removeStudentField($index)">
                         <md-icon class="material-icons">delete_forever</md-icon>
                     </md-button>
                 </div>
             </div>
-        </div>
-
-
-            <!-- <div ng-repeat="student in entity.students track by $index">
-
-                    <div>
-                        <md-input-container>
-                            <label>Aluno</label>
-                            <input type="text" ng-model="student.name" name="studentName{{$index}}" required ng-minlength="2" ng-maxlength="255">
-                            <div ng-messages="disciplineNewForm['studentName' + $index].$error">
-                                <div ng-message="required">Este campo é obrigatório.</div>
-                                <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
-                                <div ng-message="maxlength">Este campo deve ter no máximo 255 caracteres.</div>
-                            </div>
-                        </md-input-container>
-                        <md-button ng-click="addStudentField()" class="md-icon-button md-primary md-raised" flex>
-                            <md-icon class="material-icons">add</md-icon>
-                        </md-button>
-                        <md-button ng-click="removeStudentField($index)" class="md-icon-button md-warn md-raised" ng-disabled="entity.students.length < 2" flex>
-                            <md-icon class="material-icons">delete_forever</md-icon>
-                        </md-button>
-                    </div>
-
-            </div> -->
 
             <div layout="center center" layout-padding layout-margin>
                 <div layout="row" flex>
