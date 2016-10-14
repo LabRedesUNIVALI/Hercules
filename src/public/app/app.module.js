@@ -12,8 +12,11 @@ angular.module('hercules', [
     .config(function ($mdThemingProvider) {
         $mdThemingProvider.theme('success')
             .primaryPalette('green', {'default': '800'});
-        $mdThemingProvider.theme('greyscale')
-            .primaryPalette('grey', {'default': '200'});
+    })
+    .config(function ($mdDateLocaleProvider) {
+        $mdDateLocaleProvider.formatDate = function (date) {
+            return moment(date).format('DD/MM/YYYY HH:mm');
+        }
     })
     .run(function ($rootScope, $location, $cookies) {
         $rootScope.$on('$locationChangeStart', function (event, next, current) {

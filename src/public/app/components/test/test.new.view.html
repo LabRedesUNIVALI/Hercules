@@ -1,0 +1,94 @@
+<hc-admin-layout layout="row" flex>
+
+    <div layout="row" class="content-header">
+        <div flex="90">
+            <h3 class="md-headline">
+                Provas
+            </h3>
+        </div>
+        <div flex>
+            <md-button class="header-button" href="/admin/tests">
+                Voltar
+            </md-button>
+        </div>
+    </div>
+
+    <form layout="row" class="content-form" name="testNewForm" ng-submit="save(entity)">
+
+        <div layout="column" flex="70" class="form-container" layout-fill>
+
+            <md-input-container class="md-block">
+                <label>Nome</label>
+                <input type="text" name="name" ng-model="entity.name" required ng-minlength="2" ng-maxlength="255" placeholder="Nome da prova" />
+                <div ng-messages="testNewForm.name.$error">
+                    <div ng-message="required">Este campo é obrigatório.</div>
+                    <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
+                    <div ng-message="maxlength">Este campo deve ter no máximo 255 caracteres.</div>
+                </div>
+            </md-input-container>
+
+            <div layout="row">
+                <md-input-container class="md-block" flex>
+                    <label>Disciplina</label>
+                    <md-select ng-model="entity.discipline" name="discipline" required>
+                        <md-option ng-value=""><em>Selecione uma opção</em></md-option>
+                        <md-option ng-value="discipline._id" ng-repeat="discipline in disciplines track by discipline._id">
+                            {{::discipline.name}} {{::discipline.year}}/{{::discipline.semester}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="testNewForm.discipline.$error">
+                        <div ng-message="required">Este campo é obrigatório.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label>Data de início</label>
+                    <input type="text" ng-model="entity.beginDate" />
+                </md-input-container>
+                <md-input-container>
+                    <label>Data de fim</label>
+                    <input type="text" ng-model="entity.endDate" />
+                </md-input-container>
+            </div>
+
+            <md-input-container class="md-block">
+                <label>Conteúdos</label>
+                <md-select ng-model="selectedThemes" multiple data-md-container-class="select-search" required name="selectedThemes" md-on-close="getQuestions(selectedThemes)">
+                    <md-select-header class="select-header">
+                        <input ng-model="themeSearchTerm" ng-keydown="$event.stopPropagation()" type="search" placeholder="Procure por conteúdos" class="select-header-searchbox _md-text" />
+                    </md-select-header>
+                    <md-option ng-value="theme._id" ng-repeat="theme in themes | filter:themeSearchTerm track by theme._id">
+                        {{theme.name}}
+                    </md-option>
+                </md-select>
+                <div ng-messages="testNewForm.selectedThemes.$error">
+                    <div ng-message="required">Este campo é obrigatório.</div>
+                </div>
+            </md-input-container>
+
+            <md-content>
+                <md-list flex>
+                    <md-list-item ng-repeat="question in questions track by question._id">
+                        <md-checkbox ng-click="toggleQuestion(question._id, entity.questions)"></md-checkbox>
+                        <p>{{::question.name | ellipsis:50}}</p>
+                        <md-icon class="md-secondary material-icons" ng-click="showQuestionInfo(question)">message</md-icon>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+
+            <div layout="center center" layout-padding layout-margin>
+                <div layout="row" flex>
+                    <md-button href="/admin/tests" class="md-warn md-raised" flex="30" flex-offset="20">
+                        <md-icon class="material-icons">close</md-icon>
+                        Cancelar
+                    </md-button>
+                    <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="testNewForm.$invalid || processing">
+                        <md-icon class="material-icons">send</md-icon>
+                        Cadastrar
+                    </md-button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+</hc-admin-layout>

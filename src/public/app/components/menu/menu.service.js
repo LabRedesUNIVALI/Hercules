@@ -24,6 +24,12 @@ angular.module('hercules').service('MenuService', function () {
             path: '/admin/questions',
             icon: 'question_answer',
             urlName: 'questions'
+        },
+        {
+            name: 'Provas',
+            path: '/admin/tests',
+            icon: 'description',
+            urlName: 'tests'
         }
     ];
     

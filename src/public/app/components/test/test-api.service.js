@@ -2,24 +2,24 @@ angular.module('hercules').factory('TestAPIService', [
     '$http',
     function ($http) {
 
-    var _save = function () {
-        return;
+    var _save = function (test) {
+        return  $http.post('/api/tests', test);
     };
 
     var _getAll = function () {
-        return;
+        return $http.get('/api/tests');
     };
 
-    var _getById = function () {
-        return;
+    var _getById = function (id) {
+        return $http.get('/api/tests/' + id);
     };
 
-    var _update = function () {
-        return;
+    var _update = function (id, test) {
+        return $http.put('/api/tests/' + id, test);
     };
 
     var _delete = function (id) {
-        return;
+        return $http.delete('/api/tests/' + id);
     };
 
     return {

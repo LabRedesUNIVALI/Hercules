@@ -43,7 +43,7 @@
                 <md-input-container class="md-block" flex="45">
                     <label>Semestre</label>
                     <md-select ng-model="entity.semester" name="semester" ng-disabled="disciplineEditForm.year.$invalid" required>
-                        <md-option><em>Selecione uma opção</em></md-option>
+                        <md-option ng-value=""><em>Selecione uma opção</em></md-option>
                         <md-option ng-value="1">{{entity.year}}/1</md-option>
                         <md-option ng-value="2">{{entity.year}}/2</md-option>
                     </md-select>
@@ -77,11 +77,11 @@
 
             <div layout="center center" layout-padding layout-margin>
                 <div layout="row" flex>
-                    <md-button href="/admin/disciplines" class="md-warn md-raised" md-theme="default" flex="30" flex-offset="20">
+                    <md-button href="/admin/disciplines" class="md-warn md-raised" flex="30" flex-offset="20">
                         <md-icon class="material-icons">close</md-icon>
                         Cancelar
                     </md-button>
-                    <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="disciplineEditForm.$invalid || processing">
+                    <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="disciplineEditForm.$invalid || processing">
                         <md-icon class="material-icons">send</md-icon>
                         Salvar
                     </md-button>

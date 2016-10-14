@@ -123,6 +123,19 @@ angular.module('hercules').config(function ($routeProvider, $locationProvider) {
         //     }
         // })
 
+        .when('/admin/tests/new', {
+            templateUrl: 'public/components/test/test.new.view.html',
+            controller: 'TestNewController',
+            resolve: {
+                disciplines: function (DisciplineAPIService) {
+                    return DisciplineAPIService.getAll();
+                },
+                themes: function (ThemeAPIService) {
+                    return ThemeAPIService.getAll();
+                }
+            }
+        })
+
         //Whatever
         .otherwise({ redirectTo: "/admin/dashboard" });
 
