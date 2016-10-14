@@ -102,7 +102,7 @@ exports.register = function (server, options, next) {
             }));
 
             if (test.endDate <= test.beginDate) {
-                reply(Boom.badData("Data limite não pode ser menor ou igual a data inicial", test.endDate));
+                reply(Boom.badRequest("Data limite não pode ser menor ou igual a data inicial", test.endDate));
             }
 
             request.models.Discipline.findById(test.discipline)
@@ -139,6 +139,7 @@ exports.register = function (server, options, next) {
         request.models.Test.find({ user: request.auth.credentials.user._id })
             .populate('questions')
             .populate('tokens')
+            .populate('discipline')
             .then((entities) => {
 
                 if (!entities) {
@@ -158,6 +159,7 @@ exports.register = function (server, options, next) {
         request.models.Test.findById(request.params.testid)
             .populate('questions')
             .populate('tokens')
+            .populate('discipline')
             .then((entity) => {
 
                 if (!entity) {
@@ -204,7 +206,7 @@ exports.register = function (server, options, next) {
 
                     const date = new Date();
                     if (date <= entity.endDate && date >= entity.beginDate) {
-                        reply(Boom.badData('Não pode alterar uma prova em execução'))
+                        reply(Boom.badRequest('Não pode alterar uma prova em execução'))
                     }
 
                     entity.name = request.payload.name;
@@ -215,7 +217,7 @@ exports.register = function (server, options, next) {
                     entity.tokens = [];
 
                     if (entity.endDate <= entity.beginDate) {
-                        reply(Boom.badData("Data limite não pode ser menor ou igual a data inicial", entity.endDate));
+                        reply(Boom.badRequest("Data limite não pode ser menor ou igual a data inicial", entity.endDate));
                     }
 
                     request.models.Discipline.findById(entity.discipline)
@@ -273,7 +275,7 @@ exports.register = function (server, options, next) {
 
                     const date = new Date();
                     if (date <= entity.endDate && date >= entity.beginDate) {
-                        reply(Boom.badData('Não pode excluir uma prova em execução'))
+                        reply(Boom.badRequest('Não pode excluir uma prova em execução'))
                     }
 
                     entity.delete()
