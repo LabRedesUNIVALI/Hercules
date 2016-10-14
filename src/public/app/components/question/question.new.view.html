@@ -1,4 +1,4 @@
-<hc-admin-layout flex>
+<hc-admin-layout layout="row" flex>
 
     <div layout="row" class="content-header">
         <div flex="90">
@@ -13,19 +13,21 @@
         </div>
     </div>
 
-    <form layout="row" layout-fill class="content-form" name="questionNewForm" ng-submit="save(entity)">
-        <div flex="70" layout="column" flex-offset="15">
+    <form layout="row" class="content-form" name="questionNewForm" ng-submit="save(entity)">
+        
+        <div layout="column" flex="70" class="form-container" layout-fill>
+        
             <md-autocomplete
-                    md-search-text="searchText"
-                    md-items="theme in querySearch(searchText)"
-                    md-item-text="theme.name"
-                    placeholder="Selecione um conteúdo"
-                    md-selected-item="entity.theme"
-                    md-input-name="theme"
-                    md-menu-class="autocomplete-theme-template"
-                    md-floating-label="Conteúdo"
-                    md-require-match
-                    required
+                md-search-text="searchText"
+                md-items="theme in querySearch(searchText)"
+                md-item-text="theme.name"
+                placeholder="Selecione um conteúdo"
+                md-selected-item="entity.theme"
+                md-input-name="theme"
+                md-menu-class="autocomplete-theme-template"
+                md-floating-label="Conteúdo"
+                md-require-match
+                required
             >
                 <md-item-template>
                    <span class="item-title">
@@ -74,19 +76,17 @@
                 </md-radio-group>
             </div>
 
-            <div layout="row" layout-align="center center" class="form-actions">
-                <md-toolbar class="md-primary" md-theme="greyscale">
-                    <div class="md-toolbar-tools" layout-align="center center">
-                        <md-button href="/admin/questions" class="md-warn md-raised" md-theme="default" flex="30">
-                            <md-icon class="material-icons">close</md-icon>
-                            Cancelar
-                        </md-button>
-                        <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="questionNewForm.$invalid || processing">
-                            <md-icon class="material-icons">send</md-icon>
-                            Cadastrar
-                        </md-button>
-                    </div>
-                </md-toolbar>
+            <div layout="center center" layout-padding layout-margin>
+                <div layout="row" flex>
+                    <md-button href="/admin/questions" class="md-warn md-raised" md-theme="default" flex="30" flex-offset="20">
+                        <md-icon class="material-icons">close</md-icon>
+                        Cancelar
+                    </md-button>
+                    <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="questionNewForm.$invalid || processing">
+                        <md-icon class="material-icons">send</md-icon>
+                        Cadastrar
+                    </md-button>
+                </div>
             </div>
 
         </div>

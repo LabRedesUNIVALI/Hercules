@@ -1,4 +1,4 @@
-<hc-admin-layout flex>
+<hc-admin-layout layout="row" flex>
 
     <div layout="row" class="content-header">
         <div flex="90">
@@ -12,8 +12,10 @@
             </md-button>
         </div>
     </div>
-    <form layout="row" layout-fill class="content-form" name="themeNewForm" ng-submit="save(entity)">
-        <div flex="70" layout="column" flex-offset="15">
+
+    <form layout="row" class="content-form" name="themeNewForm" ng-submit="save(entity)">
+        
+        <div layout="column" flex="70" class="form-container" layout-fill>
 
             <md-input-container>
                 <label>Nome</label>
@@ -25,19 +27,17 @@
                 </div>
             </md-input-container>
 
-            <div layout="row" layout-align="center center" class="form-actions">
-                <md-toolbar class="md-primary" md-theme="greyscale">
-                    <div class="md-toolbar-tools" layout-align="center center">
-                        <md-button href="/admin/themes" class="md-warn md-raised" md-theme="default" flex="30">
-                            <md-icon class="material-icons">close</md-icon>
-                            Cancelar
-                        </md-button>
-                        <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="themeNewForm.$invalid || processing">
-                            <md-icon class="material-icons">send</md-icon>
-                            Cadastrar
-                        </md-button>
-                    </div>
-                </md-toolbar>
+            <div layout="center center" layout-padding layout-margin>
+                <div layout="row" flex>
+                    <md-button href="/admin/themes" class="md-warn md-raised" md-theme="default" flex="30" flex-offset="20">
+                        <md-icon class="material-icons">close</md-icon>
+                        Cancelar
+                    </md-button>
+                    <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="ThemeNewForm.$invalid || processing">
+                        <md-icon class="material-icons">send</md-icon>
+                        Cadastrar
+                    </md-button>
+                </div>
             </div>
 
         </div>

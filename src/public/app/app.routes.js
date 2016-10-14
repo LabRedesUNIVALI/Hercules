@@ -48,15 +48,15 @@ angular.module('hercules').config(function ($routeProvider, $locationProvider) {
                 }
             }
         })
-        .when('/admin/disciplines/:id', {
-            templateUrl: 'public/components/discipline/discipline.detail.view.html',
-            controller: 'DisciplineDetailController',
-            resolve: {
-                entity: function (DisciplineAPIService, $route) {
-                    return DisciplineAPIService.getById($route.current.params.id);
-                }
-            }
-        })
+        // .when('/admin/disciplines/:id', {
+        //     templateUrl: 'public/components/discipline/discipline.detail.view.html',
+        //     controller: 'DisciplineDetailController',
+        //     resolve: {
+        //         entity: function (DisciplineAPIService, $route) {
+        //             return DisciplineAPIService.getById($route.current.params.id);
+        //         }
+        //     }
+        // })
 
         //Themes
         .when('/admin/themes', {
@@ -113,15 +113,15 @@ angular.module('hercules').config(function ($routeProvider, $locationProvider) {
                 }
             }
         })
-        .when('/admin/questions/:id', {
-            templateUrl: 'public/components/question/question.detail.view.html',
-            controller: 'QuestionDetailController',
-            resolve: {
-                entity: function (QuestionAPIService, $route) {
-                    return QuestionAPIService.getById($route.current.params.id);
-                }
-            }
-        })
+        // .when('/admin/questions/:id', {
+        //     templateUrl: 'public/components/question/question.detail.view.html',
+        //     controller: 'QuestionDetailController',
+        //     resolve: {
+        //         entity: function (QuestionAPIService, $route) {
+        //             return QuestionAPIService.getById($route.current.params.id);
+        //         }
+        //     }
+        // })
 
         //Whatever
         .otherwise({ redirectTo: "/admin/dashboard" });

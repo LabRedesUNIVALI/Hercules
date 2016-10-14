@@ -1,4 +1,4 @@
-<hc-admin-layout flex>
+<hc-admin-layout layout="row" flex>
 
     <div layout="row" class="content-header">
         <div flex="90">
@@ -6,7 +6,8 @@
                 Questões
             </h3>
         </div>
-        <div flex>
+        <span flex></span>
+        <div flex="5">
             <md-button class="md-fab md-accent" ng-click="addQuestion($event)">
                 <md-icon class="material_icons">add</md-icon>
             </md-button>
@@ -19,9 +20,9 @@
             <div class="md-toolbar-tools">
                 <span>{{selected.length}} item selecionado</span>
                 <span flex></span>
-                <md-button ng-href="/admin/questions/{{selected[0]._id}}" class="md-icon-button" ng-disabled="processing">
+               <!--  <md-button ng-href="/admin/questions/{{selected[0]._id}}" class="md-icon-button" ng-disabled="processing">
                     <md-icon class="material-icons">remove_red_eye</md-icon>
-                </md-button>
+                </md-button> -->
                 <md-button ng-href="/admin/questions/{{selected[0]._id}}/edit" class="md-icon-button" ng-disabled="processing">
                     <md-icon class="material-icons">edit</md-icon>
                 </md-button>

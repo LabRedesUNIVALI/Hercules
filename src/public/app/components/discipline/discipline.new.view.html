@@ -1,4 +1,4 @@
-<hc-admin-layout flex>
+<hc-admin-layout layout="row" flex>
 
     <div layout="row" class="content-header">
         <div flex="90">
@@ -13,8 +13,9 @@
         </div>
     </div>
 
-    <form layout="row" layout-fill class="content-form" name="disciplineNewForm" ng-submit="save(entity)">
-        <div flex="70" layout="column" flex-offset="15">
+    <form layout="row" class="content-form" name="disciplineNewForm" ng-submit="save(entity)">
+
+        <div layout="column" flex="70" class="form-container" layout-fill>
 
             <md-input-container>
                 <label>Nome</label>
@@ -26,9 +27,8 @@
                 </div>
             </md-input-container>
 
-            <div layout="row" flex>
-
-                <md-input-container flex="45">
+            <div layout="row">
+                <md-input-container class="md-block" flex="50">
                     <label>Ano</label>
                     <input type="number" ng-model="entity.year" name="year" required ng-minlength="1" ng-maxlength="4" ng-pattern="/^[0-9]{4}$/" ng-min="1900">
                     <div ng-messages="disciplineNewForm.year.$error">
@@ -40,7 +40,7 @@
                     </div>
                 </md-input-container>
                 <span flex></span>
-                <md-input-container flex="45">
+                <md-input-container class="md-block" flex="45">
                     <label>Semestre</label>
                     <md-select ng-model="entity.semester" name="semester" ng-disabled="disciplineNewForm.year.$invalid" required>
                         <md-option><em>Selecione uma opção</em></md-option>
@@ -53,44 +53,39 @@
                 </md-input-container>
             </div>
 
-            <md-divider></md-divider>
-            <h6 class="md-headline">Alunos</h6>
+            <h3 class="md-headline">Alunos</h3>
 
-            <div layout="row" layout-align="center center" ng-repeat="student in entity.students track by $index">
-
-                    <div>
-                        <md-input-container>
-                            <label>Aluno</label>
-                            <input type="text" ng-model="student.name" name="studentName{{$index}}" required ng-minlength="2" ng-maxlength="255">
-                            <div ng-messages="disciplineNewForm['studentName' + $index].$error">
-                                <div ng-message="required">Este campo é obrigatório.</div>
-                                <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
-                                <div ng-message="maxlength">Este campo deve ter no máximo 255 caracteres.</div>
-                            </div>
-                        </md-input-container>
-                        <md-button ng-click="addStudentField()" class="md-icon-button md-primary md-raised" flex>
-                            <md-icon class="material-icons">add</md-icon>
-                        </md-button>
-                        <md-button ng-click="removeStudentField($index)" class="md-icon-button md-warn md-raised" ng-disabled="entity.students.length < 2" flex>
-                            <md-icon class="material-icons">delete_forever</md-icon>
-                        </md-button>
+            <div layout="row" flex="10" layout-align="center center" ng-repeat="student in entity.students track by $index">
+                <md-input-container class="md-block" flex>
+                    <label>Aluno</label>
+                    <input type="text" ng-model="student.name" name="studentName{{$index}}" placeholder="Nome do aluno" required ng-minlength="2" ng-maxlength="255"/>
+                    <div ng-messages="disciplineNewForm['studentName' + $index].$error">
+                        <div ng-message="required">Este campo é obrigatório.</div>
+                        <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
+                        <div ng-message="maxlength">Este campo deve ter no máximo 255 caracteres.</div>
                     </div>
-
+                </md-input-container>
+                <div>
+                    <md-button class="md-icon-button md-primary" ng-click="addStudentField()">
+                        <md-icon class="material-icons">add</md-icon>
+                    </md-button>
+                    <md-button class="md-icon-button md-warn" ng-click="removeStudentField($index)">
+                        <md-icon class="material-icons">delete_forever</md-icon>
+                    </md-button>
+                </div>
             </div>
 
-            <div layout="row" layout-align="center center" class="form-actions">
-                <md-toolbar class="md-primary" md-theme="greyscale">
-                    <div class="md-toolbar-tools" layout-align="center center">
-                        <md-button href="/admin/disciplines" class="md-warn md-raised" md-theme="default" flex="30">
-                            <md-icon class="material-icons">close</md-icon>
-                            Cancelar
-                        </md-button>
-                        <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="disciplineNewForm.$invalid || processing">
-                            <md-icon class="material-icons">send</md-icon>
-                            Cadastrar
-                        </md-button>
-                    </div>
-                </md-toolbar>
+            <div layout="center center" layout-padding layout-margin>
+                <div layout="row" flex>
+                    <md-button href="/admin/disciplines" class="md-warn md-raised" md-theme="default" flex="30" flex-offset="20">
+                        <md-icon class="material-icons">close</md-icon>
+                        Cancelar
+                    </md-button>
+                    <md-button type="submit" class="md-raised md-primary" md-theme="default" flex="30" ng-disabled="disciplineNewForm.$invalid || processing">
+                        <md-icon class="material-icons">send</md-icon>
+                        Cadastrar
+                    </md-button>
+                </div>
             </div>
 
         </div>
