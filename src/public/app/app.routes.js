@@ -135,6 +135,15 @@ angular.module('hercules').config(function ($routeProvider, $locationProvider) {
                 }
             }
         })
+        .when('/admin/tests', {
+            templateUrl: 'public/components/test/test.index.view.html',
+            controller: 'TestIndexController',
+            resolve: {
+                entities: function (TestAPIService) {
+                    return TestAPIService.getAll();
+                }
+            }
+        })
 
         //Whatever
         .otherwise({ redirectTo: "/admin/dashboard" });

@@ -5,7 +5,8 @@ angular.module('hercules').controller('TestNewController', [
     'TestAPIService',
     'QuestionAPIService',
     'hcCommonDialogs',
-    function ($scope, disciplines, themes, TestAPIService, QuestionAPIService, hcCommonDialogs) {
+    '$location',
+    function ($scope, disciplines, themes, TestAPIService, QuestionAPIService, hcCommonDialogs, $location) {
 
         $scope.disciplines = disciplines.data;
         $scope.themes = themes.data;
@@ -65,13 +66,6 @@ angular.module('hercules').controller('TestNewController', [
             $scope.processing = true;
 
             entity = angular.copy(entity);
-
-            console.log(entity);
-
-            entity.endDate = moment(entity.endDate).format('DD/MM/YYYY HH:mm');
-            entity.beginDate = moment(entity.beginDate).format('DD/MM/YYYY HH:mm');
-
-            console.log(entity);
 
             TestAPIService.save(entity)
                 .success(function (result) {
