@@ -83,18 +83,21 @@ gulp.task('copy:index', function () {
     return gulp.src('src/public/.index.prod.html')
     .pipe(htmlmin({ collapseWhitespace: true }))
     .pipe(rename('index.html'))
-    .pipe(gulp.dest('src/public/app/dist/'))
+    .pipe(gulp.dest('src/public'));
 });
 
 gulp.task('clean:trash', function () {
     return del([
-        'src/public/app/**/*',
+        'src/public/.index.prod.html',
+        'src/public/app/**',
+        '!src/public/app',
         '!src/public/app/dist',
-        'src/public/app/dist/templates.js'
+        '!src/public/app/dist/build.min.js',
+        '!src/public/app/dist/build.min.css'
     ]);
 });
 
-gulp.task('prod', function (cb) {
+gulp.task('prod', function (callback) {
     return runSequece(
         'clean:dist', 
         [
@@ -104,6 +107,6 @@ gulp.task('prod', function (cb) {
             'copy:index'
         ],
         'clean:trash',
-        cb
+        callback
     );
 });
