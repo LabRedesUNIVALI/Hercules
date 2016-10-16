@@ -6,19 +6,19 @@ angular.module('hercules', [
     'ngAria',
     'md.data.table'
 ])
-    .config(function ($httpProvider) {
+    .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.interceptors.push('accessTokenInterceptor');
-    })
-    .config(function ($mdThemingProvider) {
+    }])
+    .config(['$mdThemingProvider', function ($mdThemingProvider) {
         $mdThemingProvider.theme('success')
             .primaryPalette('green', {'default': '800'});
-    })
-    .config(function ($mdDateLocaleProvider) {
+    }])
+    .config(['$mdDateLocaleProvider', function ($mdDateLocaleProvider) {
         $mdDateLocaleProvider.formatDate = function (date) {
             return moment(date).format('DD/MM/YYYY HH:mm');
         }
-    })
-    .run(function ($rootScope, $location, $cookies) {
+    }])
+    .run(['$rootScope', '$location', '$cookies', function ($rootScope, $location, $cookies) {
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
             var publicPages = ['/login', '/register'];
             var restrictedPage = publicPages.indexOf($location.path()) === -1;
@@ -26,4 +26,4 @@ angular.module('hercules', [
                 $location.path('/login');
             }
         });
-    });
+    }]);

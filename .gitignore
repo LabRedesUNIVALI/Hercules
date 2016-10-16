@@ -2,3 +2,4 @@
 /src/public/app/assets/libs/
 .idea/
 /config/local.js
+/src/public/app/dist/

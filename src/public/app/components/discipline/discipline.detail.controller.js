@@ -16,7 +16,7 @@ angular.module('hercules').controller('DisciplineDetailController', [
 
                 DisciplineAPIService.delete(entity._id)
                     .success(function (result) {
-                        $location.path('admin/disciplines')
+                        $location.path('admin/disciplines');
                     })
                     .error(function () {
                         hcCommonDialogs.genericError();

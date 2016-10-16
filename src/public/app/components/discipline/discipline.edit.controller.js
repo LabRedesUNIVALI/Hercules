@@ -30,7 +30,7 @@ angular.module('hercules').controller('DisciplineEditController', [
                 students: entity.students.map(function (student) {
                     return {
                         name: student.name
-                    }
+                    };
                 })
             };
 

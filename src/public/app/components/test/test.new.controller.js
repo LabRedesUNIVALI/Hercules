@@ -16,8 +16,6 @@ angular.module('hercules').controller('TestNewController', [
 
         $scope.processing = false;
 
-        $scope.themeSearchTerm;
-
         $scope.selectedThemes = [];
         $scope.questions = [];
         var lastSearch = [];
@@ -82,6 +80,6 @@ angular.module('hercules').controller('TestNewController', [
                     $scope.processing = false;
                 });
 
-        }
+        };
 
 }]);

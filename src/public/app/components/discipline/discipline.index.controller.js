@@ -22,7 +22,7 @@ angular.module('hercules').controller('DisciplineIndexController', [
                         hcCommonToasts.notice('Registro excluído com sucesso.');
                     })
                     .error(function () {
-                        hcCommonToasts.notice('Não foi possível excluir o registro.')
+                        hcCommonToasts.notice('Não foi possível excluir o registro.');
                     })
                     .then(function () {
                         $scope.processing = false;

@@ -4,7 +4,7 @@ angular.module('hercules').directive('hcToolbar', function () {
         strict: 'E',
         scope: {},
         templateUrl: 'public/components/toolbar/toolbar.tmpl.html',
-        controller: function (AuthenticationService, $location) {
+        controller: ['AuthenticationService', '$location', function (AuthenticationService, $location) {
             var originatorEv;
             this.openMenu = function ($mdOpenMenu, ev) {
                 originatorEv = ev;
@@ -13,9 +13,9 @@ angular.module('hercules').directive('hcToolbar', function () {
             this.logout = function () {
                 AuthenticationService.logout();
                 $location.path('/login');
-            }
-        },
+            };
+        }],
         controllerAs: 'ctrl'
-    }
+    };
 
 });

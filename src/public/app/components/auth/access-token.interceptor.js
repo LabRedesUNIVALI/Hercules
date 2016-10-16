@@ -6,7 +6,7 @@ angular.module('hercules').factory('accessTokenInterceptor', [
             request: function (config) {
                 var token = $cookies.get('accessToken');
                 if (token) {
-                    config.headers['Authorization'] = 'Bearer ' + token;
+                    config.headers.Authorization = 'Bearer ' + token;
                 }
                 return config;
             }

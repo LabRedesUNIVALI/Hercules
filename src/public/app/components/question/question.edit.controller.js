@@ -14,11 +14,12 @@ angular.module('hercules').controller('QuestionEditController', [
             return {
                 _id: theme._id,
                 name: theme.name
-            }
+            };
         });
 
         $scope.querySearch = function (query) {
-            return results = query ? $scope.themes.filter(createFilterFor(query)) : $scope.themes;
+            var results = query ? $scope.themes.filter(createFilterFor(query)) : $scope.themes;
+            return results;
         };
 
         var createFilterFor = function (query) {
@@ -26,7 +27,7 @@ angular.module('hercules').controller('QuestionEditController', [
             return function filterFn(theme) {
                 var lowercaseName = angular.lowercase(theme.name);
                 return (lowercaseName.indexOf(lowercaseQuery) > -1);
-            }
+            };
         };
 
         $scope.update = function (entity) {
@@ -39,7 +40,7 @@ angular.module('hercules').controller('QuestionEditController', [
                 options: entity.options.map(function (option) {
                     return {
                         text: option.text
-                    }
+                    };
                 })
             };
 
