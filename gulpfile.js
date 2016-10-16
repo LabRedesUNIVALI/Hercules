@@ -11,6 +11,7 @@ var rename = require('gulp-rename');
 
 var es = require('event-stream');
 var runSequece = require('run-sequence');
+var inquirer = require('inquirer');
 
 var paths = {
     libs: {
@@ -40,7 +41,7 @@ var paths = {
     templates: 'src/public/app/components/**/*.html',
 };
 
-gulp.task('hint:js', function () {   
+gulp.task('hint:js', function () {
     return gulp.src('src/public/app/components/**/*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
@@ -98,15 +99,26 @@ gulp.task('clean:trash', function () {
 });
 
 gulp.task('prod', function (callback) {
-    return runSequece(
-        'clean:dist', 
-        [
-            'hint:js', 
-            'min:js', 
-            'min:css',
-            'copy:index'
-        ],
-        'clean:trash',
-        callback
-    );
+    inquirer.prompt({
+        type: 'confirm',
+        name: 'answer',
+        message: 'You\'re about to erase all \'public\' folder content. \n  After that, only production environment files will remain. Continue?',
+        default: false
+    }).then(function(data){
+        if (data.answer) {
+            return runSequece(
+                'clean:dist',
+                [
+                    'hint:js',
+                    'min:js',
+                    'min:css',
+                    'copy:index'
+                ],
+                'clean:trash',
+                callback
+            );
+        } else {
+            console.log('\n  You\'re safe... For now.\n');
+        }
+    });
 });
