@@ -176,6 +176,16 @@ module.exports = exports = {
         },
         {
             plugin: {
+                register: './controllers/tokenController.js'
+            },
+            options: {
+                routes: {
+                    prefix: '/api'
+                }
+            }
+        },
+        {
+            plugin: {
                 register: './plugins/voters.js',
                 options: {
                     answer: require('./voters/answerVoter.js'),

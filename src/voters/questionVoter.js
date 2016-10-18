@@ -21,11 +21,23 @@ const decide = function (user, action, entity, cb) {
             break;
         case update:
         case remove:
-            if (user._id.toString() === entity.user.toString()) {
-                return cb(null, true);
-            }
+            // Check if any test in progress have this answer in use
+            entity.hasAnyTestInProgress(entity, (err, anyTestInProgress) => {
 
-            return cb(null, false);
+                if (err) {
+                    return cb(err, false);
+                }
+
+                if (anyTestInProgress) {
+                    return cb(null, false);
+                }
+
+                if (user._id.toString() === entity.user.toString()) {
+                    return cb(null, true);
+                }
+
+                return cb(null, false);
+            });
             break;
     }
 };

@@ -125,17 +125,17 @@ exports.register = function (server, options, next) {
             .then((theme) => {
 
                 if (!theme) {
-                    reply(Boom.notFound());
+                    return reply(Boom.notFound());
                 }
 
                 request.server.methods.question.decide(request.auth.credentials.user, 'CREATE', null, (err, authorized) => {
 
                     if (err) {
-                        reply(Boom.wrap(err));
+                        return reply(Boom.wrap(err));
                     }
 
                     if (!authorized) {
-                        reply(Boom.forbidden());
+                        return reply(Boom.forbidden());
                     }
 
                     let question = new request.models.Question(Hoek.merge(request.payload, {
@@ -146,17 +146,17 @@ exports.register = function (server, options, next) {
                     question.save()
                         .then((entity) => {
 
-                            reply(entity);
+                            return reply(entity);
                         })
                         .catch((err) => {
 
-                            reply(Boom.wrap(err));
+                            return reply(Boom.wrap(err));
                         });
                 });
             })
             .catch((err) => {
 
-                reply(Boom.wrap(err));
+                return reply(Boom.wrap(err));
             });
     }
 
@@ -166,7 +166,7 @@ exports.register = function (server, options, next) {
             .then((theme) => {
 
                 if (!theme) {
-                    reply(Boom.notFound());
+                    return reply(Boom.notFound());
                 }
 
                 request.models.Question.find({ theme: theme._id, user: request.auth.credentials.user._id })
@@ -174,19 +174,19 @@ exports.register = function (server, options, next) {
                     .then((entities) => {
 
                         if (!entities) {
-                            reply({});
+                            return reply({});
                         }
 
-                        reply(entities);
+                        return reply(entities);
                     })
                     .catch((err) => {
 
-                        reply(Boom.wrap(err));
+                        return reply(Boom.wrap(err));
                     });
             })
             .catch((err) => {
 
-                reply(Boom.wrap(err));
+                return reply(Boom.wrap(err));
             });
     }
 
@@ -197,14 +197,14 @@ exports.register = function (server, options, next) {
             .then((entities) => {
 
                 if (!entities) {
-                    reply({});
+                    return reply({});
                 }
 
-                reply(entities);
+                return reply(entities);
             })
             .catch((err) => {
 
-                reply(Boom.wrap(err));
+                return reply(Boom.wrap(err));
             });
     }
 
@@ -214,7 +214,7 @@ exports.register = function (server, options, next) {
             .then((theme) => {
 
                 if (!theme) {
-                    reply(Boom.notFound());
+                    return reply(Boom.notFound());
                 }
 
                 request.models.Question.findOne({ _id: request.params.questionid, theme: request.params.themeid })
@@ -222,30 +222,30 @@ exports.register = function (server, options, next) {
                     .then((entity) => {
 
                         if (!entity) {
-                            reply(Boom.notFound());
+                            return reply(Boom.notFound());
                         }
 
                         request.server.methods.question.decide(request.auth.credentials.user, 'VIEW', entity, (err, authorized) => {
 
                             if (err) {
-                                reply(Boom.wrap(err));
+                                return reply(Boom.wrap(err));
                             }
 
                             if (!authorized) {
-                                reply(Boom.forbidden());
+                                return reply(Boom.forbidden());
                             }
 
-                            reply(entity);
+                            return reply(entity);
                         });
                     })
                     .catch((err) => {
 
-                        reply(Boom.wrap(err));
+                        return reply(Boom.wrap(err));
                     });
             })
             .catch((err) => {
 
-                reply(Boom.wrap(err));
+                return reply(Boom.wrap(err));
             });
     }
 
@@ -256,25 +256,25 @@ exports.register = function (server, options, next) {
             .then((entity) => {
 
                 if (!entity) {
-                    reply(Boom.notFound());
+                    return reply(Boom.notFound());
                 }
 
                 request.server.methods.question.decide(request.auth.credentials.user, 'VIEW', entity, (err, authorized) => {
 
                     if (err) {
-                        reply(Boom.wrap(err));
+                        return reply(Boom.wrap(err));
                     }
 
                     if (!authorized) {
-                        reply(Boom.forbidden());
+                        return reply(Boom.forbidden());
                     }
 
-                    reply(entity);
+                    return reply(entity);
                 });
             })
             .catch((err) => {
 
-                reply(Boom.wrap(err));
+                return reply(Boom.wrap(err));
             });
     }
 
@@ -284,24 +284,24 @@ exports.register = function (server, options, next) {
             .then((theme) => {
 
                 if (!theme) {
-                    reply(Boom.notFound());
+                    return reply(Boom.notFound());
                 }
 
                 request.models.Question.findOne({ _id: request.params.questionid, theme: request.params.themeid })
                     .then((entity) => {
 
                         if (!entity) {
-                            reply(Boom.notFound());
+                            return reply(Boom.notFound());
                         }
 
                         request.server.methods.question.decide(request.auth.credentials.user, 'UPDATE', entity, (err, authorized) => {
 
                             if (err) {
-                                reply(Boom.wrap(err));
+                                return reply(Boom.wrap(err));
                             }
 
                             if (!authorized) {
-                                reply(Boom.forbidden());
+                                return reply(Boom.forbidden());
                             }
 
                             entity.name = request.payload.name;
@@ -311,22 +311,22 @@ exports.register = function (server, options, next) {
                             entity.save()
                                 .then((entity) => {
 
-                                    reply(entity);
+                                    return reply(entity);
                                 })
                                 .catch((err) => {
 
-                                    reply(Boom.wrap(err));
+                                    return reply(Boom.wrap(err));
                                 })
                         });
                     })
                     .catch((err) => {
 
-                        reply(Boom.wrap(err));
+                        return reply(Boom.wrap(err));
                     })
             })
             .catch((err) => {
 
-                reply(Boom.wrap(err));
+                return reply(Boom.wrap(err));
             })
     }
 
@@ -336,45 +336,45 @@ exports.register = function (server, options, next) {
             .then((theme) => {
 
                 if (!theme) {
-                    reply(Boom.notFound());
+                    return reply(Boom.notFound());
                 }
 
                 request.models.Question.findOne({ _id: request.params.questionid, theme: request.params.themeid })
                     .then((entity) => {
 
                         if (!entity) {
-                            reply(Boom.notFound());
+                            return reply(Boom.notFound());
                         }
 
                         request.server.methods.question.decide(request.auth.credentials.user, 'REMOVE', entity, (err, authorized) => {
 
                             if (err) {
-                                reply(Boom.wrap(err));
+                                return reply(Boom.wrap(err));
                             }
 
                             if (!authorized) {
-                                reply(Boom.forbidden());
+                                return reply(Boom.forbidden());
                             }
 
                             entity.delete()
                                 .then(() => {
 
-                                    reply(null);
+                                    return reply(null);
                                 })
                                 .catch((err) => {
 
-                                    reply(Boom.wrap(err));
+                                    return reply(Boom.wrap(err));
                                 })
                         });
                     })
                     .catch((err) => {
 
-                        reply(Boom.wrap(err));
+                        return reply(Boom.wrap(err));
                     })
             })
             .catch((err) => {
 
-                reply(Boom.wrap(err));
+                return reply(Boom.wrap(err));
             })
     }
 

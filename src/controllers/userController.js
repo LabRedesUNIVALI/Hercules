@@ -58,11 +58,11 @@ exports.register = function (server, options, next) {
         request.models.User.create(request.payload)
             .then((entity) => {
 
-               reply(entity);
+               return reply(entity);
             })
             .catch((err) => {
 
-                reply(Boom.wrap(err));
+                return reply(Boom.wrap(err));
             });
     }
 
@@ -70,12 +70,12 @@ exports.register = function (server, options, next) {
 
         request.models.User.findOne({ email: request.payload.email }, 'email')
             .then((email) => {
-                reply({
+                return reply({
                     isUnique: (email) ? false : true
                 });
             })
             .catch((err) => {
-                reply(Boom.wrap(err));
+                return reply(Boom.wrap(err));
             });
     }
 
@@ -85,14 +85,14 @@ exports.register = function (server, options, next) {
             .then((entity) => {
 
                 if (!entity) {
-                    reply(Boom.notFound());
+                    return reply(Boom.notFound());
                 }
 
-                reply(entity);
+                return reply(entity);
             })
             .catch((err) => {
 
-                reply(Boom.wrap(err));
+                return reply(Boom.wrap(err));
             });
     }
 
@@ -113,7 +113,7 @@ exports.register = function (server, options, next) {
                 entity.save()
                     .then((entity) => {
 
-                        reply(entity);
+                        return reply(entity);
                     })
                     .catch((err) => {
 
@@ -123,7 +123,7 @@ exports.register = function (server, options, next) {
             })
             .catch((err) => {
 
-                reply(Boom.wrap(err));
+                return reply(Boom.wrap(err));
             });
     }
 

@@ -58,7 +58,8 @@ exports.register = function (server, options, next) {
                         testid: Joi.string().alphanum()
                     },
                     payload: {
-                        beginDate: Joi.date().format('DD/MM/YYYY H:m').min('now').required(),
+                        beginDate: Joi.date().format('DD/MM/YYYY H:m').required(),
+                        // beginDate: Joi.date().format('DD/MM/YYYY H:m').min('now').required(),
                         endDate: Joi.date().format('DD/MM/YYYY H:m').required(),
                         name: Joi.string().min(2).max(255).required(),
                         discipline: Joi.string().alphanum().required(),
@@ -90,11 +91,11 @@ exports.register = function (server, options, next) {
         request.server.methods.test.decide(request.auth.credentials.user, 'CREATE', null, (err, authorized) => {
 
             if (err) {
-                reply(Boom.wrap(err));
+                return reply(Boom.wrap(err));
             }
 
             if (!authorized) {
-                reply(Boom.forbidden());
+                return reply(Boom.forbidden());
             }
 
             let test = new request.models.Test(Hoek.merge(request.payload, {
@@ -102,7 +103,7 @@ exports.register = function (server, options, next) {
             }));
 
             if (test.endDate <= test.beginDate) {
-                reply(Boom.badRequest("Data limite não pode ser menor ou igual a data inicial", test.endDate));
+                return reply(Boom.badRequest("Data limite não pode ser menor ou igual a data inicial", test.endDate));
             }
 
             request.models.Discipline.findById(test.discipline)
@@ -121,15 +122,15 @@ exports.register = function (server, options, next) {
                     test.save()
                         .then((entity) => {
 
-                            reply(entity);
+                            return reply(entity);
                         })
                         .catch((err) => {
 
-                            reply(Boom.wrap(err));
+                            return reply(Boom.wrap(err));
                         });
                 })
                 .catch((err) => {
-                    reply(Boom.wrap(err));
+                    return reply(Boom.wrap(err));
                 });
         });
     }
@@ -143,14 +144,14 @@ exports.register = function (server, options, next) {
             .then((entities) => {
 
                 if (!entities) {
-                    reply({});
+                    return reply({});
                 }
 
-                reply(entities);
+                return reply(entities);
             })
             .catch((err) => {
 
-                reply(Boom.wrap(err));
+                return reply(Boom.wrap(err));
             });
     }
 
@@ -163,25 +164,25 @@ exports.register = function (server, options, next) {
             .then((entity) => {
 
                 if (!entity) {
-                    reply(Boom.notFound());
+                    return reply(Boom.notFound());
                 }
 
                 request.server.methods.test.decide(request.auth.credentials.user, 'VIEW', entity, (err, authorized) => {
 
                     if (err) {
-                        reply(Boom.wrap(err));
+                        return reply(Boom.wrap(err));
                     }
 
                     if (!authorized) {
-                        reply(Boom.forbidden());
+                        return reply(Boom.forbidden());
                     }
 
-                    reply(entity);
+                    return reply(entity);
                 });
             })
             .catch((err) => {
 
-                reply(Boom.wrap(err));
+                return reply(Boom.wrap(err));
             });
     }
 
@@ -191,22 +192,22 @@ exports.register = function (server, options, next) {
             .then((entity) => {
 
                 if (!entity) {
-                    reply(Boom.notFound());
+                    return reply(Boom.notFound());
                 }
 
                 request.server.methods.test.decide(request.auth.credentials.user, 'UPDATE', entity, (err, authorized) => {
 
                     if (err) {
-                        reply(Boom.wrap(err));
+                        return reply(Boom.wrap(err));
                     }
 
                     if (!authorized) {
-                        reply(Boom.forbidden());
+                        return reply(Boom.forbidden());
                     }
 
                     const date = new Date();
                     if (date <= entity.endDate && date >= entity.beginDate) {
-                        reply(Boom.badRequest('Não pode alterar uma prova em execução'))
+                        return reply(Boom.badRequest('Não pode alterar uma prova em execução'));
                     }
 
                     entity.name = request.payload.name;
@@ -217,7 +218,7 @@ exports.register = function (server, options, next) {
                     entity.tokens = [];
 
                     if (entity.endDate <= entity.beginDate) {
-                        reply(Boom.badRequest("Data limite não pode ser menor ou igual a data inicial", entity.endDate));
+                        return reply(Boom.badRequest('Data limite não pode ser menor ou igual a data inicial', entity.endDate));
                     }
 
                     request.models.Discipline.findById(entity.discipline)
@@ -236,21 +237,21 @@ exports.register = function (server, options, next) {
                             entity.save()
                                 .then((entity) => {
 
-                                    reply(entity);
+                                    return reply(entity);
                                 })
                                 .catch((err) => {
 
-                                    reply(Boom.wrap(err));
+                                    return reply(Boom.wrap(err));
                                 });
                         })
                         .catch((err) => {
-                            reply(Boom.wrap(err));
+                            return reply(Boom.wrap(err));
                         });
                 });
             })
             .catch((err) => {
 
-                reply(Boom.wrap(err));
+                return reply(Boom.wrap(err));
             });
     }
 
@@ -260,38 +261,38 @@ exports.register = function (server, options, next) {
             .then((entity) => {
 
                 if (!entity) {
-                    reply(Boom.notFound());
+                    return reply(Boom.notFound());
                 }
 
                 request.server.methods.test.decide(request.auth.credentials.user, 'REMOVE', entity, (err, authorized) => {
 
                     if (err) {
-                        reply(Boom.wrap(err));
+                        return reply(Boom.wrap(err));
                     }
 
                     if (!authorized) {
-                        reply(Boom.forbidden());
+                        return reply(Boom.forbidden());
                     }
 
-                    const date = new Date();
+                    const date = new Date().toISOString();
                     if (date <= entity.endDate && date >= entity.beginDate) {
-                        reply(Boom.badRequest('Não pode excluir uma prova em execução'))
+                        return reply(Boom.badRequest('Não pode excluir uma prova em execução'))
                     }
 
                     entity.delete()
                         .then(() => {
 
-                            reply(null);
+                            return reply(null);
                         })
                         .catch((err) => {
 
-                            reply(Boom.wrap(err));
+                            return reply(Boom.wrap(err));
                         })
                 });
             })
             .catch((err) => {
 
-                reply(Boom.wrap(err));
+                return reply(Boom.wrap(err));
             })
     }
 
