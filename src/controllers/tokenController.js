@@ -2,19 +2,23 @@
 
 const Joi = require('joi');
 const Boom = require('boom');
+const PreMethods = require('../utils/preMethods');
 
 exports.register = function (server, options, next) {
 
     const routes = [
         {
             method: 'GET',
-            path: '/themes/{themeid}/tokens',
-            handler: findAllThemeTokensHandler,
+            path: '/tests/{testid}/tokens',
+            handler: findAllTestTokensHandler,
             config: {
                 auth: 'jwt',
+                pre: [
+                    { method: PreMethods.findTest, assign: 'test' }
+                ],
                 validate: {
                     params: {
-                        themeid: Joi.string().alphanum()
+                        testid: Joi.string().alphanum()
                     }
                 }
             }
@@ -23,46 +27,32 @@ exports.register = function (server, options, next) {
 
     server.route(routes);
 
-    function findAllThemeTokensHandler(request, reply) {
+    function findAllTestTokensHandler(request, reply) {
 
-        request.models.Theme.findById(request.params.themeid)
-            .then((theme) => {
+        request.server.methods.test.decide(request.auth.credentials.user, 'VIEW', request.pre.test, (err, authorized) => {
 
-                if (!theme) {
-                    return reply(Boom.notFound());
-                }
-
-                request.server.methods.test.decide(request.auth.credentials.user, 'VIEW', entity, (err, authorized) => {
-
-                    if (err) {
-                        return reply(Boom.wrap(err));
-                    }
-
-                    if (!authorized) {
-                        return reply(Boom.forbidden());
-                    }
-
-                    request.models.Token.find({ theme: theme._id })
-                        .populate('student')
-                        .then((entities) => {
-
-                            if (!entities) {
-                                return reply({});
-                            }
-
-                            return reply(entities);
-                        })
-                        .catch((err) => {
-
-                            return reply(Boom.wrap(err));
-                        });
-                });
-
-            })
-            .catch((err) => {
-
+            if (err) {
                 return reply(Boom.wrap(err));
-            });
+            }
+
+            if (!authorized) {
+                return reply(Boom.forbidden());
+            }
+
+            request.models.Token.find({ test: request.pre.test._id })
+                .then((entities) => {
+
+                    if (!entities) {
+                        return reply({});
+                    }
+
+                    return reply(entities);
+                })
+                .catch((err) => {
+
+                    return reply(Boom.wrap(err));
+                });
+        });
     }
 
     next();

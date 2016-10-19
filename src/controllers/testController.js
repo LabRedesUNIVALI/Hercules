@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const Boom = require('boom');
 const RandToken = require('rand-token');
 const Hoek = require('hoek');
+const PreMethods = require('../utils/preMethods');
 
 exports.register = function (server, options, next) {
 
@@ -53,6 +54,9 @@ exports.register = function (server, options, next) {
             handler: updateTestHandler,
             config: {
                 auth: 'jwt',
+                pre: [
+                    { method: PreMethods.findTest, assign: 'test' }
+                ],
                 validate: {
                     params: {
                         testid: Joi.string().alphanum()
@@ -74,6 +78,9 @@ exports.register = function (server, options, next) {
             handler: removeTestHandler,
             config: {
                 auth: 'jwt',
+                pre: [
+                    { method: PreMethods.findTest, assign: 'test' }
+                ],
                 validate: {
                     params: {
                         testid: Joi.string().alphanum()
@@ -114,7 +121,7 @@ exports.register = function (server, options, next) {
                     const yyyymmdd = date.getFullYear().toString() + (date.getMonth()+1).toString() + date.getDate().toString();
                     discipline.students.forEach(function (student) {
                         const tokenValue = yyyymmdd + RandToken.uid(8);
-                        let token = request.models.Token({value: tokenValue, student: student, test: test});
+                        let token = request.models.Token({value: tokenValue, student: student.name, test: test});
                         test.tokens.push(token);
                         token.save();
                     });
@@ -188,112 +195,88 @@ exports.register = function (server, options, next) {
 
     function updateTestHandler(request, reply) {
 
-        request.models.Test.findById(request.params.testid)
-            .then((entity) => {
+        request.server.methods.test.decide(request.auth.credentials.user, 'UPDATE', request.pre.test, (err, authorized) => {
 
-                if (!entity) {
-                    return reply(Boom.notFound());
-                }
+            if (err) {
+                return reply(Boom.wrap(err));
+            }
 
-                request.server.methods.test.decide(request.auth.credentials.user, 'UPDATE', entity, (err, authorized) => {
+            if (!authorized) {
+                return reply(Boom.forbidden());
+            }
 
-                    if (err) {
-                        return reply(Boom.wrap(err));
-                    }
+            const date = new Date();
+            if (date <= request.pre.test.endDate && date >= request.pre.test.beginDate) {
+                return reply(Boom.badRequest('Não pode alterar uma prova em execução'));
+            }
 
-                    if (!authorized) {
-                        return reply(Boom.forbidden());
-                    }
+            request.pre.test.name = request.payload.name;
+            request.pre.test.beginDate = request.payload.beginDate;
+            request.pre.test.endDate = request.payload.endDate;
+            request.pre.test.discipline = request.payload.discipline;
+            request.pre.test.questions = request.payload.questions;
+            request.pre.test.tokens = [];
+
+            if (request.pre.test.endDate <= request.pre.test.beginDate) {
+                return reply(Boom.badRequest('Data limite não pode ser menor ou igual a data inicial', request.pre.test.endDate));
+            }
+
+            request.models.Discipline.findById(request.pre.test.discipline)
+                .then((discipline) => {
 
                     const date = new Date();
-                    if (date <= entity.endDate && date >= entity.beginDate) {
-                        return reply(Boom.badRequest('Não pode alterar uma prova em execução'));
-                    }
+                    // TODO: create util function to get YYYYMMDD
+                    const yyyymmdd = date.getFullYear().toString() + (date.getMonth()+1).toString() + date.getDate().toString();
+                    discipline.students.forEach(function (student) {
+                        const tokenValue = yyyymmdd + RandToken.uid(8);
+                        let token = request.models.Token({ value: tokenValue, student: student.name, test: request.pre.test });
+                        request.pre.test.tokens.push(token);
+                        token.save();
+                    });
 
-                    entity.name = request.payload.name;
-                    entity.beginDate = request.payload.beginDate;
-                    entity.endDate = request.payload.endDate;
-                    entity.discipline = request.payload.discipline;
-                    entity.questions = request.payload.questions;
-                    entity.tokens = [];
+                    request.pre.test.save()
+                        .then((entity) => {
 
-                    if (entity.endDate <= entity.beginDate) {
-                        return reply(Boom.badRequest('Data limite não pode ser menor ou igual a data inicial', entity.endDate));
-                    }
-
-                    request.models.Discipline.findById(entity.discipline)
-                        .then((discipline) => {
-
-                            const date = new Date();
-                            // TODO: create util function to get YYYYMMDD
-                            const yyyymmdd = date.getFullYear().toString() + (date.getMonth()+1).toString() + date.getDate().toString();
-                            discipline.students.forEach(function (student) {
-                                const tokenValue = yyyymmdd + RandToken.uid(8);
-                                let token = request.models.Token({value: tokenValue, student: student, test: entity});
-                                entity.tokens.push(token);
-                                token.save();
-                            });
-
-                            entity.save()
-                                .then((entity) => {
-
-                                    return reply(entity);
-                                })
-                                .catch((err) => {
-
-                                    return reply(Boom.wrap(err));
-                                });
+                            return reply(entity);
                         })
                         .catch((err) => {
+
                             return reply(Boom.wrap(err));
                         });
+                })
+                .catch((err) => {
+                    return reply(Boom.wrap(err));
                 });
-            })
-            .catch((err) => {
-
-                return reply(Boom.wrap(err));
-            });
+        });
     }
 
     function removeTestHandler(request, reply) {
 
-        request.models.Test.findById(request.params.testid)
-            .then((entity) => {
+        request.server.methods.test.decide(request.auth.credentials.user, 'REMOVE', request.pre.test, (err, authorized) => {
 
-                if (!entity) {
-                    return reply(Boom.notFound());
-                }
-
-                request.server.methods.test.decide(request.auth.credentials.user, 'REMOVE', entity, (err, authorized) => {
-
-                    if (err) {
-                        return reply(Boom.wrap(err));
-                    }
-
-                    if (!authorized) {
-                        return reply(Boom.forbidden());
-                    }
-
-                    const date = new Date().toISOString();
-                    if (date <= entity.endDate && date >= entity.beginDate) {
-                        return reply(Boom.badRequest('Não pode excluir uma prova em execução'))
-                    }
-
-                    entity.delete()
-                        .then(() => {
-
-                            return reply(null);
-                        })
-                        .catch((err) => {
-
-                            return reply(Boom.wrap(err));
-                        })
-                });
-            })
-            .catch((err) => {
-
+            if (err) {
                 return reply(Boom.wrap(err));
-            })
+            }
+
+            if (!authorized) {
+                return reply(Boom.forbidden());
+            }
+
+            const date = new Date().toISOString();
+            if (date <= request.pre.test.endDate && date >= request.pre.test.beginDate) {
+                return reply(Boom.badRequest('Não pode excluir uma prova em execução'))
+            }
+
+            request.pre.test.delete()
+                .then(() => {
+
+                    return reply(null);
+                })
+                .catch((err) => {
+
+                    return reply(Boom.wrap(err));
+                })
+        });
     }
 
 

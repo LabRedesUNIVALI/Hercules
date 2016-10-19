@@ -13,8 +13,8 @@ const tokenSchema = new Schema({
         default: false
     },
     student: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Student'
+        type: String,
+        required: true
     },
     test: {
         type: mongoose.Schema.Types.ObjectId,

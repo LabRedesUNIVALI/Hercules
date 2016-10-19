@@ -4,6 +4,7 @@ const Joi = require('joi');
 const mongoose = require('mongoose');
 const Boom = require('boom');
 const Hoek = require('hoek');
+const PreMethods = require('../utils/preMethods');
 
 exports.register = function (server, options, next) {
 
@@ -14,6 +15,9 @@ exports.register = function (server, options, next) {
             handler: createQuestionHandler,
             config: {
                 auth: 'jwt',
+                pre: [
+                    { method: PreMethods.findTheme, assign: 'theme' }
+                ],
                 validate: {
                     payload: {
                         name: Joi.string().min(2).max(255).required(),
@@ -36,6 +40,9 @@ exports.register = function (server, options, next) {
             handler: findAllThemeQuestionsHandler,
             config: {
                 auth: 'jwt',
+                pre: [
+                    { method: PreMethods.findTheme, assign: 'theme' }
+                ],
                 validate: {
                     params: {
                         themeid: Joi.string().alphanum()
@@ -57,6 +64,9 @@ exports.register = function (server, options, next) {
             handler: findOneThemeQuestionHandler,
             config: {
                 auth: 'jwt',
+                pre: [
+                    { method: PreMethods.findTheme, assign: 'theme' }
+                ],
                 validate: {
                     params: {
                         themeid: Joi.string().alphanum(),
@@ -84,6 +94,9 @@ exports.register = function (server, options, next) {
             handler: updateQuestionHandler,
             config: {
                 auth: 'jwt',
+                pre: [
+                    { method: PreMethods.findTheme, assign: 'theme' }
+                ],
                 validate: {
                     params: {
                         themeid: Joi.string().alphanum(),
@@ -107,6 +120,9 @@ exports.register = function (server, options, next) {
             handler: removeQuestionHandler,
             config: {
                 auth: 'jwt',
+                pre: [
+                    { method: PreMethods.findTheme, assign: 'theme' }
+                ],
                 validate: {
                     params: {
                         themeid: Joi.string().alphanum(),
@@ -121,68 +137,44 @@ exports.register = function (server, options, next) {
 
     function createQuestionHandler(request, reply) {
 
-        request.models.Theme.findById(request.params.themeid)
-            .then((theme) => {
+        request.server.methods.question.decide(request.auth.credentials.user, 'CREATE', null, (err, authorized) => {
 
-                if (!theme) {
-                    return reply(Boom.notFound());
-                }
-
-                request.server.methods.question.decide(request.auth.credentials.user, 'CREATE', null, (err, authorized) => {
-
-                    if (err) {
-                        return reply(Boom.wrap(err));
-                    }
-
-                    if (!authorized) {
-                        return reply(Boom.forbidden());
-                    }
-
-                    let question = new request.models.Question(Hoek.merge(request.payload, {
-                        user: request.auth.credentials.user._id,
-                        theme: theme._id
-                    }));
-
-                    question.save()
-                        .then((entity) => {
-
-                            return reply(entity);
-                        })
-                        .catch((err) => {
-
-                            return reply(Boom.wrap(err));
-                        });
-                });
-            })
-            .catch((err) => {
-
+            if (err) {
                 return reply(Boom.wrap(err));
-            });
+            }
+
+            if (!authorized) {
+                return reply(Boom.forbidden());
+            }
+
+            let question = new request.models.Question(Hoek.merge(request.payload, {
+                user: request.auth.credentials.user._id,
+                theme: request.pre.theme._id
+            }));
+
+            question.save()
+                .then((entity) => {
+
+                    return reply(entity);
+                })
+                .catch((err) => {
+
+                    return reply(Boom.wrap(err));
+                });
+        });
     }
 
     function findAllThemeQuestionsHandler(request, reply) {
 
-        request.models.Theme.findById(request.params.themeid)
-            .then((theme) => {
+        request.models.Question.find({ theme: request.pre.theme._id, user: request.auth.credentials.user._id })
+            .populate('theme')
+            .then((entities) => {
 
-                if (!theme) {
-                    return reply(Boom.notFound());
+                if (!entities) {
+                    return reply({});
                 }
 
-                request.models.Question.find({ theme: theme._id, user: request.auth.credentials.user._id })
-                    .populate('theme')
-                    .then((entities) => {
-
-                        if (!entities) {
-                            return reply({});
-                        }
-
-                        return reply(entities);
-                    })
-                    .catch((err) => {
-
-                        return reply(Boom.wrap(err));
-                    });
+                return reply(entities);
             })
             .catch((err) => {
 
@@ -210,38 +202,26 @@ exports.register = function (server, options, next) {
 
     function findOneThemeQuestionHandler(request, reply) {
 
-        request.models.Theme.findById(request.params.themeid)
-            .then((theme) => {
+        request.models.Question.findOne({ _id: request.params.questionid, theme: request.pre.theme._id })
+            .populate('theme')
+            .then((entity) => {
 
-                if (!theme) {
+                if (!entity) {
                     return reply(Boom.notFound());
                 }
 
-                request.models.Question.findOne({ _id: request.params.questionid, theme: request.params.themeid })
-                    .populate('theme')
-                    .then((entity) => {
+                request.server.methods.question.decide(request.auth.credentials.user, 'VIEW', entity, (err, authorized) => {
 
-                        if (!entity) {
-                            return reply(Boom.notFound());
-                        }
-
-                        request.server.methods.question.decide(request.auth.credentials.user, 'VIEW', entity, (err, authorized) => {
-
-                            if (err) {
-                                return reply(Boom.wrap(err));
-                            }
-
-                            if (!authorized) {
-                                return reply(Boom.forbidden());
-                            }
-
-                            return reply(entity);
-                        });
-                    })
-                    .catch((err) => {
-
+                    if (err) {
                         return reply(Boom.wrap(err));
-                    });
+                    }
+
+                    if (!authorized) {
+                        return reply(Boom.forbidden());
+                    }
+
+                    return reply(entity);
+                });
             })
             .catch((err) => {
 
@@ -280,102 +260,78 @@ exports.register = function (server, options, next) {
 
     function updateQuestionHandler(request, reply) {
 
-        request.models.Theme.findById(request.params.themeid)
-            .then((theme) => {
+        request.models.Question.findOne({ _id: request.params.questionid, theme: request.pre.theme })
+            .then((entity) => {
 
-                if (!theme) {
+                if (!entity) {
                     return reply(Boom.notFound());
                 }
 
-                request.models.Question.findOne({ _id: request.params.questionid, theme: request.params.themeid })
-                    .then((entity) => {
+                request.server.methods.question.decide(request.auth.credentials.user, 'UPDATE', entity, (err, authorized) => {
 
-                        if (!entity) {
-                            return reply(Boom.notFound());
-                        }
-
-                        request.server.methods.question.decide(request.auth.credentials.user, 'UPDATE', entity, (err, authorized) => {
-
-                            if (err) {
-                                return reply(Boom.wrap(err));
-                            }
-
-                            if (!authorized) {
-                                return reply(Boom.forbidden());
-                            }
-
-                            entity.name = request.payload.name;
-                            entity.correctOption = request.payload.correctOption;
-                            entity.options = request.payload.options;
-
-                            entity.save()
-                                .then((entity) => {
-
-                                    return reply(entity);
-                                })
-                                .catch((err) => {
-
-                                    return reply(Boom.wrap(err));
-                                })
-                        });
-                    })
-                    .catch((err) => {
-
+                    if (err) {
                         return reply(Boom.wrap(err));
-                    })
+                    }
+
+                    if (!authorized) {
+                        return reply(Boom.forbidden());
+                    }
+
+                    entity.name = request.payload.name;
+                    entity.correctOption = request.payload.correctOption;
+                    entity.options = request.payload.options;
+
+                    entity.save()
+                        .then((entity) => {
+
+                            return reply(entity);
+                        })
+                        .catch((err) => {
+
+                            return reply(Boom.wrap(err));
+                        })
+                });
             })
             .catch((err) => {
 
                 return reply(Boom.wrap(err));
-            })
+            });
     }
 
     function removeQuestionHandler(request, reply) {
 
-        request.models.Theme.findById(request.params.themeid)
-            .then((theme) => {
+        request.models.Question.findOne({ _id: request.params.questionid, theme: request.pre.theme })
+            .then((entity) => {
 
-                if (!theme) {
+                if (!entity) {
                     return reply(Boom.notFound());
                 }
 
-                request.models.Question.findOne({ _id: request.params.questionid, theme: request.params.themeid })
-                    .then((entity) => {
+                request.server.methods.question.decide(request.auth.credentials.user, 'REMOVE', entity, (err, authorized) => {
 
-                        if (!entity) {
-                            return reply(Boom.notFound());
-                        }
-
-                        request.server.methods.question.decide(request.auth.credentials.user, 'REMOVE', entity, (err, authorized) => {
-
-                            if (err) {
-                                return reply(Boom.wrap(err));
-                            }
-
-                            if (!authorized) {
-                                return reply(Boom.forbidden());
-                            }
-
-                            entity.delete()
-                                .then(() => {
-
-                                    return reply(null);
-                                })
-                                .catch((err) => {
-
-                                    return reply(Boom.wrap(err));
-                                })
-                        });
-                    })
-                    .catch((err) => {
-
+                    if (err) {
                         return reply(Boom.wrap(err));
-                    })
+                    }
+
+                    if (!authorized) {
+                        return reply(Boom.forbidden());
+                    }
+
+                    entity.delete()
+                        .then(() => {
+
+                            return reply(null);
+                        })
+                        .catch((err) => {
+
+                            return reply(Boom.wrap(err));
+                        })
+                });
             })
             .catch((err) => {
 
                 return reply(Boom.wrap(err));
-            })
+            });
     }
 
     next();

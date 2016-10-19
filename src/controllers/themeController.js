@@ -4,6 +4,7 @@ const Joi = require('joi');
 const mongoose = require('mongoose');
 const Boom = require('boom');
 const Hoek = require('hoek');
+const PreMethods = require('../utils/preMethods');
 
 exports.register = function (server, options, next) {
 
@@ -48,6 +49,9 @@ exports.register = function (server, options, next) {
             handler: updateThemeHandler,
             config: {
                 auth: 'jwt',
+                pre: [
+                    { method: PreMethods.findTheme, assign: 'theme' }
+                ],
                 validate: {
                     params: {
                         themeid: Joi.string().alphanum()
@@ -64,6 +68,9 @@ exports.register = function (server, options, next) {
             handler: removeThemeHandler,
             config: {
                 auth: 'jwt',
+                pre: [
+                    { method: PreMethods.findTheme, assign: 'theme' }
+                ],
                 validate: {
                     params: {
                         themeid: Joi.string().alphanum()
@@ -150,76 +157,52 @@ exports.register = function (server, options, next) {
 
     function updateThemeHandler(request, reply) {
 
-        request.models.Theme.findById(request.params.themeid)
-            .then((entity) => {
+        request.server.methods.theme.decide(request.auth.credentials.user, 'UPDATE', request.pre.theme, (err, authorized) => {
 
-                if (!entity) {
-                    return reply(Boom.notFound());
-                }
-
-                request.server.methods.theme.decide(request.auth.credentials.user, 'UPDATE', entity, (err, authorized) => {
-
-                    if (err) {
-                        return reply(Boom.wrap(err));
-                    }
-
-                    if (!authorized) {
-                        return reply(Boom.forbidden());
-                    }
-
-                    entity.name = request.payload.name;
-
-                    entity.save()
-                        .then((entity) => {
-
-                            return reply(entity);
-                        })
-                        .catch((err) => {
-
-                            return reply(Boom.wrap(err));
-                        })
-                });
-            })
-            .catch((err) => {
-
+            if (err) {
                 return reply(Boom.wrap(err));
-            })
+            }
+
+            if (!authorized) {
+                return reply(Boom.forbidden());
+            }
+
+            request.pre.theme.name = request.payload.name;
+
+            request.pre.theme.save()
+                .then((entity) => {
+
+                    return reply(entity);
+                })
+                .catch((err) => {
+
+                    return reply(Boom.wrap(err));
+                })
+        });
     }
 
     function removeThemeHandler(request, reply) {
 
-        request.models.Theme.findById(request.params.themeid)
-            .then((entity) => {
+        request.server.methods.theme.decide(request.auth.credentials.user, 'REMOVE', request.pre.theme, (err, authorized) => {
 
-                if (!entity) {
-                    return reply(Boom.notFound());
-                }
-
-                request.server.methods.theme.decide(request.auth.credentials.user, 'REMOVE', entity, (err, authorized) => {
-
-                    if (err) {
-                        return reply(Boom.wrap(err));
-                    }
-
-                    if (!authorized) {
-                        return reply(Boom.forbidden());
-                    }
-
-                    entity.delete()
-                        .then(() => {
-
-                            return reply(null);
-                        })
-                        .catch((err) => {
-
-                            return reply(Boom.wrap(err));
-                        })
-                });
-            })
-            .catch((err) => {
-
+            if (err) {
                 return reply(Boom.wrap(err));
-            })
+            }
+
+            if (!authorized) {
+                return reply(Boom.forbidden());
+            }
+
+            request.pre.theme.delete()
+                .then(() => {
+
+                    return reply(null);
+                })
+                .catch((err) => {
+
+                    return reply(Boom.wrap(err));
+                })
+        });
     }
 
     next();
