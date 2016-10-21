@@ -6,6 +6,7 @@ const Boom = require('boom');
 const RandToken = require('rand-token');
 const Hoek = require('hoek');
 const PreMethods = require('../utils/preMethods');
+const Utils = require('../utils/utils');
 
 exports.register = function (server, options, next) {
 
@@ -62,8 +63,7 @@ exports.register = function (server, options, next) {
                         testid: Joi.string().alphanum()
                     },
                     payload: {
-                        beginDate: Joi.date().format('DD/MM/YYYY H:m').required(),
-                        // beginDate: Joi.date().format('DD/MM/YYYY H:m').min('now').required(),
+                        beginDate: Joi.date().format('DD/MM/YYYY H:m').min('now').required(),
                         endDate: Joi.date().format('DD/MM/YYYY H:m').required(),
                         name: Joi.string().min(2).max(255).required(),
                         discipline: Joi.string().alphanum().required(),
@@ -184,7 +184,14 @@ exports.register = function (server, options, next) {
                         return reply(Boom.forbidden());
                     }
 
-                    return reply(entity);
+                    Utils.shuffleTest(entity, (err, shuffledEntity) => {
+
+                        if (err) {
+                            return reply(Boom.wrap(err));
+                        }
+
+                        return reply(shuffledEntity);
+                    });
                 });
             })
             .catch((err) => {
