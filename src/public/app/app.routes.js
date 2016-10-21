@@ -147,6 +147,21 @@ angular.module('hercules').config([
                     }]
                 }
             })
+            .when('/admin/tests/:id/edit', {
+                templateUrl: 'public/components/test/test.edit.view.html',
+                controller: 'TestEditController',
+                resolve: {
+                    entity: ['TestAPIService', '$route', function (TestAPIService, $route) {
+                        return TestAPIService.getById($route.current.params.id);
+                    }],
+                    disciplines: ['DisciplineAPIService', function (DisciplineAPIService) {
+                        return DisciplineAPIService.getAll();
+                    }],
+                    themes: ['ThemeAPIService', function (ThemeAPIService) {
+                        return ThemeAPIService.getAll();
+                    }]
+                }
+            })
 
             //Whatever
             .otherwise({ redirectTo: "/admin/dashboard" });
