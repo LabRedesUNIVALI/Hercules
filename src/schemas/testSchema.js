@@ -28,6 +28,10 @@ const testSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Token'
     }],
+    themes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Theme'
+    }],
     questions: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Question'

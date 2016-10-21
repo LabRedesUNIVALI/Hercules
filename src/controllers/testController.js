@@ -23,7 +23,8 @@ exports.register = function (server, options, next) {
                         endDate: Joi.date().format('DD/MM/YYYY H:m').required(),
                         name: Joi.string().min(2).max(255).required(),
                         discipline: Joi.string().alphanum().required(),
-                        questions: Joi.array().items(Joi.string().alphanum()).required()
+                        themes: Joi.array().min(1).items(Joi.string().alphanum()).required(),
+                        questions: Joi.array().min(1).items(Joi.string().alphanum()).required()
                     }
                 }
             }
@@ -67,7 +68,8 @@ exports.register = function (server, options, next) {
                         endDate: Joi.date().format('DD/MM/YYYY H:m').required(),
                         name: Joi.string().min(2).max(255).required(),
                         discipline: Joi.string().alphanum().required(),
-                        questions: Joi.array().items(Joi.string().alphanum()).required()
+                        themes: Joi.array().min(1).items(Joi.string().alphanum()).required(),
+                        questions: Joi.array().min(1).items(Joi.string().alphanum()).required()
                     }
                 }
             }
@@ -145,6 +147,7 @@ exports.register = function (server, options, next) {
     function findAllTestsHandler(request, reply) {
 
         request.models.Test.find({ user: request.auth.credentials.user._id })
+            .populate('themes')
             .populate('questions')
             .populate('tokens')
             .populate('discipline')
@@ -165,6 +168,7 @@ exports.register = function (server, options, next) {
     function findOneTestHandler(request, reply) {
 
         request.models.Test.findById(request.params.testid)
+            .populate('themes')
             .populate('questions')
             .populate('tokens')
             .populate('discipline')
@@ -221,6 +225,7 @@ exports.register = function (server, options, next) {
             request.pre.test.beginDate = request.payload.beginDate;
             request.pre.test.endDate = request.payload.endDate;
             request.pre.test.discipline = request.payload.discipline;
+            request.pre.test.themes = request.payload.themes;
             request.pre.test.questions = request.payload.questions;
             request.pre.test.tokens = [];
 
