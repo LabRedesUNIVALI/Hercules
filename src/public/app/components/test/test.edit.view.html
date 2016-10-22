@@ -52,7 +52,7 @@
 
             <md-input-container class="md-block">
                 <label>Conteúdos</label>
-                <md-select ng-model="selectedThemes" multiple data-md-container-class="select-search" required name="selectedThemes" md-on-close="getQuestions(selectedThemes)">
+                <md-select ng-model="entity.themes" multiple data-md-container-class="select-search" required name="selectedThemes" md-on-close="getQuestions(entity.themes)">
                     <md-select-header class="select-header">
                         <input ng-model="themeSearchTerm" ng-keydown="$event.stopPropagation()" type="search" placeholder="Procure por conteúdos" class="select-header-searchbox _md-text" />
                     </md-select-header>
@@ -68,7 +68,7 @@
             <md-content>
                 <md-list flex>
                     <md-list-item ng-repeat="question in questions track by question._id">
-                        <md-checkbox ng-click="toggleQuestion(question._id, entity.questions)"></md-checkbox>
+                        <md-checkbox ng-checked="entity.questions.indexOf(question._id) > -1" ng-click="toggleQuestion(question._id, entity.questions)"></md-checkbox>
                         <p>{{::question.name | ellipsis:50}}</p>
                         <md-icon class="md-secondary material-icons" ng-click="showQuestionInfo(question)" aria-label="Question detail">message</md-icon>
                     </md-list-item>

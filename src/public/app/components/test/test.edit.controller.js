@@ -3,8 +3,11 @@ angular.module('hercules').controller('TestEditController', [
     'entity',
     'disciplines',
     'themes',
+    'TestAPIService',
+    'QuestionAPIService',
     'hcCommonDialogs',
-    function ($scope, entity, disciplines, themes, hcCommonDialogs) {
+    '$location',
+    function ($scope, entity, disciplines, themes, TestAPIService, QuestionAPIService, hcCommonDialogs, $location) {
 
         $scope.entity = entity.data;
 
@@ -16,8 +19,12 @@ angular.module('hercules').controller('TestEditController', [
 
         $scope.processing = false;
 
-        $scope.selectedThemes = $scope.entity.themes.map(function () {
+        $scope.entity.themes = $scope.entity.themes.map(function (theme){
+            return theme._id;
+        });
 
+        $scope.entity.questions = $scope.entity.questions.map(function (question){
+            return question._id;
         });
 
         $scope.questions = [];
@@ -61,18 +68,22 @@ angular.module('hercules').controller('TestEditController', [
             }
         };
 
-        $scope.update = function (id, entity) {
-
-            console.log(entity);
+        $scope.update = function (entity) {
 
             $scope.processing = true;
+            var updatedEntity = {
+                name: entity.name,
+                beginDate: entity.beginDate,
+                endDate: entity.endDate,
+                themes: entity.themes,
+                discipline: entity.discipline._id,
+                questions: entity.questions
+            };
 
-            throw 'morra';
-
-            ThemeAPIService.update(entity._id, updatedEntity)
+            TestAPIService.update(entity._id, updatedEntity)
                 .success(function (result) {
                     if (result) {
-                        $location.path('/admin/themes');
+                        $location.path('/admin/tests');
                     } else {
                         hcCommonDialogs.genericError();
                     }
@@ -84,5 +95,7 @@ angular.module('hercules').controller('TestEditController', [
                     $scope.processing = false;
                 });
         };
+
+        $scope.getQuestions($scope.entity.themes);
 
 }]);

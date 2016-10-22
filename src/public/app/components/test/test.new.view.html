@@ -52,7 +52,7 @@
 
             <md-input-container class="md-block">
                 <label>Conteúdos</label>
-                <md-select ng-model="selectedThemes" multiple data-md-container-class="select-search" required name="selectedThemes" md-on-close="getQuestions(selectedThemes)">
+                <md-select ng-model="entity.themes" multiple data-md-container-class="select-search" required name="selectedThemes" md-on-close="getQuestions(entity.themes)">
                     <md-select-header class="select-header">
                         <input ng-model="themeSearchTerm" ng-keydown="$event.stopPropagation()" type="search" placeholder="Procure por conteúdos" class="select-header-searchbox _md-text" />
                     </md-select-header>

@@ -16,7 +16,6 @@ angular.module('hercules').controller('TestNewController', [
 
         $scope.processing = false;
 
-        $scope.selectedThemes = [];
         $scope.questions = [];
         var lastSearch = [];
 
