@@ -22,4 +22,16 @@ angular.module('hercules').service('hcCommonDialogs', [
                 .cancel('Não');
             return $mdDialog.show(confirm);
         };
+
+        this.questionInfo = function (question, ev) {
+            $mdDialog.show({
+                templateUrl: 'public/components/question/question.dialog.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                controller: 'QuestionDialogController',
+                locals: { question: question }
+            });
+        };
+
 }]);

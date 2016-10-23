@@ -1,0 +1,38 @@
+<md-dialog aria-label="Questão" style="min-width: 50%">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Questão - {{::question.theme.name}}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="close()">
+                <md-icon class="material-icons">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <h3>Enunciado</h3>
+            <p>{{::question.name}}</p>
+            <br />
+            <h3>Alternativas</h3>
+            <md-list flex>
+                <md-list-item class="md-3-line" ng-repeat="option in question.options track by option._id">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>
+                            Alternativa {{::$index + 1}}  
+                            <span md-colors="{color: 'green'}" ng-if="question.correctOption == $index + 1">
+                                <md-icon md-colors="{color: 'green'}" class="material-icons">check</md-icon>
+                                Correta
+                            </span>
+                            <span md-colors="::{color: 'red'}" ng-if="question.correctOption != $index + 1">
+                                <md-icon md-colors="::{color: 'red'}" class="material-icons">close</md-icon>
+                                Errada
+                            </span>
+                        </h3>
+                        <p>{{::option.text}}</p>
+                    </div>
+                    <md-divider></md-divider>
+                </md-list-item>
+            </md-list>
+        </div>
+    </md-dialog-content>
+</md-dialog>

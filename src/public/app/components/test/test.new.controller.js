@@ -81,4 +81,8 @@ angular.module('hercules').controller('TestNewController', [
 
         };
 
+        $scope.showQuestionInfo = function (question, ev) {
+            hcCommonDialogs.questionInfo(question, ev);
+        };
+
 }]);

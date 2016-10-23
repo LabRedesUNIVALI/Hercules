@@ -9,6 +9,9 @@
         <span flex></span>
         <div flex="5">
             <md-button class="md-fab md-accent" ng-click="addQuestion($event)">
+                <md-tooltip md-direction="left">
+                    Adicionar questão
+                </md-tooltip>
                 <md-icon class="material_icons">add</md-icon>
             </md-button>
         </div>
@@ -46,7 +49,7 @@
 
                 <tbody md-body>
                     <tr md-row md-select="entity" md-select-id="name" md-auto-select ng-repeat="entity in entities track by $index">
-                        <td md-cell>{{::entity.name}}</td>
+                        <td md-cell>{{::entity.name | ellipsis:50}}</td>
                         <td md-cell>{{::entity.theme.name}}</td>
                         <td md-cell>{{::entity.correctOption}}</td>
                     </tr>

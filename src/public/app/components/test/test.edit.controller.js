@@ -96,6 +96,10 @@ angular.module('hercules').controller('TestEditController', [
                 });
         };
 
+        $scope.showQuestionInfo = function (question, ev) {
+            hcCommonDialogs.questionInfo(question, ev);
+        };
+
         $scope.getQuestions($scope.entity.themes);
 
 }]);
