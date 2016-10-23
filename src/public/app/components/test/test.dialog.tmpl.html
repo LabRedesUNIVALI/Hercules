@@ -1,0 +1,49 @@
+<md-dialog aria-label="Prova" style="min-width: 70%">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Prova - {{::test.name}}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="null">
+                <md-tooltip md-direction="left">
+                    Baixar como PDF
+                </md-tooltip>
+                <md-icon class="material-icons">file_download</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="close()">
+                <md-icon class="material-icons">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div layout-margin class="md-dialog-content">
+            <p>
+                <strong>Disciplina:</strong> 
+                {{::test.discipline.name}} {{::test.discipline.year}}/{{::test.discipline.semester}}
+            </p>
+            <p>
+                <strong>Data e horário de início:</strong> 
+                {{::test.beginDate | date:'dd/MM/yyyy HH:mm'}}
+            </p>
+            <p>
+                <strong>Data e horário de término:</strong> 
+                {{::test.endDate | date:'dd/MM/yyyy HH:mm'}}
+            </p>
+            <div layout="row" layout-align="center center">
+                <h3>{{::test.name}}</h3>
+            </div>
+            <div ng-repeat="question in test.questions track by question._id">
+                <p>
+                    <strong>{{::$index + 1}}.</strong>
+                    {{::question.name}}  
+                </p>
+                <div ng-repeat="option in question.options track by option._id">
+                    <p>
+                        <strong>{{letters[$index]}})</strong> 
+                        {{::option.text}}
+                    </p>
+                </div>
+                <md-divider></md-divider>
+            </div>
+        </div>
+    </md-dialog-content>
+</md-dialog>

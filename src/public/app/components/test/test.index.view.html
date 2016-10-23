@@ -23,14 +23,21 @@
             <div class="md-toolbar-tools">
                 <span>{{selected.length}} item selecionado</span>
                 <span flex></span>
-                <md-button ng-href="/admin/tests/{{selected[0]._id}}" class="md-icon-button" ng-disabled="processing">
-                    <md-icon class="material-icons">remove_red_eye</md-icon>
+                <md-button ng-click="previewTest(selected[0], $event)" class="md-icon-button" ng-disabled="processing">
+                    <md-tooltip md-direction="top">Pré-visualizar</md-tooltip>
+                    <md-icon class="material-icons">assignment</md-icon>
+                </md-button>
+                <md-button ng-click="null" class="md-icon-button" ng-disabled="processing">
+                    <md-tooltip md-direction="top">Baixar como PDF</md-tooltip>
+                    <md-icon class="material-icons">file_download</md-icon>
                 </md-button>
                 <md-button ng-href="/admin/tests/{{selected[0]._id}}/edit" class="md-icon-button" ng-disabled="processing">
+                    <md-tooltip md-direction="top">Editar</md-tooltip>
                     <md-icon class="material-icons">edit</md-icon>
                 </md-button>
                 <md-button ng-click="delete(selected[0], $event)" class="md-icon-button" ng-disabled="processing">
-                    <md-icon class="material-icons">delete</md-icon>
+                    <md-tooltip md-direction="top">Excluir</md-tooltip>
+                    <md-icon class="material-icons">delete_forever</md-icon>
                 </md-button>
             </div>
         </md-toolbar>

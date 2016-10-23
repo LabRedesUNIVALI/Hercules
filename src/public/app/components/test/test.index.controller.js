@@ -4,7 +4,8 @@ angular.module('hercules').controller('TestIndexController', [
     'TestAPIService',
     'hcCommonDialogs',
     'hcCommonToasts',
-    function ($scope, entities, TestAPIService, hcCommonDialogs, hcCommonToats) {
+    '$mdDialog',
+    function ($scope, entities, TestAPIService, hcCommonDialogs, hcCommonToats, $mdDialog) {
 
         $scope.entities = entities.data;
         $scope.selected = [];
@@ -28,5 +29,15 @@ angular.module('hercules').controller('TestIndexController', [
             }, null);
         };
 
+        $scope.previewTest = function (test, ev) {
+            $mdDialog.show({
+                templateUrl: 'public/components/test/test.dialog.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                controller: 'TestDialogController',
+                locals: { test: test }
+            });
+        };
 
 }]);
