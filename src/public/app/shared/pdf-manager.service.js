@@ -39,7 +39,7 @@ angular.module('hercules').service('hcPDFManager', [
                 'width': 170
             });
 
-            var fileName = test.name.toLowerCase().replace(" ", "_") + "_";
+            var fileName = test.name.toLowerCase().replace(/ /g, '_') + "_";
                 fileName += new Date().getTime();
                 fileName += '.pdf';
 
