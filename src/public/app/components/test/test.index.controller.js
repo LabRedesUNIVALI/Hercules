@@ -4,8 +4,9 @@ angular.module('hercules').controller('TestIndexController', [
     'TestAPIService',
     'hcCommonDialogs',
     'hcCommonToasts',
+    'hcPDFManager',
     '$mdDialog',
-    function ($scope, entities, TestAPIService, hcCommonDialogs, hcCommonToats, $mdDialog) {
+    function ($scope, entities, TestAPIService, hcCommonDialogs, hcCommonToats, hcPDFManager, $mdDialog) {
 
         $scope.entities = entities.data;
         $scope.selected = [];
@@ -38,6 +39,10 @@ angular.module('hercules').controller('TestIndexController', [
                 controller: 'TestDialogController',
                 locals: { test: test }
             });
+        };
+
+        $scope.downloadPdf = function (test) {
+            hcPDFManager.testPreview(test);
         };
 
 }]);
