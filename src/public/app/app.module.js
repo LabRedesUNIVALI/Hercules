@@ -27,7 +27,7 @@ angular.module('hercules', [
             }
         });
     }])
-    .run(['$templateCache', function ($templateCache){
+    .run(['$templateCache', function ($templateCache) {
         $templateCache.put(
             'test-print-body.html',
             '<p> <strong>Disciplina:</strong> {{test.discipline.name}} {{test.discipline.year}}/{{test.discipline.semester}}</p><p> <strong>Data e horário de início:</strong> {{test.beginDate | date:"dd/MM/yyyy HH:mm"}}</p><p> <strong>Data e horário de término:</strong> {{test.endDate | date:"dd/MM/yyyy HH:mm"}}</p><br /><h3 style="margin-left: 400px;">{{test.name}}</h3><br />'

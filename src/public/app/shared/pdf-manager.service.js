@@ -33,7 +33,7 @@ angular.module('hercules').service('hcPDFManager', [
 
             template += '</div>';
 
-            var doc = jsPDF();
+            var doc = new jsPDF();
 
             doc.fromHTML(template, 15, 15, {
                 'width': 170
