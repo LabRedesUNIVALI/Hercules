@@ -14,7 +14,11 @@ angular.module('hercules').controller('TestDialogController', [
         };
 
         $scope.downloadPdf = function (test) {
-            hcPDFManager.testPreview(test);
+            hcPDFManager.generateTestDocument(test, false);
         };
+
+        $scope.printPdf = function (test) {
+            hcPDFManager.generateTestDocument(test, true);
+        }
 
 }]);

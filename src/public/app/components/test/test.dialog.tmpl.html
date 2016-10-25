@@ -4,10 +4,12 @@
             <h2>Prova - {{::test.name}}</h2>
             <span flex></span>
             <md-button class="md-icon-button" ng-click="downloadPdf(test)">
-                <md-tooltip md-direction="left">
-                    Baixar como PDF
-                </md-tooltip>
+                <md-tooltip md-direction="bottom">Baixar como PDF</md-tooltip>
                 <md-icon class="material-icons">file_download</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="printPdf(test)">
+                <md-tooltip md-direction="bottom">Imprimir</md-tooltip>
+                <md-icon class="material-icons">print</md-icon>
             </md-button>
             <md-button class="md-icon-button" ng-click="close()">
                 <md-icon class="material-icons">close</md-icon>
@@ -17,15 +19,15 @@
     <md-dialog-content>
         <div layout-margin class="md-dialog-content">
             <p>
-                <strong>Disciplina:</strong> 
+                <strong>Disciplina:</strong>
                 {{::test.discipline.name}} {{::test.discipline.year}}/{{::test.discipline.semester}}
             </p>
             <p>
-                <strong>Data e horário de início:</strong> 
+                <strong>Data e horário de início:</strong>
                 {{::test.beginDate | date:'dd/MM/yyyy HH:mm'}}
             </p>
             <p>
-                <strong>Data e horário de término:</strong> 
+                <strong>Data e horário de término:</strong>
                 {{::test.endDate | date:'dd/MM/yyyy HH:mm'}}
             </p>
             <div layout="row" layout-align="center center">
@@ -34,11 +36,11 @@
             <div ng-repeat="question in test.questions track by question._id">
                 <p>
                     <strong>{{::$index + 1}}.</strong>
-                    {{::question.name}}  
+                    {{::question.name}}
                 </p>
                 <div ng-repeat="option in question.options track by option._id">
                     <p>
-                        <strong>{{letters[$index]}})</strong> 
+                        <strong>{{letters[$index]}})</strong>
                         {{::option.text}}
                     </p>
                 </div>

@@ -42,7 +42,11 @@ angular.module('hercules').controller('TestIndexController', [
         };
 
         $scope.downloadPdf = function (test) {
-            hcPDFManager.testPreview(test);
+            hcPDFManager.generateTestDocument(test, false);
+        };
+
+        $scope.printPdf = function (test) {
+            hcPDFManager.generateTestDocument(test, true);
         };
 
 }]);

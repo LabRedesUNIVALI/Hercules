@@ -3,7 +3,7 @@ angular.module('hercules').service('hcPDFManager', [
     '$templateCache',
     function ($interpolate, $templateCache) {
 
-        this.testPreview = function (test) {
+        this.generateTestDocument = function (test, print) {
 
             var template = '<div style="font-family: sans-serif;">';
 
@@ -39,11 +39,15 @@ angular.module('hercules').service('hcPDFManager', [
                 'width': 170
             });
 
-            var fileName = test.name.toLowerCase().replace(/ /g, '_') + "_";
-                fileName += new Date().getTime();
-                fileName += '.pdf';
-
-            doc.save(fileName);
+            if (print) {
+                doc.autoPrint();
+                window.open(doc.output('bloburl'), '_blank');
+            } else {
+                var fileName = test.name.toLowerCase().replace(/ /g, '_') + "_";
+                    fileName += new Date().getTime();
+                    fileName += '.pdf';
+                doc.save(fileName);
+            }
 
         };
 
