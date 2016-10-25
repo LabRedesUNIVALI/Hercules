@@ -10,13 +10,13 @@ angular.module('hercules').factory('UserAPIService', [
             return $http.post('/api/email/check', email);
         };
 
-        var _profileMe = function() {
+        var _getProfile = function() {
             return $http.get('/api/profile/me');
         };
 
         return {
             createUser: _createUser,
             checkEmail: _checkEmail,
-            profileMe: _profileMe
+            getProfile: _getProfile
         };
 }]);

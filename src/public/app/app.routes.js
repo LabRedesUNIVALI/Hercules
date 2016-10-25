@@ -18,9 +18,14 @@ angular.module('hercules').config([
             })
 
             //Profile
-            .when('/admin/profile/me', {
-                templateUrl: 'public/components/user/profile.me.view.html',
-                controller: 'ProfileMeController'
+            .when('/admin/profile', {
+                templateUrl: 'public/components/user/profile.view.html',
+                controller: 'ProfileController',
+                resolve: {
+                    entity: ['UserAPIService', function (UserAPIService) {
+                        return UserAPIService.getProfile();
+                    }]
+                }
             })
 
             //Dashboard

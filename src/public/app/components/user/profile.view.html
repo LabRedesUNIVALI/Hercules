@@ -1,0 +1,57 @@
+<hc-admin-layout layout="row" flex>
+
+    <div layout="row" class="content-header">
+        <div flex="90">
+            <h3 class="md-headline">
+                Meus dados
+            </h3>
+        </div>
+        <div flex>
+            <md-button class="header-button" href="/admin/dashboard">
+                Voltar
+            </md-button>
+        </div>
+    </div>
+
+    <form layout="row" class="content-form" name="profileForm">
+        <div layout="column" flex="70" class="form-container" layout-fill>
+
+            <md-input-container class="md-icon-float md-block">
+                <label>Nome completo</label>
+                <md-icon class="material-icons">person</md-icon>
+                <input type="text" placeholder="Nome completo" ng-model="entity.name" name="name" required ng-minlength="2" ng-maxlength="255"/>
+                <div ng-messages="profileForm.name.$error">
+                    <div ng-message="required">Este campo é obrigatório.</div>
+                    <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
+                    <div ng-message="maxlength">Este campo deve ter no máximo 255 caracteres.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-icon-float md-block">
+                <label>E-mail</label>
+                <md-icon class="material-icons">email</md-icon>
+                <input type="email" placeholder="E-mail" ng-model="entity.email" name="email" required hc-unique-email />
+                <div ng-messages="profileForm.email.$error">
+                    <div ng-message="required">Este campo é obrigatório.</div>
+                    <div ng-message="email">Informe um endereço de e-mail válido.</div>
+                    <div ng-message="uniqueEmail">O e-mail informado já existe no sistema.</div>
+                </div>
+            </md-input-container>
+
+            <div layout="center center" layout-padding layout-margin>
+                <div layout="row" flex>
+                    <md-button href="/admin/dashboard" class="md-warn md-raised" flex="30" flex-offset="20">
+                        <md-icon class="material-icons">close</md-icon>
+                        Cancelar
+                    </md-button>
+                    <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="profileForm.$invalid || processing">
+                        <md-icon class="material-icons">send</md-icon>
+                        Atualizar
+                    </md-button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+</hc-admin-layout>
