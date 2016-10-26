@@ -2,9 +2,9 @@
 
     'use strict';
 
+
     /**
-     * @class TestAPIService
-     * @classdesc API service for test entities
+     * TestAPIService - API service for test entities
      * @ngInject
      */
     function TestAPIService ($http) {

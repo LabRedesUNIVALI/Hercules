@@ -1,6 +1,12 @@
-angular.module('hercules').factory('accessTokenInterceptor', [
-    '$cookies',
-    function ($cookies) {
+(function () {
+
+    'use strict';
+
+    /**
+     * accessTokenInterceptor - Interceptor to append jwt to Authorization header
+     * @ngInject
+     */
+    function accessTokenInterceptor ($cookies) {
 
         return {
             request: function (config) {
@@ -11,4 +17,10 @@ angular.module('hercules').factory('accessTokenInterceptor', [
                 return config;
             }
         };
-}]);
+
+    };
+
+    angular.module('hercules.services')
+        .factory('accessTokenInterceptor', accessTokenInterceptor);
+
+})();

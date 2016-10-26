@@ -54,6 +54,8 @@
 
     angular.module('hercules.controllers', []);
     angular.module('hercules.services', []);
+    angular.module('hercules.directives', []);
+    angular.module('hercules.filters', []);
 
     var dependencies = [
         'ngMaterial',                   // Angular Material
@@ -63,7 +65,9 @@
         'ngAria',                       // Angular Aria
         'md.data.table',                // Material Design data tables
         'hercules.controllers',         // Hercules controllers
-        'hercules.services'             // Hercules services
+        'hercules.services',            // Hercules services
+        'hercules.directives',          // Hercules directives
+        'hercules.filters'              // Hercules filters
     ];
 
     angular.module('hercules', dependencies)

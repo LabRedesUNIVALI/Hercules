@@ -1,7 +1,12 @@
-angular.module('hercules').factory('AuthenticationService', [
-    '$http',
-    '$cookies',
-    function ($http, $cookies) {
+(function () {
+
+    'use strict';
+
+    /**
+     * AuthenticationService - Service to handle login and logout.
+     * @ngInject
+     */
+    function AuthenticationService($http, $cookies) {
 
         var _login = function (credentials, callback) {
             $http.post('/api/auth', credentials)
@@ -26,4 +31,10 @@ angular.module('hercules').factory('AuthenticationService', [
             login: _login,
             logout: _logout
         };
-}]);
+
+    };
+
+    angular.module('hercules.services')
+        .factory('AuthenticationService', AuthenticationService);
+
+})();

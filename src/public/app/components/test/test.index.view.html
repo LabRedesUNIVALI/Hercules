@@ -48,7 +48,7 @@
 
         <md-table-container>
 
-            <table md-table md-row-select ng-model="vn.selected" class="table">
+            <table md-table md-row-select ng-model="vm.selected" class="table">
 
                 <thead md-head>
                 <tr md-row>
@@ -61,7 +61,7 @@
                 </thead>
 
                 <tbody md-body>
-                <tr md-row md-select="vm.entity" md-select-id="name" md-auto-select ng-repeat="entity in vm.entities track by entity._id">
+                <tr md-row md-select="entity" md-select-id="_id" md-auto-select ng-repeat="entity in vm.entities track by entity._id">
                     <td md-cell>{{::entity.name}}</td>
                     <td md-cell>{{::entity.beginDate | date:'dd/MM/yyyy HH:mm'}}</td>
                     <td md-cell>{{::entity.endDate | date:'dd/MM/yyyy HH:mm'}}</td>

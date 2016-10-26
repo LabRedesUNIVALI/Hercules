@@ -8,7 +8,7 @@
      * @ngInject
      */
     function TestIndexController (entities, TestAPIService, hcCommonDialogs,
-        hcCommonToats, hcPDFManager, $mdDialog) {
+        hcCommonToasts, hcPDFManager, $mdDialog) {
 
         var vm = this;
 
@@ -18,14 +18,14 @@
             vm.selected = [];
             vm.processing = false;
 
-            vm.delete = delete;
+            vm.delete = deleteTest;
             vm.previewTest = previewTest;
             vm.downloadPdf = downloadPdf;
             vm.printPdf = printPdf;
 
         };
 
-        var delete = function (entity, ev) {
+        var deleteTest = function (entity, ev) {
             hcCommonDialogs.confirmDelete(ev).then(function () {
                 vm.processing = true;
                 TestAPIService.delete(entity._id)
@@ -50,6 +50,7 @@
                 targetEvent: ev,
                 clickOutsideToClose: true,
                 controller: 'TestDialogController',
+                controllerAs: 'vm',
                 locals: { test: test }
             });
         };
