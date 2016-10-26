@@ -1,24 +1,29 @@
-angular.module('hercules', [
-    'ngMaterial',
-    'ngRoute',
-    'ngMessages',
-    'ngCookies',
-    'ngAria',
-    'md.data.table'
-])
-    .config(['$httpProvider', function ($httpProvider) {
+(function () {
+
+    'use strict';
+
+    /**
+     * interceptors - Configure application interceptors
+     * @ngInject
+     */
+    function interceptors ($httpProvider) {
         $httpProvider.interceptors.push('accessTokenInterceptor');
-    }])
-    .config(['$mdThemingProvider', function ($mdThemingProvider) {
+    };
+
+    /**
+     * themes - Configure application themes
+     * @ngInject
+     */
+    function themes ($mdThemingProvider) {
         $mdThemingProvider.theme('success')
             .primaryPalette('green', {'default': '800'});
-    }])
-    .config(['$mdDateLocaleProvider', function ($mdDateLocaleProvider) {
-        $mdDateLocaleProvider.formatDate = function (date) {
-            return moment(date).format('DD/MM/YYYY HH:mm');
-        }
-    }])
-    .run(['$rootScope', '$location', '$cookies', function ($rootScope, $location, $cookies) {
+    };
+
+    /**
+     * authorization - Redirect users if not logged in.
+     * @ngInject
+     */
+    function authorization ($rootScope, $location, $cookies) {
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
             var publicPages = ['/login', '/register'];
             var restrictedPage = publicPages.indexOf($location.path()) === -1;
@@ -26,8 +31,13 @@ angular.module('hercules', [
                 $location.path('/login');
             }
         });
-    }])
-    .run(['$templateCache', function ($templateCache) {
+    };
+
+    /**
+     * templates - Put specific templates in cache
+     * @ngInject
+     */
+    function templates ($templateCache) {
         $templateCache.put(
             'test-print-body.html',
             '<p> <strong>Disciplina:</strong> {{test.discipline.name}} {{test.discipline.year}}/{{test.discipline.semester}}</p><p> <strong>Data e horário de início:</strong> {{test.beginDate | date:"dd/MM/yyyy HH:mm"}}</p><p> <strong>Data e horário de término:</strong> {{test.endDate | date:"dd/MM/yyyy HH:mm"}}</p><br /><h3 style="margin-left: 400px;">{{test.name}}</h3><br />'
@@ -40,4 +50,26 @@ angular.module('hercules', [
             'test-print-option.html',
             '<p> <strong>{{letter}})</strong> {{option.text}}</p>'
         );
-    }]);
+    };
+
+    angular.module('hercules.controllers', []);
+    angular.module('hercules.services', []);
+
+    var dependencies = [
+        'ngMaterial',                   // Angular Material
+        'ngRoute',                      // Angular Route
+        'ngMessages',                   // Angular Messages
+        'ngCookies',                    // Angular Cookies
+        'ngAria',                       // Angular Aria
+        'md.data.table',                // Material Design data tables
+        'hercules.controllers',         // Hercules controllers
+        'hercules.services'             // Hercules services
+    ];
+
+    angular.module('hercules', dependencies)
+        .config(interceptors)
+        .config(themes)
+        .run(authorization)
+        .run(templates);
+
+})();

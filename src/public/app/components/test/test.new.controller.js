@@ -1,45 +1,53 @@
-angular.module('hercules').controller('TestNewController', [
-    '$scope',
-    'disciplines',
-    'themes',
-    'TestAPIService',
-    'QuestionAPIService',
-    'hcCommonDialogs',
-    '$location',
-    function ($scope, disciplines, themes, TestAPIService, QuestionAPIService, hcCommonDialogs, $location) {
+(function () {
 
-        $scope.disciplines = disciplines.data;
-        $scope.themes = themes.data;
+    'use strict';
 
-        $scope.entity = {};
-        $scope.entity.questions = [];
+    /**
+     * @class TestNewController
+     * @classdesc New controller for test entity
+     * @ngInject
+     */
+    function TestNewController(disciplines, themes, TestAPIService,
+        QuestionAPIService, hcCommonDialogs, $location) {
 
-        $scope.processing = false;
+        var vm = this;
 
-        $scope.questions = [];
+        var init = function () {
+
+            vm.disciplines = disciplines.data;
+            vm.themes = themes.data;
+            vm.entity = {};
+            vm.entity.questions = [];
+            vm.questions = [];
+            vm.processing = false;
+
+            vm.getQuestions = getQuestions;
+            vm.toggleQuestion = toggleQuestion;
+            vm.save = save;
+            vm.showQuestionInfo = showQuestionInfo;
+
+        };
+
         var lastSearch = [];
 
-        $scope.getQuestions = function (themes) {
+        var getQuestions = function (themes) {
 
             var equal = (themes.length === lastSearch.length) && lastSearch.every(function (item, index) {
                 return item === themes[index];
             });
 
-
             if (!equal) {
 
-                $scope.questions = [];
+                vm.questions = [];
 
                 themes.forEach(function (item) {
-
                     QuestionAPIService.getAllByTheme(item)
                         .success(function (result) {
-                            $scope.questions = $scope.questions.concat(result);
+                            vm.questions = vm.questions.concat(result);
                         })
                         .error(function () {
                             hcCommonDialogs.genericError();
                         });
-
                 });
 
                 lastSearch = themes;
@@ -47,7 +55,7 @@ angular.module('hercules').controller('TestNewController', [
 
         };
 
-        $scope.toggleQuestion = function (item, list) {
+        var toggleQuestion = function (item, list) {
             var index = list.indexOf(item);
             if (index > -1) {
                 list.splice(index, 1);
@@ -57,12 +65,9 @@ angular.module('hercules').controller('TestNewController', [
             }
         };
 
+        var save = function (entity) {
 
-        $scope.save = function (entity) {
-
-            $scope.processing = true;
-
-            entity = angular.copy(entity);
+            vm.processing = true;
 
             TestAPIService.save(entity)
                 .success(function (result) {
@@ -70,19 +75,24 @@ angular.module('hercules').controller('TestNewController', [
                         $location.path('admin/tests');
                     } else {
                         hcCommonDialogs.genericError();
+                        vm.processing = false;
                     }
                 })
                 .error(function () {
                     hcCommonDialogs.genericError();
-                })
-                .then(function () {
-                    $scope.processing = false;
+                    vm.processing = false;
                 });
-
         };
 
-        $scope.showQuestionInfo = function (question, ev) {
+        var showQuestionInfo = function (question, ev) {
             hcCommonDialogs.questionInfo(question, ev);
         };
 
-}]);
+        init();
+
+    };
+
+    angular.module('hercules.controllers')
+        .controller('TestNewController', TestNewController);
+
+})();

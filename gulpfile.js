@@ -104,7 +104,7 @@ gulp.task('prod', function (callback) {
         name: 'answer',
         message: 'You\'re about to erase all \'public\' folder content. \n  After that, only production environment files will remain. Continue?',
         default: false
-    }).then(function(data){
+    }).then(function (data) {
         if (data.answer) {
             return runSequece(
                 'clean:dist',

@@ -13,13 +13,13 @@
         </div>
     </div>
 
-    <form layout="row" class="content-form" name="testNewForm" ng-submit="save(entity)">
+    <form layout="row" class="content-form" name="testNewForm" ng-submit="vm.save(vm.entity)">
 
         <div layout="column" flex="70" class="form-container" layout-fill>
 
             <md-input-container class="md-block">
                 <label>Nome</label>
-                <input type="text" name="name" ng-model="entity.name" required ng-minlength="2" ng-maxlength="255" placeholder="Nome da prova" />
+                <input type="text" name="name" ng-model="vm.entity.name" required ng-minlength="2" ng-maxlength="255" placeholder="Nome da prova" />
                 <div ng-messages="testNewForm.name.$error">
                     <div ng-message="required">Este campo é obrigatório.</div>
                     <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
@@ -30,9 +30,9 @@
             <div layout="row">
                 <md-input-container class="md-block" flex>
                     <label>Disciplina</label>
-                    <md-select ng-model="entity.discipline" name="discipline" required>
+                    <md-select ng-model="vm.entity.discipline" name="discipline" required>
                         <md-option ng-value=""><em>Selecione uma opção</em></md-option>
-                        <md-option ng-value="discipline._id" ng-repeat="discipline in disciplines track by discipline._id">
+                        <md-option ng-value="discipline._id" ng-repeat="discipline in vm.disciplines track by discipline._id">
                             {{::discipline.name}} {{::discipline.year}}/{{::discipline.semester}}
                         </md-option>
                     </md-select>
@@ -42,21 +42,21 @@
                 </md-input-container>
                 <md-input-container flex>
                     <label>Data de início</label>
-                    <input type="text" ng-model="entity.beginDate" />
+                    <input type="text" ng-model="vm.entity.beginDate" />
                 </md-input-container>
                 <md-input-container flex>
                     <label>Data de fim</label>
-                    <input type="text" ng-model="entity.endDate" />
+                    <input type="text" ng-model="vm.entity.endDate" />
                 </md-input-container>
             </div>
 
             <md-input-container class="md-block">
                 <label>Conteúdos</label>
-                <md-select ng-model="entity.themes" multiple data-md-container-class="select-search" required name="selectedThemes" md-on-close="getQuestions(entity.themes)">
+                <md-select ng-model="vm.entity.themes" multiple data-md-container-class="select-search" required name="selectedThemes" md-on-close="vm.getQuestions(vm.entity.themes)">
                     <md-select-header class="select-header">
                         <input ng-model="themeSearchTerm" ng-keydown="$event.stopPropagation()" type="search" placeholder="Procure por conteúdos" class="select-header-searchbox _md-text" />
                     </md-select-header>
-                    <md-option ng-value="theme._id" ng-repeat="theme in themes | filter:themeSearchTerm track by theme._id">
+                    <md-option ng-value="theme._id" ng-repeat="theme in vm.themes | filter:themeSearchTerm track by theme._id">
                         {{theme.name}}
                     </md-option>
                 </md-select>
@@ -67,10 +67,10 @@
 
             <md-content>
                 <md-list flex>
-                    <md-list-item ng-repeat="question in questions track by question._id">
-                        <md-checkbox ng-click="toggleQuestion(question._id, entity.questions)"></md-checkbox>
+                    <md-list-item ng-repeat="question in vm.questions track by question._id">
+                        <md-checkbox ng-click="vm.toggleQuestion(question._id, vm.entity.questions)"></md-checkbox>
                         <p>{{::question.name | ellipsis:50}}</p>
-                        <md-icon class="md-secondary material-icons" ng-click="showQuestionInfo(question, $event)" aria-label="Question detail">info</md-icon>
+                        <md-icon class="md-secondary material-icons" ng-click="vm.showQuestionInfo(question, $event)" aria-label="info">info</md-icon>
                     </md-list-item>
                 </md-list>
             </md-content>
@@ -81,7 +81,7 @@
                         <md-icon class="material-icons">close</md-icon>
                         Cancelar
                     </md-button>
-                    <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="testNewForm.$invalid || processing">
+                    <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="testNewForm.$invalid || vm.processing">
                         <md-icon class="material-icons">send</md-icon>
                         Cadastrar
                     </md-button>
