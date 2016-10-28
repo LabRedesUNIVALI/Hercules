@@ -6,7 +6,7 @@
      * accessTokenInterceptor - Interceptor to append jwt to Authorization header
      * @ngInject
      */
-    function accessTokenInterceptor ($cookies) {
+    function AccessTokenInterceptor ($cookies) {
 
         return {
             request: function (config) {
@@ -21,6 +21,6 @@
     }
 
     angular.module('hercules.services')
-        .factory('accessTokenInterceptor', accessTokenInterceptor);
+        .factory('AccessTokenInterceptor', AccessTokenInterceptor);
 
 })();

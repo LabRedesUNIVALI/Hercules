@@ -7,7 +7,7 @@
      * @ngInject
      */
     function interceptors ($httpProvider) {
-        $httpProvider.interceptors.push('accessTokenInterceptor');
+        $httpProvider.interceptors.push('AccessTokenInterceptor');
     }
 
     /**

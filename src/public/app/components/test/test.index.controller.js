@@ -33,11 +33,10 @@
                         var index = vm.entities.indexOf(entity);
                         vm.entities.splice(index, 1);
                         hcCommonToasts.notice("Registro excluído com sucesso.");
+                        vm.processing = false;
                     })
                     .error(function () {
                         hcCommonToasts.notice("Não foi possível excluir o registro");
-                    })
-                    .then(function () {
                         vm.processing = false;
                     });
             }, null);

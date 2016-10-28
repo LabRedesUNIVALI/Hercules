@@ -3,10 +3,10 @@
     'use strict';
 
     /**
-     * hcCommonDialogs - Service to display common dialogs
+     * CommonDialogs - Service to display common dialogs
      * @ngInject
      */
-    function hcCommonDialogs($mdDialog) {
+    function CommonDialogs($mdDialog) {
 
         this.genericError = function () {
             $mdDialog.show(
@@ -43,6 +43,6 @@
     }
 
     angular.module('hercules.services')
-        .service('hcCommonDialogs', hcCommonDialogs);
+        .service('hcCommonDialogs', CommonDialogs);
 
 })();

@@ -3,10 +3,10 @@
     'use strict';
 
     /**
-     * hcCommonToasts - Service to display common toasts
+     * CommonToasts - Service to display common toasts
      * @ngInject
      */
-    function hcCommonToasts ($mdToast) {
+    function CommonToasts ($mdToast) {
 
         this.notice = function (message) {
             $mdToast.show(
@@ -20,6 +20,6 @@
     }
 
     angular.module('hercules.services')
-        .service('hcCommonToasts', hcCommonToasts);
+        .service('hcCommonToasts', CommonToasts);
 
 })();
