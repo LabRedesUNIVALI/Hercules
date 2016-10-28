@@ -58,7 +58,7 @@
             <div layout="row" flex="10" layout-align="center center" ng-repeat="student in vm.entity.students track by $index">
                 <md-input-container class="md-block" flex>
                     <label>Aluno</label>
-                    <input type="text" ng-model="vm.student.name" name="studentName{{$index}}" placeholder="Nome do aluno" required ng-minlength="2" ng-maxlength="255"/>
+                    <input type="text" ng-model="student.name" name="studentName{{$index}}" placeholder="Nome do aluno" required ng-minlength="2" ng-maxlength="255"/>
                     <div ng-messages="disciplineEditForm['studentName' + $index].$error">
                         <div ng-message="required">Este campo é obrigatório.</div>
                         <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>

@@ -74,7 +74,7 @@
 
     }
 
-    angular.module('hercules.controller')
+    angular.module('hercules.controllers')
         .controller('QuestionNewController', QuestionNewController);
 
 })();
