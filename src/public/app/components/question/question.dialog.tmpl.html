@@ -1,9 +1,9 @@
 <md-dialog aria-label="Questão" style="min-width: 50%">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>Questão - {{::question.theme.name}}</h2>
+            <h2>Questão - {{::vm.question.theme.name}}</h2>
             <span flex></span>
-            <md-button class="md-icon-button" ng-click="close()">
+            <md-button class="md-icon-button" ng-click="vm.close()">
                 <md-icon class="material-icons">close</md-icon>
             </md-button>
         </div>
@@ -11,14 +11,14 @@
     <md-dialog-content>
         <div class="md-dialog-content">
             <h3>Enunciado</h3>
-            <p>{{::question.name}}</p>
+            <p>{{::vm.question.name}}</p>
             <br />
             <h3>Alternativas</h3>
             <md-list flex>
-                <md-list-item class="md-3-line" ng-repeat="option in question.options track by option._id">
+                <md-list-item class="md-3-line" ng-repeat="option in vm.question.options track by option._id">
                     <div class="md-list-item-text" layout="column">
                         <h3>
-                            Alternativa {{::$index + 1}}  
+                            Alternativa {{::$index + 1}}
                             <span md-colors="{color: 'green'}" ng-if="question.correctOption == $index + 1">
                                 <md-icon md-colors="{color: 'green'}" class="material-icons">check</md-icon>
                                 Correta

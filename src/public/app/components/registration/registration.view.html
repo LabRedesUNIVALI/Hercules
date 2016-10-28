@@ -20,11 +20,11 @@
             </div>
 
             <div layout="column" layout-fill layout-margin layout-padding>
-                <form name="registrationForm" layout="column" layout-fill layout-padding ng-submit="register(registration.user)">
+                <form name="registrationForm" layout="column" layout-fill layout-padding ng-submit="vm.register(vm.registration.user)">
                     <md-input-container class="md-icon-float md-block">
                         <label>Nome completo</label>
                         <md-icon class="material-icons">person</md-icon>
-                        <input type="text" placeholder="Nome completo" ng-model="registration.user.name" name="name" required ng-minlength="2" ng-maxlength="255"/>
+                        <input type="text" placeholder="Nome completo" ng-model="vm.registration.user.name" name="name" required ng-minlength="2" ng-maxlength="255"/>
                         <div ng-messages="registrationForm.name.$error">
                             <div ng-message="required">Este campo é obrigatório.</div>
                             <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
@@ -34,7 +34,7 @@
                     <md-input-container class="md-icon-float md-block">
                         <label>E-mail</label>
                         <md-icon class="material-icons">email</md-icon>
-                        <input type="email" placeholder="E-mail" ng-model="registration.user.email" name="email" required hc-unique-email />
+                        <input type="email" placeholder="E-mail" ng-model="vm.registration.user.email" name="email" required hc-unique-email />
                         <div ng-messages="registrationForm.email.$error">
                             <div ng-message="required">Este campo é obrigatório.</div>
                             <div ng-message="email">Informe um endereço de e-mail válido.</div>
@@ -44,7 +44,7 @@
                     <md-input-container class="md-icon-float md-block">
                         <label>Senha</label>
                         <md-icon class="material-icons">lock</md-icon>
-                        <input type="password" placeholder="Senha" ng-model="registration.user.password" name="password" required ng-minlength="5" ng-maxlength="50" />
+                        <input type="password" placeholder="Senha" ng-model="vm.registration.user.password" name="password" required ng-minlength="5" ng-maxlength="50" />
                         <div ng-messages="registrationForm.password.$error">
                             <div ng-message="required">Este campo é obrigatório.</div>
                             <div ng-message="minlength">Este campo deve ter ao menos 5 caracteres.</div>
@@ -54,14 +54,14 @@
                     <md-input-container class="md-icon-float md-block">
                         <label>Confirmar senha</label>
                         <md-icon class="material-icons">lock</md-icon>
-                        <input type="password" placeholder="Senha" ng-model="registration.confirmPassword" name="confirmPassword" hc-compare-to="registration.user.password" required />
+                        <input type="password" placeholder="Senha" ng-model="vm.registration.confirmPassword" name="confirmPassword" hc-compare-to="vm.registration.user.password" required />
                         <div ng-messages="registrationForm.confirmPassword.$error">
                             <div ng-message="required">Este campo é obrigatório.</div>
                             <div ng-message="compareTo">As senhas devem ser iguais.</div>
                         </div>
                     </md-input-container>
                     <div layout="row" layout-align="center center">
-                        <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="registrationForm.$invalid || processing">
+                        <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="registrationForm.$invalid || vm.processing">
                             <md-icon class="material-icons">send</md-icon>
                             Cadastrar
                         </md-button>

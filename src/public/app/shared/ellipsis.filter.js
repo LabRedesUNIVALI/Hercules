@@ -13,7 +13,7 @@
             return output;
         };
 
-    };
+    }
 
     angular.module('hercules.filters')
         .filter('ellipsis', ellipsis);

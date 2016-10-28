@@ -1,16 +1,28 @@
-angular.module('hercules').controller('RegistrationController', [
-    '$scope',
-    'UserAPIService',
-    'AuthenticationService',
-    'hcCommonDialogs',
-    '$location',
-    function ($scope, UserAPIService, AuthenticationService, hcCommonDialogs, $location) {
+(function () {
 
-        $scope.processing = false;
+    'use strict';
 
-        $scope.register = function(user) {
+    /**
+     * @class RegistrationController
+     * @classdesc Controller to handle user registration
+     * @ngInject
+     */
+    function RegistrationController (UserAPIService, AuthenticationService,
+        hcCommonDialogs, $location) {
 
-            $scope.processing = true;
+        var vm = this;
+
+        var _init = function () {
+
+            vm.processing = false;
+
+            vm.register = _register;
+
+        };
+
+        var _register = function(user) {
+
+            vm.processing = true;
 
             UserAPIService.createUser(user)
                 .success(function(response){
@@ -20,13 +32,20 @@ angular.module('hercules').controller('RegistrationController', [
                         });
                     } else {
                         hcCommonDialogs.genericError();
+                        vm.processing = false;
                     }
                 })
                 .error(function () {
                     hcCommonDialogs.genericError();
-                })
-                .then(function () {
-                    $scope.processing = false;
+                    vm.processing = false;
                 });
         };
-}]);
+
+        _init();
+
+    }
+
+    angular.module('hercules.controllers')
+        .controller('RegistrationController', RegistrationController);
+
+})();

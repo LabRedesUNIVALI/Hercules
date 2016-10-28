@@ -32,7 +32,7 @@
             logout: _logout
         };
 
-    };
+    }
 
     angular.module('hercules.services')
         .factory('AuthenticationService', AuthenticationService);

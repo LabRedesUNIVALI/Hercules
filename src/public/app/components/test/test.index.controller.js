@@ -12,20 +12,20 @@
 
         var vm = this;
 
-        var init = function () {
+        var _init = function () {
 
             vm.entities = entities.data;
             vm.selected = [];
             vm.processing = false;
 
-            vm.delete = deleteTest;
-            vm.previewTest = previewTest;
-            vm.downloadPdf = downloadPdf;
-            vm.printPdf = printPdf;
+            vm.delete = _delete;
+            vm.previewTest = _previewTest;
+            vm.downloadPdf = _downloadPdf;
+            vm.printPdf = _printPdf;
 
         };
 
-        var deleteTest = function (entity, ev) {
+        var _delete = function (entity, ev) {
             hcCommonDialogs.confirmDelete(ev).then(function () {
                 vm.processing = true;
                 TestAPIService.delete(entity._id)
@@ -43,7 +43,7 @@
             }, null);
         };
 
-        var previewTest = function (test, ev) {
+        var _previewTest = function (test, ev) {
             $mdDialog.show({
                 templateUrl: 'public/components/test/test.dialog.tmpl.html',
                 parent: angular.element(document.body),
@@ -55,17 +55,17 @@
             });
         };
 
-        var downloadPdf = function (test) {
+        var _downloadPdf = function (test) {
             hcPDFManager.generateTestDocument(test, false);
         };
 
-        var printPdf = function (test) {
+        var _printPdf = function (test) {
             hcPDFManager.generateTestDocument(test, true);
         };
 
-        init();
+        _init();
 
-    };
+    }
 
     angular.module('hercules.controllers')
         .controller('TestIndexController', TestIndexController);

@@ -12,7 +12,7 @@
 
         var vm = this;
 
-        var init = function () {
+        var _init = function () {
 
             vm.disciplines = disciplines.data;
             vm.themes = themes.data;
@@ -21,18 +21,18 @@
             vm.questions = [];
             vm.processing = false;
 
-            vm.getQuestions = getQuestions;
-            vm.toggleQuestion = toggleQuestion;
-            vm.save = save;
-            vm.showQuestionInfo = showQuestionInfo;
+            vm.getQuestions = _getQuestions;
+            vm.toggleQuestion = _toggleQuestion;
+            vm.save = _save;
+            vm.showQuestionInfo = _showQuestionInfo;
 
         };
 
-        var lastSearch = [];
+        var _lastSearch = [];
 
-        var getQuestions = function (themes) {
+        var _getQuestions = function (themes) {
 
-            var equal = (themes.length === lastSearch.length) && lastSearch.every(function (item, index) {
+            var equal = (themes.length === _lastSearch.length) && _lastSearch.every(function (item, index) {
                 return item === themes[index];
             });
 
@@ -50,12 +50,12 @@
                         });
                 });
 
-                lastSearch = themes;
+                _lastSearch = themes;
             }
 
         };
 
-        var toggleQuestion = function (item, list) {
+        var _toggleQuestion = function (item, list) {
             var index = list.indexOf(item);
             if (index > -1) {
                 list.splice(index, 1);
@@ -65,7 +65,7 @@
             }
         };
 
-        var save = function (entity) {
+        var _save = function (entity) {
 
             vm.processing = true;
 
@@ -84,13 +84,13 @@
                 });
         };
 
-        var showQuestionInfo = function (question, ev) {
+        var _showQuestionInfo = function (question, ev) {
             hcCommonDialogs.questionInfo(question, ev);
         };
 
-        init();
+        _init();
 
-    };
+    }
 
     angular.module('hercules.controllers')
         .controller('TestNewController', TestNewController);

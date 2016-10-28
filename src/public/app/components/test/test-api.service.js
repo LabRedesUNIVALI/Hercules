@@ -2,7 +2,6 @@
 
     'use strict';
 
-
     /**
      * TestAPIService - API service for test entities
      * @ngInject
@@ -37,7 +36,7 @@
             delete: _delete
         };
 
-    };
+    }
 
     angular.module('hercules.services')
         .factory('TestAPIService', TestAPIService);

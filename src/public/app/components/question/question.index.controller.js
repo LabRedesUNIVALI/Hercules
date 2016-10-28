@@ -1,39 +1,50 @@
-angular.module('hercules').controller('QuestionIndexController', [
-    '$scope',
-    'entities',
-    'QuestionAPIService',
-    'ThemeAPIService',
-    'hcCommonToasts',
-    'hcCommonDialogs',
-    '$mdDialog',
-    '$location',
-    function ($scope, entities, QuestionAPIService, ThemeAPIService, hcCommonToasts, hcCommonDialogs, $mdDialog, $location) {
+(function () {
 
-        $scope.entities = entities.data;
-        $scope.selected = [];
-        $scope.processing = false;
+    'use strict';
 
-        $scope.delete = function (entity, ev) {
+    /**
+     * @class QuestionIndexController
+     * @classdesc Index controller for question entity
+     * @ngInject
+     */
+    function QuestionIndexController (entities, QuestionAPIService,
+        ThemeAPIService, hcCommonToasts, hcCommonDialogs,
+        $mdDialog, $location) {
+
+        var vm = this;
+
+        var _init = function () {
+
+            vm.entities = entities.data;
+            vm.selected = [];
+            vm.processing = false;
+
+            vm.delete = _delete;
+            vm.addQuestion = _addQuestion;
+            vm.showNoThemesDialog = _showNoThemesDialog;
+
+        };
+
+        var _delete = function (entity, ev) {
             hcCommonDialogs.confirmDelete(ev).then(function () {
 
-                $scope.processing = true;
+                vm.processing = true;
 
                 QuestionAPIService.delete(entity.theme._id, entity._id)
                     .success(function (result) {
-                        var index = $scope.entities.indexOf(entity);
-                        $scope.entities.splice(index, 1);
+                        var index = vm.entities.indexOf(entity);
+                        vm.entities.splice(index, 1);
                         hcCommonToasts.notice('Registro excluído com sucesso.');
+                        vm.processing = false;
                     })
                     .error(function () {
                         hcCommonToasts.notice('Não foi possível excluir o registro.');
-                    })
-                    .then(function () {
-                        $scope.processing = false;
+                        vm.processing = false;
                     });
             }, null);
         };
 
-        $scope.addQuestion = function (ev) {
+        var _addQuestion = function (ev) {
             ThemeAPIService.getAll()
                 .success(function (result) {
                     if (result.length > 0) {
@@ -44,7 +55,7 @@ angular.module('hercules').controller('QuestionIndexController', [
                 });
         };
 
-        var showNoThemesDialog = function (ev) {
+        var _showNoThemesDialog = function (ev) {
             $mdDialog.show(
                 $mdDialog.alert()
                     .title('Não há conteúdos cadastrados!')
@@ -54,4 +65,12 @@ angular.module('hercules').controller('QuestionIndexController', [
                     .ok('Entendi')
             );
         };
-}]);
+
+        _init();
+
+    }
+
+    angular.module('hercules.controllers')
+        .controller('QuestionIndexController', QuestionIndexController);
+
+})();

@@ -12,14 +12,14 @@
             </md-button>
         </div>
     </div>
-    
-    <form layout="row" class="content-form" name="themeEditForm" ng-submit="update(entity)">
-        
+
+    <form layout="row" class="content-form" name="themeEditForm" ng-submit="vm.update(vm.entity)">
+
         <div layout="column" flex="70" class="form-container" layout-fill>
 
             <md-input-container>
                 <label>Nome</label>
-                <input type="text" ng-model="entity.name" name="name" required ng-minlength="2" ng-maxlength="255">
+                <input type="text" ng-model="vm.entity.name" name="name" required ng-minlength="2" ng-maxlength="255">
                 <div ng-messages="themeEditForm.name.$error">
                     <div ng-message="required">Este campo é obrigatório.</div>
                     <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
@@ -33,9 +33,9 @@
                         <md-icon class="material-icons">close</md-icon>
                         Cancelar
                     </md-button>
-                    <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="ThemeEditForm.$invalid || processing">
+                    <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="ThemeEditForm.$invalid || vm.processing">
                         <md-icon class="material-icons">send</md-icon>
-                        Salvar
+                        Atualizar
                     </md-button>
                 </div>
             </div>

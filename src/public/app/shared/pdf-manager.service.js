@@ -55,7 +55,8 @@
             }
 
         };
-    };
+
+    }
 
     angular.module('hercules.services')
         .service('hcPDFManager', hcPDFManager);

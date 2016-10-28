@@ -12,7 +12,7 @@
 
         var vm = this;
 
-        var init = function () {
+        var _init = function () {
 
             vm.entity = entity.data;
             vm.entity.beginDate = $filter('date')(entity.data.beginDate);
@@ -28,20 +28,20 @@
             });
             vm.questions = [];
 
-            vm.getQuestions = getQuestions;
-            vm.toggleQuestion = toggleQuestion;
-            vm.update = update;
-            vm.showQuestionInfo = showQuestionInfo;
+            vm.getQuestions = _getQuestions;
+            vm.toggleQuestion = _toggleQuestion;
+            vm.update = _update;
+            vm.showQuestionInfo = _showQuestionInfo;
 
-            getQuestions(entity.data.themes);
+            _getQuestions(entity.data.themes);
 
         };
 
-        var lastSearch = [];
+        var _lastSearch = [];
 
-        var getQuestions = function (themes) {
+        var _getQuestions = function (themes) {
 
-            var equal = (themes.length === lastSearch.length) && lastSearch.every(function (item, index) {
+            var equal = (themes.length === _lastSearch.length) && _lastSearch.every(function (item, index) {
                 return item === themes[index];
             });
 
@@ -57,12 +57,12 @@
                         });
                 });
 
-                lastSearch = themes;
+                _lastSearch = themes;
             }
 
         };
 
-        var toggleQuestion = function (item, list) {
+        var _toggleQuestion = function (item, list) {
             var index = list.indexOf(item);
             if (index > -1) {
                 list.splice(index, 1);
@@ -72,7 +72,7 @@
             }
         };
 
-        var update = function (entity) {
+        var _update = function (entity) {
 
             vm.processing = true;
 
@@ -100,13 +100,13 @@
                 });
         };
 
-        var showQuestionInfo = function (question, ev) {
+        var _showQuestionInfo = function (question, ev) {
             hcCommonDialogs.questionInfo(question, ev);
         };
 
-        init();
+        _init();
 
-    };
+    }
 
     angular.module('hercules.controllers')
         .controller('TestEditController', TestEditController);

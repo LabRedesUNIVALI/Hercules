@@ -1,6 +1,12 @@
-angular.module('hercules').factory('QuestionAPIService', [
-    '$http',
-    function ($http) {
+(function () {
+
+    'use strict';
+
+    /**
+     * QuestionAPIService - API service for question entities
+     * @ngInject
+     */
+    function QuestionAPIService ($http) {
 
         var _save = function (themeId, question) {
             return $http.post('/api/themes/' + themeId + '/questions', question);
@@ -39,4 +45,10 @@ angular.module('hercules').factory('QuestionAPIService', [
             update: _update,
             delete: _delete
         };
-}]);
+
+    }
+
+    angular.module('hercules.services')
+        .factory('QuestionAPIService', QuestionAPIService);
+
+})();

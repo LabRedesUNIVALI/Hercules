@@ -17,7 +17,7 @@
             );
         };
 
-    };
+    }
 
     angular.module('hercules.services')
         .service('hcCommonToasts', hcCommonToasts);

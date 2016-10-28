@@ -40,7 +40,7 @@
             });
         };
 
-    };
+    }
 
     angular.module('hercules.services')
         .service('hcCommonDialogs', hcCommonDialogs);

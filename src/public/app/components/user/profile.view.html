@@ -19,7 +19,7 @@
             <md-input-container class="md-icon-float md-block">
                 <label>Nome completo</label>
                 <md-icon class="material-icons">person</md-icon>
-                <input type="text" placeholder="Nome completo" ng-model="entity.name" name="name" required ng-minlength="2" ng-maxlength="255"/>
+                <input type="text" placeholder="Nome completo" ng-model="vm.entity.name" name="name" required ng-minlength="2" ng-maxlength="255"/>
                 <div ng-messages="profileForm.name.$error">
                     <div ng-message="required">Este campo é obrigatório.</div>
                     <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
@@ -30,7 +30,7 @@
             <md-input-container class="md-icon-float md-block">
                 <label>E-mail</label>
                 <md-icon class="material-icons">email</md-icon>
-                <input type="email" placeholder="E-mail" ng-model="entity.email" name="email" required hc-unique-email />
+                <input type="email" placeholder="E-mail" ng-model="vm.entity.email" name="email" required hc-unique-email />
                 <div ng-messages="profileForm.email.$error">
                     <div ng-message="required">Este campo é obrigatório.</div>
                     <div ng-message="email">Informe um endereço de e-mail válido.</div>
@@ -44,7 +44,7 @@
                         <md-icon class="material-icons">close</md-icon>
                         Cancelar
                     </md-button>
-                    <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="profileForm.$invalid || processing">
+                    <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="profileForm.$invalid || vm.processing">
                         <md-icon class="material-icons">send</md-icon>
                         Atualizar
                     </md-button>

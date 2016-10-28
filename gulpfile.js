@@ -58,7 +58,7 @@ gulp.task('min:js', ['min:html'], function () {
         gulp.src('src/public/app/dist/templates.js').pipe(uglify())
     ])
     .pipe(concat('build.min.js'))
-    .pipe(gulp.dest('src/public/app/dist'))
+    .pipe(gulp.dest('src/public/app/dist'));
 });
 
 gulp.task('min:css', function () {

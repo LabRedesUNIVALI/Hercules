@@ -24,7 +24,7 @@
             }
         };
 
-    };
+    }
 
     angular.module('hercules.directives')
         .directive('hcUniqueEmail', hcUniqueEmail);

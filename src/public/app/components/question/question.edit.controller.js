@@ -1,28 +1,39 @@
-angular.module('hercules').controller('QuestionEditController', [
-    '$scope',
-    'entity',
-    'themes',
-    'QuestionAPIService',
-    'hcCommonDialogs',
-    '$location',
-    function ($scope, entity, themes, QuestionAPIService, hcCommonDialogs, $location) {
+(function () {
 
-        $scope.entity = entity.data;
-        $scope.processing = false;
+    'use strict';
 
-        $scope.themes = themes.data.map(function (theme) {
-            return {
-                _id: theme._id,
-                name: theme.name
-            };
-        });
+    /**
+     * @class QuestionEditController
+     * @classdesc Edit controller for question entity
+     * @ngInject
+     */
+    function QuestionEditController (entity, themes, QuestionAPIService,
+        hcCommonDialogs, $location) {
 
-        $scope.querySearch = function (query) {
-            var results = query ? $scope.themes.filter(createFilterFor(query)) : $scope.themes;
+        var vm = this;
+
+        var _init = function () {
+
+            vm.entity = entity.data;
+            vm.processing = false;
+            vm.themes = themes.data.map(function (theme) {
+                return {
+                    _id: theme._id,
+                    name: theme.name
+                };
+            });
+
+            vm.querySearch = _querySearch;
+            vm.update = _update;
+
+        };
+
+        var _querySearch = function (query) {
+            var results = query ? vm.themes.filter(_createFilterFor(query)) : vm.themes;
             return results;
         };
 
-        var createFilterFor = function (query) {
+        var _createFilterFor = function (query) {
             var lowercaseQuery = angular.lowercase(query);
             return function filterFn(theme) {
                 var lowercaseName = angular.lowercase(theme.name);
@@ -30,9 +41,9 @@ angular.module('hercules').controller('QuestionEditController', [
             };
         };
 
-        $scope.update = function (entity) {
+        var _update = function (entity) {
 
-            $scope.processing = true;
+            vm.processing = true;
 
             var updatedEntity = {
                 name: entity.name,
@@ -50,13 +61,20 @@ angular.module('hercules').controller('QuestionEditController', [
                         $location.path('/admin/questions');
                     } else {
                         hcCommonDialogs.genericError();
+                        vm.processing = false;
                     }
                 })
                 .error(function () {
                     hcCommonDialogs.genericError();
-                })
-                .then(function () {
-                    $scope.processing = false;
+                    vm.processing = false;
                 });
         };
-}]);
+
+        _init();
+
+    }
+
+    angular.module('hercules.controllers')
+        .controller('QuestionEditController', QuestionEditController);
+
+})();

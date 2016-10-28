@@ -18,7 +18,7 @@
             }
         };
 
-    };
+    }
 
     angular.module('hercules.services')
         .factory('accessTokenInterceptor', accessTokenInterceptor);

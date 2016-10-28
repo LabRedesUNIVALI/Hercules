@@ -3,7 +3,7 @@
     'use strict';
 
     /**
-     * router - Configure application routes.
+     * router - Configure application routes
      * @ngInject
      */
     function router ($routeProvider, $locationProvider) {
@@ -189,7 +189,7 @@
 
         $locationProvider.html5Mode(true);
 
-    };
+    }
 
     angular.module('hercules')
         .config(router);

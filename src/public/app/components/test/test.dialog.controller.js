@@ -11,7 +11,7 @@
 
         var vm = this;
 
-        var init = function () {
+        var _init = function () {
 
             vm.test = test;
             vm.letters = ['a', 'b', 'c', 'd', 'e'];
@@ -22,21 +22,21 @@
 
         };
 
-        var close = function () {
+        var _close = function () {
             $mdDialog.cancel();
         };
 
-        var downloadPdf = function (test) {
+        var _downloadPdf = function (test) {
             hcPDFManager.generateTestDocument(test, false);
         };
 
-        var printPdf = function (test) {
+        var _printPdf = function (test) {
             hcPDFManager.generateTestDocument(test, true);
         };
 
-        init();
+        _init();
 
-    };
+    }
 
     angular.module('hercules.controllers')
         .controller('TestDialogController', TestDialogController);

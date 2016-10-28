@@ -8,7 +8,7 @@
      */
     function interceptors ($httpProvider) {
         $httpProvider.interceptors.push('accessTokenInterceptor');
-    };
+    }
 
     /**
      * themes - Configure application themes
@@ -17,7 +17,7 @@
     function themes ($mdThemingProvider) {
         $mdThemingProvider.theme('success')
             .primaryPalette('green', {'default': '800'});
-    };
+    }
 
     /**
      * authorization - Redirect users if not logged in.
@@ -31,7 +31,7 @@
                 $location.path('/login');
             }
         });
-    };
+    }
 
     /**
      * templates - Put specific templates in cache
@@ -50,7 +50,7 @@
             'test-print-option.html',
             '<p> <strong>{{letter}})</strong> {{option.text}}</p>'
         );
-    };
+    }
 
     angular.module('hercules.controllers', []);
     angular.module('hercules.services', []);

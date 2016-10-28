@@ -25,7 +25,7 @@
             }
         };
 
-    };
+    }
 
     angular.module('hercules.directives')
         .directive('hcCompareTo', hcCompareTo);
