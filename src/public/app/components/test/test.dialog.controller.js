@@ -16,9 +16,9 @@
             vm.test = test;
             vm.letters = ['a', 'b', 'c', 'd', 'e'];
 
-            vm.close = close;
-            vm.downloadPdf = downloadPdf;
-            vm.printPdf = printPdf;
+            vm.close = _close;
+            vm.downloadPdf = _downloadPdf;
+            vm.printPdf = _printPdf;
 
         };
 
