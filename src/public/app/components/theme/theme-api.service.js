@@ -1,6 +1,12 @@
-angular.module('hercules').factory('ThemeAPIService', [
-    '$http',
-    function ($http) {
+(function () {
+
+    'use strict';
+
+    /**
+     * ThemeAPIService - API service for theme entities
+     * @ngInject
+     */
+    function ThemeAPIService ($http) {
 
         var _save = function (theme) {
             return $http.post('/api/themes', theme);
@@ -29,4 +35,10 @@ angular.module('hercules').factory('ThemeAPIService', [
             update: _update,
             delete: _delete
         };
-}]);
+
+    }
+
+    angular.module('hercules.services')
+        .factory('ThemeAPIService', ThemeAPIService);
+
+})();

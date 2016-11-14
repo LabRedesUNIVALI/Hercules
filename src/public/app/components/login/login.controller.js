@@ -1,21 +1,33 @@
-angular.module('hercules').controller('LoginController', [
-    '$scope',
-    'AuthenticationService',
-    '$location',
-    '$mdDialog',
-    function ($scope, AuthenticationService, $location, $mdDialog) {
+(function () {
 
-        $scope.login = function (credentials) {
+    'use strict';
+
+    /**
+     * @class LoginController
+     * @classdesc Controller to handle user login
+     * @ngInject
+     */
+    function LoginController (AuthenticationService, $location, $mdDialog) {
+
+        var vm = this;
+
+        var _init = function () {
+
+            vm.login = _login;
+
+        };
+
+        var _login = function (credentials) {
             AuthenticationService.login(credentials, function (success) {
                 if (success) {
                     $location.path('/admin');
                 } else {
-                    showIncorrectCredentialsDialog();
+                    _showIncorrectCredentialsDialog();
                 }
             });
         };
 
-        var showIncorrectCredentialsDialog = function () {
+        var _showIncorrectCredentialsDialog = function () {
             $mdDialog.show(
                 $mdDialog.alert()
                     .parent('body')
@@ -25,4 +37,12 @@ angular.module('hercules').controller('LoginController', [
                     .ok('Ok')
             );
         };
-}]);
+
+        _init();
+
+    }
+
+    angular.module('hercules.controllers')
+        .controller('LoginController', LoginController);
+
+})();

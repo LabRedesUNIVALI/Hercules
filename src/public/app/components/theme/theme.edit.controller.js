@@ -1,17 +1,29 @@
-angular.module('hercules').controller('ThemeEditController', [
-    '$scope',
-    'entity',
-    'ThemeAPIService',
-    'hcCommonDialogs',
-    '$location',
-    function ($scope, entity, ThemeAPIService, hcCommonDialogs, $location) {
+(function () {
 
-        $scope.entity = entity.data;
-        $scope.processing = false;
+    'use strict';
 
-        $scope.update = function (entity) {
+    /**
+     * @class ThemeEditController
+     * @classdesc Edit controller for theme entity
+     * @ngInject
+     */
+    function ThemeEditController (entity, ThemeAPIService,
+        hcCommonDialogs, $location) {
 
-            $scope.processing = true;
+        var vm = this;
+
+        var _init = function () {
+
+            vm.entity = entity.data;
+            vm.processing = false;
+
+            vm.update = _update;
+
+        };
+
+        var _update = function (entity) {
+
+            vm.processing = true;
 
             var updatedEntity = {
                 name: entity.name
@@ -23,14 +35,20 @@ angular.module('hercules').controller('ThemeEditController', [
                         $location.path('/admin/themes');
                     } else {
                         hcCommonDialogs.genericError();
+                        vm.processing = false;
                     }
                 })
                 .error(function () {
                     hcCommonDialogs.genericError();
-                })
-                .then(function () {
-                    $scope.processing = false;
+                    vm.processing = false;
                 });
         };
 
-}]);
+        _init();
+
+    }
+
+    angular.module('hercules.controllers')
+        .controller('ThemeEditController', ThemeEditController);
+
+})();

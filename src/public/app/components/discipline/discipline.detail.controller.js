@@ -28,4 +28,3 @@ angular.module('hercules').controller('DisciplineDetailController', [
 
         };
 }]);
-

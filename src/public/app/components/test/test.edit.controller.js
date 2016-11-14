@@ -1,64 +1,68 @@
-angular.module('hercules').controller('TestEditController', [
-    '$scope',
-    'entity',
-    'disciplines',
-    'themes',
-    'TestAPIService',
-    'QuestionAPIService',
-    'hcCommonDialogs',
-    '$location',
-    function ($scope, entity, disciplines, themes, TestAPIService, QuestionAPIService, hcCommonDialogs, $location) {
+(function () {
 
-        $scope.entity = entity.data;
+    'use strict';
 
-        $scope.entity.beginDate = moment($scope.entity.beginDate).format('DD/MM/YYYY HH:mm');
-        $scope.entity.endDate = moment($scope.entity.endDate).format('DD/MM/YYYY HH:mm');
+    /**
+     * @class TestEditController
+     * @classdesc Edit controller for test entity
+     * @ngInject
+     */
+    function TestEditController(entity, disciplines, themes, TestAPIService,
+        QuestionAPIService, hcCommonDialogs, $filter, $location) {
 
-        $scope.disciplines = disciplines.data;
-        $scope.themes = themes.data;
+        var vm = this;
 
-        $scope.processing = false;
+        var _init = function () {
 
-        $scope.entity.themes = $scope.entity.themes.map(function (theme){
-            return theme._id;
-        });
+            vm.entity = entity.data;
+            vm.entity.beginDate = $filter('date')(entity.data.beginDate, 'dd/MM/yyyy HH:mm');
+            vm.entity.endDate = $filter('date')(entity.data.endDate, 'dd/MM/yyyy HH:mm');
+            vm.disciplines = disciplines.data;
+            vm.themes = themes.data;
+            vm.processing = false;
+            vm.entity.themes = entity.data.themes.map(function (theme) {
+                return theme._id;
+            });
+            vm.entity.questions = entity.data.questions.map(function (question) {
+                return question._id;
+            });
+            vm.questions = [];
 
-        $scope.entity.questions = $scope.entity.questions.map(function (question){
-            return question._id;
-        });
+            vm.getQuestions = _getQuestions;
+            vm.toggleQuestion = _toggleQuestion;
+            vm.update = _update;
+            vm.showQuestionInfo = _showQuestionInfo;
 
-        $scope.questions = [];
-        var lastSearch = [];
+            _getQuestions(entity.data.themes);
 
-        $scope.getQuestions = function (themes) {
+        };
 
-            var equal = (themes.length === lastSearch.length) && lastSearch.every(function (item, index) {
-                    return item === themes[index];
-                });
+        var _lastSearch = [];
 
+        var _getQuestions = function (themes) {
+
+            var equal = (themes.length === _lastSearch.length) && _lastSearch.every(function (item, index) {
+                return item === themes[index];
+            });
 
             if (!equal) {
 
-                $scope.questions = [];
-
                 themes.forEach(function (item) {
-
                     QuestionAPIService.getAllByTheme(item)
                         .success(function (result) {
-                            $scope.questions = $scope.questions.concat(result);
+                            vm.questions = result;
                         })
                         .error(function () {
                             hcCommonDialogs.genericError();
                         });
-
                 });
 
-                lastSearch = themes;
+                _lastSearch = themes;
             }
 
         };
 
-        $scope.toggleQuestion = function (item, list) {
+        var _toggleQuestion = function (item, list) {
             var index = list.indexOf(item);
             if (index > -1) {
                 list.splice(index, 1);
@@ -68,9 +72,10 @@ angular.module('hercules').controller('TestEditController', [
             }
         };
 
-        $scope.update = function (entity) {
+        var _update = function (entity) {
 
-            $scope.processing = true;
+            vm.processing = true;
+
             var updatedEntity = {
                 name: entity.name,
                 beginDate: entity.beginDate,
@@ -86,20 +91,24 @@ angular.module('hercules').controller('TestEditController', [
                         $location.path('/admin/tests');
                     } else {
                         hcCommonDialogs.genericError();
+                        vm.processing = false;
                     }
                 })
                 .error(function () {
                     hcCommonDialogs.genericError();
-                })
-                .then(function () {
-                    $scope.processing = false;
+                    vm.processing = false;
                 });
         };
 
-        $scope.showQuestionInfo = function (question, ev) {
+        var _showQuestionInfo = function (question, ev) {
             hcCommonDialogs.questionInfo(question, ev);
         };
 
-        $scope.getQuestions($scope.entity.themes);
+        _init();
 
-}]);
+    }
+
+    angular.module('hercules.controllers')
+        .controller('TestEditController', TestEditController);
+
+})();

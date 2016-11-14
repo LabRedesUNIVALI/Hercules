@@ -3,4 +3,4 @@
 .idea/
 /config/local.js
 /src/public/app/dist/
-nodemon.json
+npm-debug.log

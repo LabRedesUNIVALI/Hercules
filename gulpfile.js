@@ -58,7 +58,7 @@ gulp.task('min:js', ['min:html'], function () {
         gulp.src('src/public/app/dist/templates.js').pipe(uglify())
     ])
     .pipe(concat('build.min.js'))
-    .pipe(gulp.dest('src/public/app/dist'))
+    .pipe(gulp.dest('src/public/app/dist'));
 });
 
 gulp.task('min:css', function () {
@@ -104,7 +104,7 @@ gulp.task('prod', function (callback) {
         name: 'answer',
         message: 'You\'re about to erase all \'public\' folder content. \n  After that, only production environment files will remain. Continue?',
         default: false
-    }).then(function(data){
+    }).then(function (data) {
         if (data.answer) {
             return runSequece(
                 'clean:dist',

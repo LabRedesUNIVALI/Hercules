@@ -1,24 +1,44 @@
-angular.module('hercules').controller('TestDialogController', [
-    '$scope',
-    'test',
-    'hcPDFManager',
-    '$mdDialog',
-    function ($scope, test, hcPDFManager, $mdDialog) {
+(function () {
 
-        $scope.test = test;
+    'use strict';
 
-        $scope.letters = ['a', 'b', 'c', 'd', 'e'];
+    /**
+     * @class TestDialogController
+     * @classdesc Dialog controller for test entity
+     * @ngInject
+     */
+    function TestDialogController (test, hcPDFManager, $mdDialog) {
 
-        $scope.close = function () {
+        var vm = this;
+
+        var _init = function () {
+
+            vm.test = test;
+            vm.letters = ['a', 'b', 'c', 'd', 'e'];
+
+            vm.close = _close;
+            vm.downloadPdf = _downloadPdf;
+            vm.printPdf = _printPdf;
+
+        };
+
+        var _close = function () {
             $mdDialog.cancel();
         };
 
-        $scope.downloadPdf = function (test) {
+        var _downloadPdf = function (test) {
             hcPDFManager.generateTestDocument(test, false);
         };
 
-        $scope.printPdf = function (test) {
+        var _printPdf = function (test) {
             hcPDFManager.generateTestDocument(test, true);
-        }
+        };
 
-}]);
+        _init();
+
+    }
+
+    angular.module('hercules.controllers')
+        .controller('TestDialogController', TestDialogController);
+
+})();

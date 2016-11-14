@@ -19,14 +19,14 @@
 
     <div flex class="table-container">
 
-        <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
+        <md-toolbar class="md-table-toolbar alternate" ng-show="vm.selected.length">
             <div class="md-toolbar-tools">
-                <span>{{selected.length}} item selecionado</span>
+                <span>{{vm.selected.length}} item selecionado</span>
                 <span flex></span>
-                <md-button ng-href="/admin/themes/{{selected[0]._id}}/edit" class="md-icon-button" ng-disabled="processing">
+                <md-button ng-href="/admin/themes/{{vm.selected[0]._id}}/edit" class="md-icon-button" ng-disabled="vm.processing">
                     <md-icon class="material-icons">edit</md-icon>
                 </md-button>
-                <md-button ng-click="delete(selected[0], $event)" class="md-icon-button" ng-disabled="processing">
+                <md-button ng-click="vm.delete(vm.selected[0], $event)" class="md-icon-button" ng-disabled="vm.processing">
                     <md-icon class="material-icons">delete</md-icon>
                 </md-button>
             </div>
@@ -34,7 +34,7 @@
 
         <md-table-container>
 
-            <table md-table md-row-select ng-model="selected" class="table">
+            <table md-table md-row-select ng-model="vm.selected" class="table">
 
                 <thead md-head>
                 <tr md-row>
@@ -43,10 +43,10 @@
                 </thead>
 
                 <tbody md-body>
-                <tr md-row md-select="entity" md-select-id="name" md-auto-select ng-repeat="entity in entities track by $index">
+                <tr md-row md-select="entity" md-select-id="_id" md-auto-select ng-repeat="entity in vm.entities track by entity._id">
                     <td md-cell>{{::entity.name}}</td>
                 </tr>
-                <tr md-row ng-show="entities.length < 1">
+                <tr md-row ng-show="vm.entities.length < 1">
                     <td md-cell colspan="3" class="zero-data">Nenhum registro econtrado</td>
                 </tr>
                 </tbody>

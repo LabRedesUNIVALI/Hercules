@@ -1,25 +1,28 @@
 <hc-admin-layout layout="row" flex>
 
     <div layout="row" class="content-header">
-        <div flex="90">
+        <div flex="95">
             <h3 class="md-headline">
                 Conteúdos
             </h3>
         </div>
         <div flex>
-            <md-button class="header-button" href="/admin/themes">
-                Voltar
+            <md-button class="md-fab md-primary" href="/admin/themes">
+                <md-tooltip md-direction="left">
+                    Retornar
+                </md-tooltip>
+                <md-icon class="material-icons">arrow_back</md-icon>
             </md-button>
         </div>
     </div>
 
-    <form layout="row" class="content-form" name="themeNewForm" ng-submit="save(entity)">
-        
+    <form layout="row" class="content-form" name="themeNewForm" ng-submit="vm.save(vm.entity)">
+
         <div layout="column" flex="70" class="form-container" layout-fill>
 
             <md-input-container>
                 <label>Nome</label>
-                <input type="text" ng-model="entity.name" name="name" required ng-minlength="2" ng-maxlength="255">
+                <input type="text" ng-model="vm.entity.name" name="name" required ng-minlength="2" ng-maxlength="255">
                 <div ng-messages="themeNewForm.name.$error">
                     <div ng-message="required">Este campo é obrigatório.</div>
                     <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
@@ -33,7 +36,7 @@
                         <md-icon class="material-icons">close</md-icon>
                         Cancelar
                     </md-button>
-                    <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="ThemeNewForm.$invalid || processing">
+                    <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="ThemeNewForm.$invalid || vm.processing">
                         <md-icon class="material-icons">send</md-icon>
                         Cadastrar
                     </md-button>

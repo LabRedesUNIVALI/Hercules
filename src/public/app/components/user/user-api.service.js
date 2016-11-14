@@ -1,6 +1,12 @@
-angular.module('hercules').factory('UserAPIService', [
-    '$http',
-    function ($http) {
+(function () {
+
+    'use strict';
+
+    /**
+     * UserAPIService - API service for user entitites
+     * @ngInject
+     */
+    function UserAPIService ($http) {
 
         var _createUser = function (user) {
             return $http.post('/api/register', user);
@@ -10,13 +16,19 @@ angular.module('hercules').factory('UserAPIService', [
             return $http.post('/api/email/check', email);
         };
 
-        var _profileMe = function() {
+        var _getProfile = function() {
             return $http.get('/api/profile/me');
         };
 
         return {
             createUser: _createUser,
             checkEmail: _checkEmail,
-            profileMe: _profileMe
+            getProfile: _getProfile
         };
-}]);
+
+    }
+
+    angular.module('hercules.services')
+        .factory('UserAPIService', UserAPIService);
+
+})();

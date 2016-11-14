@@ -1,6 +1,12 @@
-angular.module('hercules').service('hcCommonDialogs', [
-    '$mdDialog',
-    function ($mdDialog) {
+(function () {
+
+    'use strict';
+
+    /**
+     * CommonDialogs - Service to display common dialogs
+     * @ngInject
+     */
+    function CommonDialogs($mdDialog) {
 
         this.genericError = function () {
             $mdDialog.show(
@@ -30,8 +36,14 @@ angular.module('hercules').service('hcCommonDialogs', [
                 targetEvent: ev,
                 clickOutsideToClose: true,
                 controller: 'QuestionDialogController',
+                controllerAs: 'vm',
                 locals: { question: question }
             });
         };
 
-}]);
+    }
+
+    angular.module('hercules.services')
+        .service('hcCommonDialogs', CommonDialogs);
+
+})();

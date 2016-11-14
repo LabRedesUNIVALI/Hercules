@@ -1,7 +1,12 @@
-angular.module('hercules').service('hcPDFManager', [
-    '$interpolate',
-    '$templateCache',
-    function ($interpolate, $templateCache) {
+(function () {
+
+    'use strict';
+
+    /**
+     * PDFManager - Service to handle PDF files.
+     * @ngInject
+     */
+    function PDFManager($interpolate, $templateCache) {
 
         this.generateTestDocument = function (test, print) {
 
@@ -51,4 +56,9 @@ angular.module('hercules').service('hcPDFManager', [
 
         };
 
-}]);
+    }
+
+    angular.module('hercules.services')
+        .service('hcPDFManager', PDFManager);
+
+})();

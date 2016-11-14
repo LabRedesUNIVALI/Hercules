@@ -1,27 +1,40 @@
-angular.module('hercules').controller('DisciplineEditController', [
-    '$scope',
-    'entity',
-    'DisciplineAPIService',
-    'hcCommonDialogs',
-    '$location',
-    function ($scope, entity, DisciplineAPIService, hcCommonDialogs, $location) {
+(function () {
 
-        $scope.entity = entity.data;
-        $scope.processing = false;
+    'use strict';
 
-        $scope.entity.year = parseInt($scope.entity.year, 10);
+    /**
+     * @class DisciplineEditController
+     * @classdesc Edit controller for discipline entity
+     * @ngInject
+     */
+    function DisciplineEditController (entity, DisciplineAPIService,
+        hcCommonDialogs, $location) {
 
-        $scope.addStudentField = function () {
-            $scope.entity.students.push({name: ''});
+        var vm = this;
+
+        var _init = function () {
+
+            vm.entity = entity.data;
+            vm.processing = false;
+            vm.entity.year = parseInt(vm.entity.year, 10);
+
+            vm.addStudentField = _addStudentField;
+            vm.removeStudentField = _removeStudentField;
+            vm.update = _update;
+
         };
 
-        $scope.removeStudentField = function (index) {
-            $scope.entity.students.splice(index, 1);
+        var _addStudentField = function () {
+            vm.entity.students.push({ name: '' });
         };
 
-        $scope.update = function (entity) {
+        var _removeStudentField = function (index) {
+            vm.entity.students.splice(index, 1);
+        };
 
-            $scope.processing = true;
+        var _update = function (entity) {
+
+            vm.processing = true;
 
             var updatedEntity = {
                 name: entity.name,
@@ -40,13 +53,20 @@ angular.module('hercules').controller('DisciplineEditController', [
                         $location.path('admin/disciplines');
                     } else {
                         hcCommonDialogs.genericError();
+                        vm.processing = false;
                     }
                 })
                 .error(function () {
                     hcCommonDialogs.genericError();
-                })
-                .then(function () {
-                    $scope.processing = false;
+                    vm.processing = false;
                 });
         };
-}]);
+
+        _init();
+
+    }
+
+    angular.module('hercules.controllers')
+        .controller('DisciplineEditController', DisciplineEditController);
+
+})();

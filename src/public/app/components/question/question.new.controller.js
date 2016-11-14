@@ -1,36 +1,46 @@
-angular.module('hercules').controller('QuestionNewController', [
-    '$scope',
-    'themes',
-    'QuestionAPIService',
-    'hcCommonDialogs',
-    '$location',
-    function ($scope, themes, QuestionAPIService, hcCommonDialogs, $location) {
+(function () {
 
-        $scope.entity = {};
+    'use strict';
 
-        $scope.entity.options = [
-            {text: ''},
-            {text: ''},
-            {text: ''},
-            {text: ''},
-            {text: ''}
-        ];
+    /**
+     * @class QuestionNewController
+     * @classdesc New controller for question entity
+     * @ngInject
+     */
+    function QuestionNewController (themes, QuestionAPIService,
+        hcCommonDialogs, $location) {
 
-        $scope.processing = false;
+        var vm = this;
 
-        $scope.themes = themes.data.map(function (theme) {
-            return {
-                id: theme._id,
-                name: theme.name
-            };
-        });
+        var _init = function () {
 
-        $scope.querySearch = function (query) {
-            var results = query ? $scope.themes.filter(createFilterFor(query)) : $scope.themes;
+            vm.entity = {};
+            vm.entity.options = [
+                {text: ''},
+                {text: ''},
+                {text: ''},
+                {text: ''},
+                {text: ''}
+            ];
+            vm.processing = false;
+            vm.themes = themes.data.map(function (theme) {
+                return {
+                    id: theme._id,
+                    name: theme.name
+                };
+            });
+
+            vm.querySearch = _querySearch;
+            vm.save = _save;
+
+        };
+
+        var _querySearch = function (query) {
+            var results = query ? vm.themes.filter(_createFilterFor(query)) : vm.themes;
             return results;
         };
 
-        var createFilterFor = function (query) {
+        var _createFilterFor = function (query) {
             var lowercaseQuery = angular.lowercase(query);
             return function filterFn(theme) {
                 var lowercaseName = angular.lowercase(theme.name);
@@ -38,9 +48,9 @@ angular.module('hercules').controller('QuestionNewController', [
             };
         };
 
-        $scope.save = function (entity) {
+        var _save = function (entity) {
 
-            $scope.processing = true;
+            vm.processing = true;
 
             var themeId = entity.theme.id;
             delete entity.theme;
@@ -51,13 +61,20 @@ angular.module('hercules').controller('QuestionNewController', [
                         $location.path("admin/questions");
                     } else {
                         hcCommonDialogs.genericError();
+                        vm.processing = false;
                     }
                 })
                 .error(function () {
                     hcCommonDialogs.genericError();
-                })
-                .then(function () {
-                    $scope.processing = false;
+                    vm.processing = false;
                 });
         };
-}]);
+
+        _init();
+
+    }
+
+    angular.module('hercules.controllers')
+        .controller('QuestionNewController', QuestionNewController);
+
+})();

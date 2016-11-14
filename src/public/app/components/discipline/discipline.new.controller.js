@@ -1,29 +1,42 @@
-angular.module('hercules').controller('DisciplineNewController', [
-    '$scope',
-    'DisciplineAPIService',
-    'hcCommonDialogs',
-    '$location',
-    function ($scope, DisciplineAPIService, hcCommonDialogs, $location) {
+(function () {
 
-        $scope.entity = {};
+    'use strict';
 
-        $scope.entity.students = [
-            {name: ''}
-        ];
+    /**
+     * @class DisciplineNewController
+     * @classdesc New controller for discipline entity
+     * @ngInject
+     */
+    function DisciplineNewController (DisciplineAPIService, hcCommonDialogs,
+        $location) {
 
-        $scope.processing = false;
+        var vm = this;
 
-        $scope.addStudentField = function () {
-            $scope.entity.students.push({name: ''});
+        var _init = function () {
+
+            vm.entity = {};
+            vm.entity.students = [
+                { name: '' }
+            ];
+            vm.processing = false;
+
+            vm.save = _save;
+            vm.addStudentField = _addStudentField;
+            vm.removeStudentField = _removeStudentField;
+
         };
 
-        $scope.removeStudentField = function (index) {
-            $scope.entity.students.splice(index, 1);
+        var _addStudentField = function () {
+            vm.entity.students.push({ name: '' });
         };
 
-        $scope.save = function (entity) {
+        var _removeStudentField = function (index) {
+            vm.entity.students.splice(index, 1);
+        };
 
-            $scope.processing = true;
+        var _save = function (entity) {
+
+            vm.processing = true;
 
             DisciplineAPIService.save(entity)
                 .success(function (result) {
@@ -31,13 +44,20 @@ angular.module('hercules').controller('DisciplineNewController', [
                         $location.path('/admin/disciplines');
                     } else {
                         hcCommonDialogs.genericError();
+                        vm.processing = false;
                     }
                 })
                 .error(function () {
                     hcCommonDialogs.genericError();
-                })
-                .then(function () {
-                    $scope.processing = false;
+                    vm.processing = false;
                 });
         };
-}]);
+
+        _init();
+
+    }
+
+    angular.module('hercules.controllers')
+        .controller('DisciplineNewController', DisciplineNewController);
+
+})();
