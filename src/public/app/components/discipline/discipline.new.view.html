@@ -1,14 +1,17 @@
 <hc-admin-layout layout="row" flex>
 
     <div layout="row" class="content-header">
-        <div flex="90">
+        <div flex="95">
             <h3 class="md-headline">
                 Disciplinas
             </h3>
         </div>
         <div flex>
-            <md-button class="header-button" href="/admin/disciplines">
-                Voltar
+            <md-button class="md-fab md-primary" href="/admin/disciplines">
+                <md-tooltip md-direction="left">
+                    Retornar
+                </md-tooltip>
+                <md-icon class="material-icons">arrow_back</md-icon>
             </md-button>
         </div>
     </div>
@@ -19,7 +22,7 @@
 
             <md-input-container>
                 <label>Nome</label>
-                <input type="text" ng-model="entity.name" name="name" required ng-minlength="2" ng-maxlength="255">
+                <input type="text" ng-model="vm.entity.name" name="name" required ng-minlength="2" ng-maxlength="255">
                 <div ng-messages="disciplineNewForm.name.$error">
                     <div ng-message="required">Este campo é obrigatório.</div>
                     <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>

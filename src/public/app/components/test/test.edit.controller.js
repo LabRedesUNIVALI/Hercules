@@ -15,8 +15,8 @@
         var _init = function () {
 
             vm.entity = entity.data;
-            vm.entity.beginDate = $filter('date')(entity.data.beginDate);
-            vm.entity.endDate = $filter('date')(entity.data.endDate);
+            vm.entity.beginDate = $filter('date')(entity.data.beginDate, 'dd/MM/yyyy HH:mm');
+            vm.entity.endDate = $filter('date')(entity.data.endDate, 'dd/MM/yyyy HH:mm');
             vm.disciplines = disciplines.data;
             vm.themes = themes.data;
             vm.processing = false;

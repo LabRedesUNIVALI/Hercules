@@ -36,6 +36,7 @@
                 targetEvent: ev,
                 clickOutsideToClose: true,
                 controller: 'QuestionDialogController',
+                controllerAs: 'vm',
                 locals: { question: question }
             });
         };

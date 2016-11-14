@@ -1,14 +1,17 @@
 <hc-admin-layout layout="row" flex>
 
     <div layout="row" class="content-header">
-        <div flex="90">
+        <div flex="95">
             <h3 class="md-headline">
                 Provas
             </h3>
         </div>
         <div flex>
-            <md-button class="header-button" href="/admin/tests">
-                Voltar
+            <md-button class="md-fab md-primary" href="/admin/tests">
+                <md-tooltip md-direction="left">
+                    Retornar
+                </md-tooltip>
+                <md-icon class="material-icons">arrow_back</md-icon>
             </md-button>
         </div>
     </div>
@@ -65,7 +68,7 @@
                 </div>
             </md-input-container>
 
-            <md-content>
+            <md-content ng-show="vm.questions.length > 0">
                 <md-list flex>
                     <md-list-item ng-repeat="question in vm.questions track by question._id">
                         <md-checkbox ng-click="vm.toggleQuestion(question._id, vm.entity.questions)"></md-checkbox>
