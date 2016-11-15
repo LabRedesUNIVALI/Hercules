@@ -8,7 +8,8 @@
      *
      */
     function translations ($translateProvider) {
-        $translateProvider.translations('pt-br', {
+
+        var dictionary = {
             // Actions
             ACTION: {
                 ADD: "Adicionar",
@@ -60,10 +61,20 @@
                 STUDENTS: "Alunos",
                 STUDENT: "Aluno",
                 STUDENT_NAME: "Nome do aluno"
+            },
+            // Themes
+            THEME: {
+                ENTITY: "Conteúdo",
+                ENTITY_PLURAL: "Conteúdos",
+                NAME: "Nome"
             }
-        });
-        $translateProvider.preferredLanguage('pt-br');
-        $translateProvider.useSanitizeValueStrategy('escape');
+        };
+
+        $translateProvider
+            .translations('pt-br', dictionary)
+            .preferredLanguage('pt-br')
+            .useSanitizeValueStrategy('escape');
+
     }
 
     angular.module('hercules')
