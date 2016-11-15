@@ -3,13 +3,13 @@
     <div layout="row" class="content-header">
         <div flex="95">
             <h3 class="md-headline">
-                Questões
+                {{ 'QUESTION.ENTITY_PLURAL' | translate }}
             </h3>
         </div>
         <div flex>
             <md-button class="md-fab md-primary" href="/admin/questions">
                 <md-tooltip md-direction="left">
-                    Retornar
+                    {{ 'ACTION.BACK' | translate }}
                 </md-tooltip>
                 <md-icon class="material-icons">arrow_back</md-icon>
             </md-button>
@@ -24,11 +24,11 @@
                 md-search-text="vm.searchText"
                 md-items="theme in vm.querySearch(vm.searchText)"
                 md-item-text="theme.name"
-                placeholder="Selecione um conteúdo"
+                placeholder="{{ 'ACTION.SELECT_THEME' | translate }}"
                 md-selected-item="vm.entity.theme"
                 md-input-name="theme"
                 md-menu-class="autocomplete-theme-template"
-                md-floating-label="Conteúdo"
+                md-floating-label="{{ 'QUESTION.THEME' | translate }}"
                 md-require-match
                 required
             >
@@ -39,20 +39,20 @@
                     </span>
                 </md-item-template>
                 <div ng-messages="questionNewForm.theme.$error">
-                    <div ng-message="required">Você deve escolher um conteúdo.</div>
-                    <div ng-message="md-require-match">Escolha um conteúdo existente.</div>
+                    <div ng-message="required">{{ 'VALIDATION.THEME_REQUIRED' | translate }}</div>
+                    <div ng-message="md-require-match">{{ 'VALIDATION.THEME_EXISTENT' | translate }}</div>
                 </div>
                 <md-not-found>
-                    Não foi encontrado nenhum conteúdo contendo "{{vm.searchText}}".
+                    <span translate="VALIDATION.THEME_NOT_FOUND" translate-values="{ value: vm.searchText }"></span>
                 </md-not-found>
             </md-autocomplete>
 
             <md-input-container>
-                <label>Enunciado</label>
+                <label>{{ 'QUESTION.NAME' | translate }}</label>
                 <textarea rows="5" ng-model="vm.entity.name" name="name" required ng-minlength="2"></textarea>
                 <div ng-messages="questionNewForm.name.$error">
-                    <div ng-message="required">Este campo é obrigatório.</div>
-                    <div ng-message="minlength">O enunciado deve ter mais de 2 caracteres.</div>
+                    <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                    <div ng-message="minlength">{{ 'VALIDATION.MIN_LENGTH' | translate:'{ value: 2 }' }}</div>
                 </div>
             </md-input-container>
 
@@ -61,18 +61,20 @@
                     <div class="radio-group-rows">
                         <div flex layout="row" ng-repeat="option in vm.entity.options track by $index" layout-padding layout-align="start center" class="radio-group-row">
                             <md-input-container flex="65" class="md-icon-float md-block">
-                                <label>Alternativa {{::$index + 1}}</label>
+                                <label>
+                                    <span translate="QUESTION.OPTION_NUMBER" translate-values="{ value: $index + 1 }"></span>
+                                </label>
                                 <md-icon class="material-icons">view_headline</md-icon>
                                 <textarea rows="2" required ng-minlength="2" ng-maxlength="255" name="option{{::$index}}" ng-model="vm.entity.options[$index].text" ></textarea>
                                 <div ng-messages="questionNewForm['option' + $index].$error">
-                                    <div ng-message="required">Este campo é obrigatório</div>
-                                    <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
-                                    <div ng-message="minlength">Este campo deve ter no máximo 255 caracteres.</div>
+                                    <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                                    <div ng-message="minlength">{{ 'VALIDATION.MIN_LENGTH' | translate:'{ value: 2 }' }}</div>
+                                    <div ng-message="minlength">{{ 'VALIDATION.MAX_LENGTH' | translate:'{ value: 255 }' }}</div>
                                 </div>
                             </md-input-container>
                             <span flex></span>
                             <md-radio-button flex="30" class="md-primary" md-theme="success" value="{{::$index + 1}}">
-                                Alternativa correta?
+                                {{ 'QUESTION.CORRECT_OPTION_QUESTION' | translate }}
                             </md-radio-button>
                         </div>
                     </div>
@@ -83,11 +85,11 @@
                 <div layout="row" flex>
                     <md-button href="/admin/questions" class="md-warn md-raised" flex="30" flex-offset="20">
                         <md-icon class="material-icons">close</md-icon>
-                        Cancelar
+                        {{ 'ACTION.CANCEL' | translate }}
                     </md-button>
                     <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="questionNewForm.$invalid || vm.processing">
                         <md-icon class="material-icons">send</md-icon>
-                        Cadastrar
+                        {{ 'ACTION.SAVE' | translate }}
                     </md-button>
                 </div>
             </div>

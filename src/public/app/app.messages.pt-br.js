@@ -22,7 +22,8 @@
                 SELECT: "Selecione uma opção",
                 CANCEL: "Cancelar",
                 LOGIN: "Entrar",
-                DO_LOGIN: "Fazer login"
+                DO_LOGIN: "Fazer login",
+                SELECT_THEME: "Selecione um conteúdo"
             },
             // Lists
             LIST: {
@@ -39,7 +40,11 @@
                 MAX: "O valor deve ser menor ou igual a {{value}}",
                 EMAIL: "Informe um e-mail válido",
                 EMAIL_EXISTS: "O e-mail informado já existe no sistema",
-                MATCH_PASSWORDS: "As senhas devem ser iguais"
+                MATCH_PASSWORDS: "As senhas devem ser iguais",
+                THEME_REQUIRED: "Você deve escolher um conteúdo",
+                THEME_EXISTENT: "Escolha um conteúdo existente",
+                THEME_NOT_FOUND: "Não foi encontrado nenhum conteúdo contendo \"{{value}}\""
+
             },
             // Users
             USER: {
@@ -67,6 +72,20 @@
                 ENTITY: "Conteúdo",
                 ENTITY_PLURAL: "Conteúdos",
                 NAME: "Nome"
+            },
+            // Questions
+            QUESTION: {
+                ENTITY: "Questão",
+                ENTITY_PLURAL: "Questões",
+                NAME: "Enunciado",
+                THEME: "Conteúdo",
+                CORRECT_OPTION: "Alternativa correta",
+                CORRECT_OPTION_QUESTION: "Alternativa correta?",
+                OPTION: "Alternativa",
+                OPTIONS: "Alternativas",
+                OPTION_NUMBER: "Alternativa nº {{value}}",
+                CORRECT: "Correta",
+                WRONG: "Errada"
             }
         };
 
