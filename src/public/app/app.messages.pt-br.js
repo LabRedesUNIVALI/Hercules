@@ -5,6 +5,7 @@
     /**
      * translations - Configure application translations
      * @ngInject
+     *
      */
     function translations ($translateProvider) {
         $translateProvider.translations('pt-br', {
@@ -13,12 +14,14 @@
                 ADD: "Adicionar",
                 EDIT: "Editar",
                 DELETE: "Excluir",
-                REGISTER: "Registrar",
+                REGISTER: "Cadastre-se",
                 SAVE: "Cadastrar",
                 UPDATE: "Atualizar",
                 BACK: "Voltar",
                 SELECT: "Selecione uma opção",
-                CANCEL: "Cancelar"
+                CANCEL: "Cancelar",
+                LOGIN: "Entrar",
+                DO_LOGIN: "Fazer login"
             },
             // Lists
             LIST: {
@@ -32,7 +35,18 @@
                 MAX_LENGTH: "Este campo deve ter no máximo {{value}} caracteres",
                 YEAR: "Informe um ano válido",
                 MIN: "O valor deve ser maior ou igual a {{value}}",
-                MAX: "O valor deve ser menor ou igual a {{value}}"
+                MAX: "O valor deve ser menor ou igual a {{value}}",
+                EMAIL: "Informe um e-mail válido",
+                EMAIL_EXISTS: "O e-mail informado já existe no sistema",
+                MATCH_PASSWORDS: "As senhas devem ser iguais"
+            },
+            // Users
+            USER: {
+                NAME: "Nome completo",
+                EMAIL: "E-mail",
+                USERNAME: "Nome de usuário",
+                PASSWORD: "Senha",
+                REPEAT_PASSWORD: "Confirmar senha"
             },
             // Disciplines
             DISCIPLINE: {

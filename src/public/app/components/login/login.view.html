@@ -15,38 +15,38 @@
                     <span class="material-icons icon">account_circle</span>
                 </div>
                 <div class="header-text">
-                    Entrar
+                    {{ 'ACTION.LOGIN' | translate }}
                 </div>
             </div>
 
             <div layout="column" layout-fill layout-margin layout-padding>
                 <form name="loginForm" layout="column" layout-fill layout-padding ng-submit="vm.login(vm.credentials)">
                     <md-input-container class="md-icon-float md-block">
-                        <label>E-mail</label>
+                        <label>{{ 'USER.EMAIL' | translate }}</label>
                         <md-icon class="material-icons">email</md-icon>
-                        <input type="email" placeholder="E-mail" ng-model="vm.credentials.email" name="email" required />
+                        <input type="email" placeholder="{{ 'USER.EMAIL' | translate }}" ng-model="vm.credentials.email" name="email" required />
                         <div ng-messages="loginForm.email.$error">
-                            <div ng-message="required">Este campo é obrigatório.</div>
-                            <div ng-message="email">Informe um endereço de e-mail válido.</div>
+                            <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                            <div ng-message="email">{{ 'VALIDATION.EMAIL' | translate }}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-icon-float md-block">
-                        <label>Senha</label>
+                        <label>{{ 'USER.PASSWORD' | translate }}</label>
                         <md-icon class="material-icons">lock</md-icon>
-                        <input type="password" placeholder="Senha" ng-model="vm.credentials.password" name="password" required />
+                        <input type="password" placeholder="{{ 'USER.PASSWORD' | translate }}" ng-model="vm.credentials.password" name="password" required />
                         <div ng-messages="loginForm.password.$error">
-                            <div ng-message="required">Este campo é obrigatório.</div>
+                            <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
                         </div>
                     </md-input-container>
                     <div layout="row" layout-align="center center">
                         <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="loginForm.$invalid">
                             <md-icon class="material-icons">send</md-icon>
-                            Entrar
+                            {{ 'ACTION.LOGIN' | translate }}
                         </md-button>
                     </div>
                     <div layout="column" layout-align="center center">
                         <md-button href="/register" class="md-no-ink small md-primary">
-                            Cadastre-se
+                            {{ 'ACTION.REGISTER' | translate }}
                         </md-button>
                     </div>
                 </form>

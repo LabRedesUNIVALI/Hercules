@@ -15,60 +15,60 @@
                     <span class="material-icons icon">account_circle</span>
                 </div>
                 <div class="header-text">
-                    Cadastrar
+                    {{ 'ACTION.SAVE' | translate }}
                 </div>
             </div>
 
             <div layout="column" layout-fill layout-margin layout-padding>
                 <form name="registrationForm" layout="column" layout-fill layout-padding ng-submit="vm.register(vm.registration.user)">
                     <md-input-container class="md-icon-float md-block">
-                        <label>Nome completo</label>
+                        <label>{{ 'USER.NAME' | translate }}</label>
                         <md-icon class="material-icons">person</md-icon>
-                        <input type="text" placeholder="Nome completo" ng-model="vm.registration.user.name" name="name" required ng-minlength="2" ng-maxlength="255"/>
+                        <input type="text" placeholder="{{ 'USER.NAME' | translate }}" ng-model="vm.registration.user.name" name="name" required ng-minlength="2" ng-maxlength="255"/>
                         <div ng-messages="registrationForm.name.$error">
-                            <div ng-message="required">Este campo é obrigatório.</div>
-                            <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
-                            <div ng-message="maxlength">Este campo deve ter no máximo 255 caracteres.</div>
+                            <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                            <div ng-message="minlength">{{ 'VALIDATION.MIN_LENGTH' | translate:'{ value: 2 }' }}</div>
+                            <div ng-message="maxlength">{{ 'VALIDATION.MAX_LENGTH' | translate:'{ value: 255 }' }}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-icon-float md-block">
-                        <label>E-mail</label>
+                        <label>{{ 'USER.EMAIL' | translate }}</label>
                         <md-icon class="material-icons">email</md-icon>
-                        <input type="email" placeholder="E-mail" ng-model="vm.registration.user.email" name="email" required hc-unique-email />
+                        <input type="email" placeholder="{{ 'USER.EMAIL' | translate }}" ng-model="vm.registration.user.email" name="email" required hc-unique-email />
                         <div ng-messages="registrationForm.email.$error">
-                            <div ng-message="required">Este campo é obrigatório.</div>
-                            <div ng-message="email">Informe um endereço de e-mail válido.</div>
-                            <div ng-message="uniqueEmail">O e-mail informado já existe no sistema.</div>
+                            <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                            <div ng-message="email">{{ 'VALIDATION.EMAIL' | translate }}</div>
+                            <div ng-message="uniqueEmail">{{ 'VALIDATION.EMAIL_EXISTS' | translate }}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-icon-float md-block">
-                        <label>Senha</label>
+                        <label>{{ 'USER.PASSWORD' | translate }}</label>
                         <md-icon class="material-icons">lock</md-icon>
-                        <input type="password" placeholder="Senha" ng-model="vm.registration.user.password" name="password" required ng-minlength="5" ng-maxlength="50" />
+                        <input type="password" placeholder="{{ 'USER.PASSWORD' | translate }}" ng-model="vm.registration.user.password" name="password" required ng-minlength="5" ng-maxlength="50" />
                         <div ng-messages="registrationForm.password.$error">
-                            <div ng-message="required">Este campo é obrigatório.</div>
-                            <div ng-message="minlength">Este campo deve ter ao menos 5 caracteres.</div>
-                            <div ng-message="maxlength">Este campo deve ter no máximo 50 caracteres.</div>
+                            <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                            <div ng-message="minlength">{{ 'VALIDATION.MIN_LENGTH' | translate:'{ value: 5 }' }}</div>
+                            <div ng-message="maxlength">{{ 'VALIDATION.MAX_LENGTH' | translate:'{ value: 255 }' }}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-icon-float md-block">
-                        <label>Confirmar senha</label>
+                        <label>{{ 'USER.REPEAT_PASSWORD' | translate }}</label>
                         <md-icon class="material-icons">lock</md-icon>
-                        <input type="password" placeholder="Senha" ng-model="vm.registration.confirmPassword" name="confirmPassword" hc-compare-to="vm.registration.user.password" required />
+                        <input type="password" placeholder="{{ 'USER.PASSWORD' | translate }}" ng-model="vm.registration.confirmPassword" name="confirmPassword" hc-compare-to="vm.registration.user.password" required />
                         <div ng-messages="registrationForm.confirmPassword.$error">
-                            <div ng-message="required">Este campo é obrigatório.</div>
-                            <div ng-message="compareTo">As senhas devem ser iguais.</div>
+                            <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                            <div ng-message="compareTo">{{ 'VALIDATION.MATCH_PASSWORDS' | translate }}</div>
                         </div>
                     </md-input-container>
                     <div layout="row" layout-align="center center">
                         <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="registrationForm.$invalid || vm.processing">
                             <md-icon class="material-icons">send</md-icon>
-                            Cadastrar
+                            {{ 'ACTION.SAVE' | translate }}
                         </md-button>
                     </div>
                     <div layout="row" layout-align="center center">
                         <md-button href="/login" class="md-no-ink small md-primary">
-                            Fazer login
+                            {{ 'ACTION.DO_LOGIN' | translate }}
                         </md-button>
                     </div>
                 </form>
