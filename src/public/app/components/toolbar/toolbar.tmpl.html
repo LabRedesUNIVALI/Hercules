@@ -9,13 +9,13 @@
                 <md-menu-item>
                     <md-button href="/admin/profile">
                         <md-icon class="material-icons" md-menu-align-target>person</md-icon>
-                        Meus dados
+                        {{ 'USER.PROFILE' | translate }}
                     </md-button>
                 </md-menu-item>
                 <md-menu-item>
                     <md-button ng-click="vm.logout()">
                         <md-icon class="material-icons" md-menu-align-target>exit_to_app</md-icon>
-                        Sair
+                        {{ 'ACTION.LOGOUT' | translate }}
                     </md-button>
                 </md-menu-item>
             </md-menu-content>

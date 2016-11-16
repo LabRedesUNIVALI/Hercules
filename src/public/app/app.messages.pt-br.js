@@ -29,7 +29,8 @@
                 DOWNLOAD: {
                     PDF: "Baixar como PDF"
                 },
-                SEARCH_THEME: "Procurar conteúdos"
+                SEARCH_THEME: "Procurar conteúdos",
+                LOGOUT: "Sair"
             },
             // Lists
             LIST: {
@@ -58,7 +59,8 @@
                 EMAIL: "E-mail",
                 USERNAME: "Nome de usuário",
                 PASSWORD: "Senha",
-                REPEAT_PASSWORD: "Confirmar senha"
+                REPEAT_PASSWORD: "Confirmar senha",
+                PROFILE: "Meus dados"
             },
             // Disciplines
             DISCIPLINE: {
@@ -110,7 +112,8 @@
                 QUESTION_NUMBER: "Qtd. de questões",
                 THEMES: "Conteúdos",
                 QUESTIONS: "Questões"
-            }
+            },
+            DASHBOARD: "Painel"
         };
 
         $translateProvider
