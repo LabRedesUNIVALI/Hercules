@@ -3,14 +3,14 @@
     <div layout="row" class="content-header">
         <div flex="90">
             <h3 class="md-headline">
-                Disciplinas
+                {{ 'DISCIPLINE.ENTITY_PLURAL' | translate }}
             </h3>
         </div>
         <span flex></span>
         <div flex="5">
             <md-button class="md-fab md-accent" href="admin/disciplines/new">
                 <md-tooltip md-direction="left">
-                    Adicionar disciplina
+                    {{ 'ACTION.ADD' | translate }}
                 </md-tooltip>
                 <md-icon class="material_icons">add</md-icon>
             </md-button>
@@ -21,15 +21,18 @@
 
         <md-toolbar class="md-table-toolbar alternate" ng-show="vm.selected.length">
             <div class="md-toolbar-tools">
-                <span>{{vm.selected.length}} item selecionado</span>
+                <span>{{ 'LIST.ITEM_SELECTED' | translate }}</span>
                 <span flex></span>
-                <!-- <md-button ng-href="/admin/disciplines/{{selected[0]._id}}" class="md-icon-button" ng-disabled="processing">
-                    <md-icon class="material-icons">remove_red_eye</md-icon>
-                </md-button> -->
                 <md-button ng-href="/admin/disciplines/{{vm.selected[0]._id}}/edit" class="md-icon-button" ng-disabled="vm.processing">
+                    <md-tooltip md-direction="top">
+                        {{ 'ACTION.EDIT' | translate }}
+                    </md-tooltip>
                     <md-icon class="material-icons">edit</md-icon>
                 </md-button>
                 <md-button ng-click="vm.delete(vm.selected[0], $event)" class="md-icon-button" ng-disabled="vm.processing">
+                    <md-tooltip md-direction="top">
+                        {{ 'ACTION.DELETE' | translate }}
+                    </md-tooltip>
                     <md-icon class="material-icons">delete</md-icon>
                 </md-button>
             </div>
@@ -41,9 +44,9 @@
 
                 <thead md-head>
                 <tr md-row>
-                    <th md-column>Nome</th>
-                    <th md-column>Ano/Semestre</th>
-                    <th md-column>Nº de alunos</th>
+                    <th md-column>{{ 'DISCIPLINE.NAME' | translate }}</th>
+                    <th md-column>{{ 'DISCIPLINE.YEAR_SEMESTER' | translate }}</th>
+                    <th md-column>{{ 'DISCIPLINE.STUDENT_NUMBER' | translate }}</th>
                 </tr>
                 </thead>
 
@@ -53,8 +56,10 @@
                     <td md-cell>{{::entity.year}}/{{::entity.semester}}</td>
                     <td md-cell>{{::entity.students.length}}</td>
                 </tr>
-                <tr md-row ng-show="vm.entities.length < 1">
-                    <td md-cell colspan="3" class="zero-data">Nenhum registro econtrado</td>
+                <tr md-row ng-if="vm.entities.length < 1">
+                    <td md-cell colspan="3" class="zero-data">
+                        {{ 'LIST.ZERO_DATA' | translate }}
+                    </td>
                 </tr>
                 </tbody>
 

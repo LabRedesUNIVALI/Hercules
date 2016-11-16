@@ -64,6 +64,8 @@
         'ngCookies',                    // Angular Cookies
         'ngAria',                       // Angular Aria
         'md.data.table',                // Material Design data tables
+        'pascalprecht.translate',       // Angular Translate
+        'ngSanitize',
         'hercules.controllers',         // Hercules controllers
         'hercules.services',            // Hercules services
         'hercules.directives',          // Hercules directives

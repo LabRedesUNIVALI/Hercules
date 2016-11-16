@@ -3,13 +3,13 @@
     <div layout="row" class="content-header">
         <div flex="95">
             <h3 class="md-headline">
-                Conteúdos
+                {{ 'THEME.ENTITY_PLURAL' | translate }}
             </h3>
         </div>
         <div flex>
             <md-button class="md-fab md-primary" href="/admin/themes">
                 <md-tooltip md-direction="left">
-                    Retornar
+                    {{ 'ACTION.BACK' | translate }}
                 </md-tooltip>
                 <md-icon class="material-icons">arrow_back</md-icon>
             </md-button>
@@ -21,12 +21,12 @@
         <div layout="column" flex="70" class="form-container" layout-fill>
 
             <md-input-container>
-                <label>Nome</label>
+                <label>{{ 'THEME.NAME' | translate }}</label>
                 <input type="text" ng-model="vm.entity.name" name="name" required ng-minlength="2" ng-maxlength="255">
                 <div ng-messages="themeEditForm.name.$error">
-                    <div ng-message="required">Este campo é obrigatório.</div>
-                    <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
-                    <div ng-message="maxlength">Este campo deve ter no máximo 255 caracteres.</div>
+                    <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                    <div ng-message="minlength">{{ 'VALIDATION.MIN_LENGTH' | translate:'{ value: 2 }' }}</div>
+                    <div ng-message="maxlength">{{ 'VALIDATION.MAX_LENGTH' | translate:'{ value: 255 }' }}</div>
                 </div>
             </md-input-container>
 
@@ -34,11 +34,11 @@
                 <div layout="row" flex>
                     <md-button href="/admin/themes" class="md-warn md-raised" flex="30" flex-offset="20">
                         <md-icon class="material-icons">close</md-icon>
-                        Cancelar
+                        {{ 'ACTION.CANCEL' | translate }}
                     </md-button>
-                    <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="ThemeEditForm.$invalid || vm.processing">
+                    <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="themeEditForm.$invalid || vm.processing">
                         <md-icon class="material-icons">send</md-icon>
-                        Atualizar
+                        {{ 'ACTION.UPDATE' | translate }}
                     </md-button>
                 </div>
             </div>

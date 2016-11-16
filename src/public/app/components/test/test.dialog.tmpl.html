@@ -1,14 +1,18 @@
 <md-dialog aria-label="Prova" style="min-width: 70%">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>Prova - {{::vm.test.name}}</h2>
+            <h2>{{ 'TEST.ENTITY' | translate }} - {{::vm.test.name}}</h2>
             <span flex></span>
             <md-button class="md-icon-button" ng-click="vm.downloadPdf(vm.test)">
-                <md-tooltip md-direction="bottom">Baixar como PDF</md-tooltip>
+                <md-tooltip md-direction="bottom">
+                    {{ 'ACTION.DOWNLOAD.PDF' | translate }}
+                </md-tooltip>
                 <md-icon class="material-icons">file_download</md-icon>
             </md-button>
             <md-button class="md-icon-button" ng-click="vm.printPdf(vm.test)">
-                <md-tooltip md-direction="bottom">Imprimir</md-tooltip>
+                <md-tooltip md-direction="bottom">
+                    {{ 'ACTION.PRINT' | translate }}
+                </md-tooltip>
                 <md-icon class="material-icons">print</md-icon>
             </md-button>
             <md-button class="md-icon-button" ng-click="vm.close()">
@@ -19,15 +23,15 @@
     <md-dialog-content>
         <div layout-margin class="md-dialog-content">
             <p>
-                <strong>Disciplina:</strong>
+                <strong>{{ 'TEST.DISCIPLINE' | translate }}:</strong>
                 {{::vm.test.discipline.name}} {{::vm.test.discipline.year}}/{{::vm.test.discipline.semester}}
             </p>
             <p>
-                <strong>Data e horário de início:</strong>
+                <strong>{{ 'TEST.DATETIME.BEGIN' | translate }}:</strong>
                 {{::vm.test.beginDate | date:'dd/MM/yyyy HH:mm'}}
             </p>
             <p>
-                <strong>Data e horário de término:</strong>
+                <strong>{{ 'TEST.DATETIME.END' | translate }}:</strong>
                 {{::vm.test.endDate | date:'dd/MM/yyyy HH:mm'}}
             </p>
             <div layout="row" layout-align="center center">
