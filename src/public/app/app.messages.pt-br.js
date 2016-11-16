@@ -23,7 +23,13 @@
                 CANCEL: "Cancelar",
                 LOGIN: "Entrar",
                 DO_LOGIN: "Fazer login",
-                SELECT_THEME: "Selecione um conteúdo"
+                SELECT_THEME: "Selecione um conteúdo",
+                PREVIEW: "Pré-visualizar",
+                PRINT: "Imprimir",
+                DOWNLOAD: {
+                    PDF: "Baixar como PDF"
+                },
+                SEARCH_THEME: "Procurar conteúdos"
             },
             // Lists
             LIST: {
@@ -86,6 +92,24 @@
                 OPTION_NUMBER: "Alternativa nº {{value}}",
                 CORRECT: "Correta",
                 WRONG: "Errada"
+            },
+            // Tests
+            TEST: {
+                ENTITY: "Prova",
+                ENTITY_PLURAL: "Provas",
+                NAME: "Nome",
+                DATE: {
+                    BEGIN: "Data de início",
+                    END: "Data de término"
+                },
+                DATETIME: {
+                    BEGIN: "Data e horário de início",
+                    END: "Data e horário de término"
+                },
+                DISCIPLINE: "Disciplina",
+                QUESTION_NUMBER: "Qtd. de questões",
+                THEMES: "Conteúdos",
+                QUESTIONS: "Questões"
             }
         };
 

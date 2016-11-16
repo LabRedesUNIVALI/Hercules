@@ -56,7 +56,7 @@
                         <td md-cell>{{::entity.theme.name}}</td>
                         <td md-cell>{{::entity.correctOption}}</td>
                     </tr>
-                    <tr md-row ng-show="vm.entities.length < 1">
+                    <tr md-row ng-if="vm.entities.length < 1">
                         <td md-cell colspan="3" class="zero-data">{{ 'LIST.ZERO_DATA' | translate }}</td>
                     </tr>
                 </tbody>

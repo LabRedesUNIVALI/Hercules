@@ -3,13 +3,13 @@
     <div layout="row" class="content-header">
         <div flex="95">
             <h3 class="md-headline">
-                Provas
+                {{ 'TEST.ENTITY_PLURAL' | translate }}
             </h3>
         </div>
         <div flex>
             <md-button class="md-fab md-primary" href="/admin/tests">
                 <md-tooltip md-direction="left">
-                    Retornar
+                    {{ 'ACTION.BACK' | translate }}
                 </md-tooltip>
                 <md-icon class="material-icons">arrow_back</md-icon>
             </md-button>
@@ -21,40 +21,46 @@
         <div layout="column" flex="70" class="form-container" layout-fill>
 
             <md-input-container class="md-block">
-                <label>Nome</label>
-                <input type="text" name="name" ng-model="vm.entity.name" required ng-minlength="2" ng-maxlength="255" placeholder="Nome da prova" />
+                <label>{{ 'TEST.NAME' | translate }}</label>
+                <input type="text" name="name" ng-model="vm.entity.name" required ng-minlength="2" ng-maxlength="255" />
                 <div ng-messages="testNewForm.name.$error">
-                    <div ng-message="required">Este campo é obrigatório.</div>
-                    <div ng-message="minlength">Este campo deve ter ao menos 2 caracteres.</div>
-                    <div ng-message="maxlength">Este campo deve ter no máximo 255 caracteres.</div>
+                    <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                    <div ng-message="minlength">{{ 'VALIDATION.MIN_LENGTH' | translate:'{ value: 2 }' }}</div>
+                    <div ng-message="maxlength">{{ 'VALIDATION.MAX_LENGTH' | translate:'{ value: 255 }' }}</div>
                 </div>
             </md-input-container>
 
             <div layout="row">
                 <md-input-container class="md-block" flex>
-                    <label>Disciplina</label>
+                    <label>{{ 'TEST.DISCIPLINE' | translate }}</label>
                     <md-select ng-model="vm.entity.discipline" name="discipline" required>
-                        <md-option ng-value=""><em>Selecione uma opção</em></md-option>
+                        <md-option ng-value=""><em>{{ 'ACTION.SELECT' | translate }}</em></md-option>
                         <md-option ng-value="discipline._id" ng-repeat="discipline in vm.disciplines track by discipline._id">
                             {{::discipline.name}} {{::discipline.year}}/{{::discipline.semester}}
                         </md-option>
                     </md-select>
                     <div ng-messages="testNewForm.discipline.$error">
-                        <div ng-message="required">Este campo é obrigatório.</div>
+                        <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
                     </div>
                 </md-input-container>
                 <md-input-container flex>
-                    <label>Data de início</label>
-                    <input type="text" ng-model="vm.entity.beginDate" />
+                    <label>{{ 'TEST.DATE.BEGIN' | translate }}</label>
+                    <input type="text" ng-model="vm.entity.beginDate" name="beginDate" required/>
+                    <div ng-messages="testNewForm.beginDate.$error">
+                        <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                    </div>
                 </md-input-container>
                 <md-input-container flex>
-                    <label>Data de fim</label>
-                    <input type="text" ng-model="vm.entity.endDate" />
+                    <label>{{ 'TEST.DATE.END' | translate }}</label>
+                    <input type="text" ng-model="vm.entity.endDate" name="endDate" required/>
+                    <div ng-messages="testNewForm.endDate.$error">
+                        <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                    </div>
                 </md-input-container>
             </div>
 
             <md-input-container class="md-block">
-                <label>Conteúdos</label>
+                <label>{{ 'TEST.THEMES' | translate }}</label>
                 <md-select ng-model="vm.entity.themes" multiple data-md-container-class="select-search" required name="selectedThemes" md-on-close="vm.getQuestions(vm.entity.themes)">
                     <md-select-header class="select-header">
                         <input ng-model="themeSearchTerm" ng-keydown="$event.stopPropagation()" type="search" placeholder="Procure por conteúdos" class="select-header-searchbox _md-text" />
@@ -64,7 +70,7 @@
                     </md-option>
                 </md-select>
                 <div ng-messages="testNewForm.selectedThemes.$error">
-                    <div ng-message="required">Este campo é obrigatório.</div>
+                    <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
                 </div>
             </md-input-container>
 
@@ -82,11 +88,11 @@
                 <div layout="row" flex>
                     <md-button href="/admin/tests" class="md-warn md-raised" flex="30" flex-offset="20">
                         <md-icon class="material-icons">close</md-icon>
-                        Cancelar
+                        {{ 'ACTION.CANCEL' | translate }}
                     </md-button>
                     <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="testNewForm.$invalid || vm.processing">
                         <md-icon class="material-icons">send</md-icon>
-                        Cadastrar
+                        {{ 'ACTION.SAVE' | translate }}
                     </md-button>
                 </div>
             </div>
