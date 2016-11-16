@@ -23,8 +23,7 @@ var paths = {
             'src/public/app/assets/libs/angular-material/angular-material.min.js',
             'src/public/app/assets/libs/angular-messages/angular-messages.min.js',
             'src/public/app/assets/libs/angular-route/angular-route.min.js',
-            'src/public/app/assets/libs/angular-material-data-table/dist/md-data-table.min.js',
-            'src/public/app/assets/libs/moment/min/moment.min.js'
+            'src/public/app/assets/libs/angular-material-data-table/dist/md-data-table.min.js'
         ],
         css: [
             'src/public/app/assets/libs/angular-material/angular-material.min.css',
