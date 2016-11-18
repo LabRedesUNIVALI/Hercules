@@ -79,6 +79,21 @@ module.exports = exports = {
         },
         {
             plugin: {
+                register: 'hapi-auth-bearer-token'
+            }
+        },
+        {
+            plugin: {
+                register: './controllers/bearerAuthController.js'
+            },
+            options: {
+                routes: {
+                    prefix: '/api'
+                }
+            }
+        },
+        {
+            plugin: {
                 register: './plugins/models',
                 options: {
                     path: __dirname + '/schemas/',

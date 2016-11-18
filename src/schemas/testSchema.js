@@ -38,6 +38,13 @@ const testSchema = new Schema({
     }]
 }, { timestamps: true });
 
+testSchema.post('save', function (doc) {
+
+    if (doc.deleted) {
+        mongoose.model('Token').delete({ test: mongoose.Types.ObjectId(doc._id) }).exec();
+    }
+});
+
 testSchema.plugin(require('mongoose-delete'), { deletedBy : true, deletedAt: true, overrideMethods: true });
 
 module.exports = testSchema;

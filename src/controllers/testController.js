@@ -123,7 +123,7 @@ exports.register = function (server, options, next) {
                     const yyyymmdd = date.getFullYear().toString() + (date.getMonth()+1).toString() + date.getDate().toString();
                     discipline.students.forEach(function (student) {
                         const tokenValue = yyyymmdd + RandToken.uid(8);
-                        let token = request.models.Token({value: tokenValue, student: student.name, test: test});
+                        let token = request.models.Token({ value: tokenValue, student: student.name, test: test });
                         test.tokens.push(token);
                         token.save();
                     });
