@@ -7,6 +7,10 @@ const optionSchema = new Schema({
     text: {
         type: String,
         required: true,
+    },
+    optionNumber: {
+        type: Number,
+        required: true
     }
 }, { timestamps: true });
 

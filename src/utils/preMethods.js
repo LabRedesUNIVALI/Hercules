@@ -1,6 +1,7 @@
 'use strict';
 
 const Boom = require('boom');
+const Utils = require('./utils');
 
 function findDiscipline(request, reply) {
 
@@ -87,10 +88,47 @@ function findToken(request, reply) {
         });
 }
 
+function findStudentTestInitialState(request, reply) {
+
+    request.models.Token.findById(request.auth.bearer.token._id)
+        .then((token) => {
+
+            if (token === null) {
+                return reply(Boom.notFound());
+            }
+
+            if (token.studentTest) {
+                return reply(null);
+            }
+
+            request.models.Test.findById(request.auth.bearer.test._id)
+                .populate('questions')
+                .then((test) => {
+
+                    if (test === null) {
+                        return reply(Boom.notFound());
+                    }
+
+                    Utils.shuffleTest(test, (err, shuffledTest) => {
+
+                        if (err) {
+                            return reply(Boom.wrap(err));
+                        }
+
+                        return reply(shuffledTest);
+                    });
+                });
+        })
+        .catch((err) => {
+            return reply(Boom.wrap(err));
+        });
+}
+
 module.exports = {
     findDiscipline: findDiscipline,
     findQuestion: findQuestion,
     findTest: findTest,
     findTheme: findTheme,
     findToken: findToken,
+    findStudentTestInitialState: findStudentTestInitialState,
 };

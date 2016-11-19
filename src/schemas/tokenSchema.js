@@ -2,6 +2,7 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const studentTestSchema = require('./studentTestSchema');
 
 const tokenSchema = new Schema({
     value: {
@@ -19,7 +20,8 @@ const tokenSchema = new Schema({
     test: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Test'
-    }
+    },
+    studentTest: studentTestSchema
 }, { timestamps: true });
 
 tokenSchema.plugin(require('mongoose-delete'), { deletedBy : true, deletedAt: true, overrideMethods: true });

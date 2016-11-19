@@ -25,7 +25,10 @@ exports.register = function (server, options, next) {
                     }
 
                     request.auth.bearer = {
-                        token: entity.value,
+                        token: {
+                            _id: entity._id,
+                            value: entity.value
+                        },
                         student: {
                             name: entity.student
                         },
