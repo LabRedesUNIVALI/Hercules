@@ -17,6 +17,30 @@ exports.register = function (server, options, next) {
                 ]
             },
             handler: getStudentTestHandler
+        },
+        {
+            method: 'PUT',
+            path: '/student/test/question/{questionid}',
+            handler: insertQuestionHandler,
+            config: {
+                auth: 'bearer',
+                validate: {
+                    payload: {
+                        chosenOption: Joi.number().integer().valid([1, 2, 3, 4, 5]).required(),
+                    },
+                    params: {
+                        questionid: Joi.string().alphanum()
+                    }
+                }
+            }
+        },
+        {
+            method: 'post',
+            path: '/student/test',
+            handler: finishStudentTestHandler,
+            config: {
+                auth: 'bearer'
+            }
         }
     ];
 
@@ -27,24 +51,77 @@ exports.register = function (server, options, next) {
         request.models.Token.findById(request.auth.bearer.token._id)
             .then((entity) => {
 
-                if (request.pre.studentTest !== null) {
-                    entity.studentTest = {};
-                    let questions = [];
-                    request.pre.studentTest.questions.forEach((question) => {
-                        questions.push({
-                            name: question.name,
-                            chosenOption: null,
-                            correctOption: question.correctOption,
-                            options: question.options
-                        });
-                    });
-                    entity.studentTest.questions = questions;
-                    entity.studentTest.student = entity.student;
-                    entity.save();
-                }
+                request.models.Test.findById(entity.test)
+                    .populate('user discipline')
+                    .then((test) => {
 
-                entity.studentTest.questions.forEach((q) => { delete q.correctOption });
-                return reply(entity.studentTest);
+                        if (request.pre.studentTest !== null) {
+                            entity.studentTest = {};
+                            let questions = [];
+                            request.pre.studentTest.questions.forEach((question) => {
+                                questions.push({
+                                    _id: question._id,
+                                    name: question.name,
+                                    chosenOption: null,
+                                    correctOption: question.correctOption,
+                                    options: question.options
+                                });
+                            });
+                            entity.studentTest.name = test.name;
+                            entity.studentTest.discipline = test.discipline.name;
+                            entity.studentTest.teacher = test.user.name;
+                            entity.studentTest.questions = questions;
+                            entity.studentTest.student = entity.student;
+                            entity.save();
+                        }
+
+                        return reply(entity.studentTest);
+                    });
+            })
+            .catch((err) => {
+
+                return reply(Boom.wrap(err));
+            });
+    }
+
+    function insertQuestionHandler(request, reply) {
+
+        request.models.Token.findById(request.auth.bearer.token._id)
+            .then((entity) => {
+
+                entity.studentTest.questions.forEach((question) => {
+
+                    if (question._id.toString() === request.params.questionid) {
+                        question.chosenOption = request.payload.chosenOption.toString();
+                        entity.studentTest.markModified('questions');
+                    }
+                });
+
+                entity.save();
+                return reply();
+            })
+            .catch((err) => {
+
+                return reply(Boom.wrap(err));
+            });
+    }
+
+    function finishStudentTestHandler(request, reply) {
+
+        request.models.Token.findById(request.auth.bearer.token._id)
+            .then((entity) => {
+
+                entity.studentTest.note = 0;
+                entity.studentTest.questions.forEach((question) => {
+
+                    if (question.correctOption === question.chosenOption) {
+                        entity.studentTest.note = entity.studentTest.note + (10 / entity.studentTest.questions.length)
+                    }
+                });
+
+                entity.expired = true;
+                entity.save();
+                return reply().code(201);
             })
             .catch((err) => {
 
