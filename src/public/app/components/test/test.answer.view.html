@@ -1,0 +1,35 @@
+<div layout="row" layout-align="center center" class="test-content-wrapper" flex>
+    <md-content flex="70" layout="column" class="test-content md-whiteframe-8dp md-padding">
+        <!-- <div class="test-header" layout="row" flex>
+            <h2 class="md-headline">{{ vm.entity._id }}</h2>
+            <p>
+                <strong>{{ 'TEST.TEACHER' | translate }}</strong>: <br /> 
+                <strong>{{ 'TEST.DISCIPLINE' | translate }}</strong>: <br />
+                <strong>{{ 'TEST.STUDENT' | translate }}</strong>: {{ vm.entity.student }}<br />
+            </p>
+        </div> -->
+        <md-tabs md-dynamic-height md-border-bottom md-autoselect>
+            <md-tab ng-repeat="question in vm.entity.questions track by $index" label="Questão {{::$index + 1}}">
+                <p>{{::question.name}}</p>
+                <br />
+                <md-radio-group ng-model="question.chosenOption">
+                    <div ng-repeat="option in question.options track by option._id" class="option">
+                        <div flex layout="row" layout-padding layout-align="start center">
+                            <md-radio-button ng-value="$index" class="md-primary" md-theme="success" style="margin-bottom: 0;">
+                                <strong>{{::vm.letters[$index]}}) </strong>
+                                {{::option.text }}
+                            </md-radio-button>
+                        </div>
+                    </div>
+                </md-radio-group>
+                <md-divider></md-divider>
+                <div layout="row" layout-margin layout-align="end center" flex>
+                    <md-button class="md-primary">{{ 'ACTION.SKIP' | translate }}</md-button>
+                    <md-button class="md-primary md-raised">
+                        {{ 'ACTION.SAVE_ANSWER' | translate }}
+                    </md-button>
+                </div>
+            </md-tab>
+        </md-tabs>
+    </md-content>
+</div>

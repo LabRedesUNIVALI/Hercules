@@ -3,29 +3,30 @@
     'use strict';
 
     /**
-     * @class LoginController
-     * @classdesc Controller to handle user login
+     * @class StudentLoginController
+     * @classdesc Controller to handle student login
      * @ngInject
      */
-    function LoginController (AuthenticationService, $location, $mdDialog) {
-
+    function StudentLoginController (AuthenticationService, $location, 
+        $mdDialog) {
+        
         var vm = this;
 
         var _init = function () {
-
+            
             vm.login = _login;
 
         };
 
         var _login = function (credentials) {
-            AuthenticationService.login(credentials, function (success) {
+            AuthenticationService.studentLogin(credentials, function (success) {
                 if (success) {
-                    $location.path('/admin');
+                    $location.path('/student/test');
                 } else {
                     _showIncorrectCredentialsDialog();
                 }
             });
-        };
+        }; 
 
         var _showIncorrectCredentialsDialog = function () {
             $mdDialog.show(
@@ -33,7 +34,7 @@
                     .parent('body')
                     .clickOutsideToClose(true)
                     .title('Atenção!')
-                    .textContent('E-mail ou senha inválidos! Tente novamente.')
+                    .textContent('Token inválido ou expirado! Tente novamente.')
                     .ok('Ok')
             );
         };
@@ -43,6 +44,6 @@
     }
 
     angular.module('hercules.controllers')
-        .controller('LoginController', LoginController);
+        .controller('StudentLoginController', StudentLoginController);
 
 })();

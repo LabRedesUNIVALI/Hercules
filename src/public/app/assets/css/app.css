@@ -1,5 +1,5 @@
 .ng-view {
-    min-heigth: 100%;
+    min-height: 100%;
 }
 
 .auth-page .background-bar {
@@ -257,4 +257,63 @@
 
 .md-cell {
     font-size: 14px !important;
+}
+
+.login-card {
+    width: 480px;
+}
+
+.login-card .icon {
+    font-size: 50px !important;
+    color: rgb(63, 81, 181);
+    float: right;
+}
+
+.student-login-page {
+    height: 100%;
+}
+
+.student-login-page .logo {
+    color: rgb(63, 81, 181);;
+    display: block;
+    font-size: 27px;
+    letter-spacing: 1px;
+    margin: 0 auto;
+    margin-top: -70px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.student-login-page .logo .bigger {
+    font-size: 50px;
+    font-weight:bold;
+    position: relative;
+    top: 6px;
+}
+
+.test-content {
+    background-color: #ffffff;
+    height: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.test-header .icon {
+    font-size: 50px !important;
+    margin-top: 10px;
+    color: rgb(63, 81, 181);
+}
+
+.test-content .option {
+    border-bottom: 1px dashed #ddd;
+}
+
+.test-content .md-checked {
+    background-color: #DFFFDB;;
+    border-radius: 2px;
+}
+
+.test-content .option:last-child {
+    border-bottom: none;
 }

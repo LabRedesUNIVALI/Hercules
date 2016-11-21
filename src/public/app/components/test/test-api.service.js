@@ -20,6 +20,21 @@
             return $http.get('/api/tests/' + id);
         };
 
+        var _getByToken = function (token) {
+            var req = {
+                url: '/api/student/test',
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            }; console.log(req);
+            return $http(req);
+        };
+
+        var _sendAnswer = function (questionId, option) {
+            return true; //$http.put('/api/student/test/answer/' + questionId, option);
+        }
+
         var _update = function (id, test) {
             return $http.put('/api/tests/' + id, test);
         };
@@ -32,6 +47,7 @@
             save: _save,
             getAll: _getAll,
             getById: _getById,
+            getByToken: _getByToken,
             update: _update,
             delete: _delete
         };
