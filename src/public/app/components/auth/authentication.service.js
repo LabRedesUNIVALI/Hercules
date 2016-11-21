@@ -8,11 +8,13 @@
      */
     function AuthenticationService($http, $cookies) {
 
-        var _login = function (credentials, callback) {
+        var _adminLogin = function (credentials, callback) {
             $http.post('/api/auth', credentials)
                 .success(function (response) {
                     if (response.token) {
-                        $cookies.put('accessToken', response.token);
+                        $cookies.put('accessToken', response.token, {
+                            path: '/admin'
+                        });
                         callback(true);
                     } else {
                         callback(false);
@@ -23,13 +25,38 @@
                 });
         };
 
-        var _logout = function () {
+        var _studentLogin = function (credentials, callback) {
+            var req = {
+                url: '/api/student/test',
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + credentials.token
+                }
+            };
+            $http(req)
+                .success(function (response) {
+                    if (response._id) {
+                        $cookies.put('studentToken', credentials.token, {
+                            path: '/student'
+                        })
+                        callback(true);
+                    } else {
+                        callback(false);
+                    }
+                })
+                .error(function () {
+                    callback(false);
+                });
+        };
+
+        var _adminLogout = function () {
             $cookies.remove('accessToken');
         };
 
         return {
-            login: _login,
-            logout: _logout
+            adminLogin: _adminLogin,
+            adminLogout: _adminLogout,
+            studentLogin: _studentLogin
         };
 
     }

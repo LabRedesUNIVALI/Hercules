@@ -27,7 +27,7 @@
             UserAPIService.createUser(user)
                 .success(function(response){
                     if (response) {
-                        AuthenticationService.login({ email: user.email, password: user.password }, function (success) {
+                        AuthenticationService.adminLogin({ email: user.email, password: user.password }, function (success) {
                             $location.path('/admin');
                         });
                     } else {

@@ -10,10 +10,20 @@
 
         return {
             request: function (config) {
-                var token = $cookies.get('accessToken');
-                if (token) {
-                    config.headers.Authorization = 'Bearer ' + token;
+                if (config.url.includes('/api')) {
+
+                    var token = $cookies.get('accessToken');
+                    
+                    if (config.url.includes('/api/student')) {
+                        token = $cookies.get('studentToken');
+                    }
+
+                    if (token) {
+                        config.headers.Authorization = 'Bearer ' + token;
+                    }
+
                 }
+                
                 return config;
             }
         };
