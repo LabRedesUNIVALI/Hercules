@@ -59,21 +59,21 @@
             <div class="options-container">
                 <md-radio-group ng-model="vm.entity.correctOption" ng-required="true">
                     <div class="radio-group-rows">
-                        <div flex layout="row" ng-repeat="option in vm.entity.options track by $index" layout-padding layout-align="start center" class="radio-group-row">
+                        <div flex layout="row" ng-repeat="option in vm.entity.options track by option.order" layout-padding layout-align="start center" class="radio-group-row">
                             <md-input-container flex="65" class="md-icon-float md-block">
                                 <label>
-                                    <span translate="QUESTION.OPTION_NUMBER" translate-values="{ value: $index + 1 }"></span>
+                                    <span translate="QUESTION.OPTION_NUMBER" translate-values="{ value: option.order }"></span>
                                 </label>
                                 <md-icon class="material-icons">view_headline</md-icon>
-                                <textarea rows="2" required ng-minlength="2" ng-maxlength="255" name="option{{::$index}}" ng-model="vm.entity.options[$index].text" ></textarea>
-                                <div ng-messages="questionEditForm['option' + $index].$error">
+                                <textarea rows="2" required ng-minlength="2" ng-maxlength="255" name="option{{::option.order}}" ng-model="vm.entity.options[option.order].text" ></textarea>
+                                <div ng-messages="questionEditForm['option' + option.order].$error">
                                     <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
                                     <div ng-message="minlength">{{ 'VALIDATION.MIN_LENGTH' | translate:'{ value: 2 }' }}</div>
                                     <div ng-message="minlength">{{ 'VALIDATION.MAX_LENGTH' | translate:'{ value: 255 }' }}</div>
                                 </div>
                             </md-input-container>
                             <span flex></span>
-                            <md-radio-button flex="30" class="md-primary" md-theme="success" value="{{::$index + 1}}">
+                            <md-radio-button flex="30" class="md-primary" md-theme="success" value="{{::option.order}}">
                                 {{ 'QUESTION.CORRECT_OPTION_QUESTION' | translate }}
                             </md-radio-button>
                         </div>

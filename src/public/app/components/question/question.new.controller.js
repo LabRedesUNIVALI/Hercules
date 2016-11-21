@@ -16,11 +16,11 @@
 
             vm.entity = {};
             vm.entity.options = [
-                {text: ''},
-                {text: ''},
-                {text: ''},
-                {text: ''},
-                {text: ''}
+                { text: '', order: 1 },
+                { text: '', order: 2 },
+                { text: '', order: 3 },
+                { text: '', order: 4 },
+                { text: '', order: 5 }
             ];
             vm.processing = false;
             vm.themes = themes.data.map(function (theme) {

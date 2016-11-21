@@ -31,8 +31,8 @@
             return $http(req);
         };
 
-        var _sendAnswer = function (questionId, option) {
-            return true; //$http.put('/api/student/test/answer/' + questionId, option);
+        var _saveQuestionAnswer = function (questionId, option) {
+            return $http.put('/api/student/test/answer/' + questionId, option);
         }
 
         var _update = function (id, test) {
@@ -48,6 +48,7 @@
             getAll: _getAll,
             getById: _getById,
             getByToken: _getByToken,
+            saveQuestionAnswer: _saveQuestionAnswer,
             update: _update,
             delete: _delete
         };

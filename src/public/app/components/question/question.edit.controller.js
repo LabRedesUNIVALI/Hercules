@@ -50,7 +50,8 @@
                 correctOption: entity.correctOption,
                 options: entity.options.map(function (option) {
                     return {
-                        text: option.text
+                        text: option.text,
+                        order: option.order
                     };
                 })
             };
