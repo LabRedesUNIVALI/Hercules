@@ -27,7 +27,7 @@
                 headers: {
                     'Authorization': 'Bearer ' + token
                 }
-            }; console.log(req);
+            };
             return $http(req);
         };
 
@@ -35,8 +35,15 @@
             return $http.put('/api/student/test/question/' + questionId, option);
         };
 
-        var _finishTest = function () {
-            return $http.post('/api/student/test');
+        var _finishTest = function (token) {
+            var req = {
+                url: '/api/student/test',
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            };
+            return $http(req);
         };
 
         var _update = function (id, test) {
@@ -53,6 +60,7 @@
             getById: _getById,
             getByToken: _getByToken,
             saveQuestionAnswer: _saveQuestionAnswer,
+            finishTest: _finishTest,
             update: _update,
             delete: _delete
         };

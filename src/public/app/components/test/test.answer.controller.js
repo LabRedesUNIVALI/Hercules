@@ -7,7 +7,8 @@
      * @classdesc Controller to handle test answers
      * @ngInject
      */
-    function TestAnswerController (entity, TestAPIService, hcCommonToasts,$mdDialog) {
+    function TestAnswerController (entity, TestAPIService, hcCommonToasts, 
+        $mdDialog, $cookies) {
 
         var vm = this;
 
@@ -65,14 +66,27 @@
         };
 
         var _finishTest = function (ev) {
-            _showConfirmDialog(ev);
+            var token = $cookies.get('studentToken');
+            _showConfirmDialog(ev)
+                .then(function () {
+                    vm.processing = true;
+                    TestAPIService.finishTest(token)
+                        .success(function (result) {
+                            $cookies.remove('studentToken');
+                            $location.path('/student/login');
+                        })
+                        .error(function (result) {
+                            _showErrorDialog('Não foi possível finalizar a prova.');
+                        })
+                }, null);
         };
 
         var _showConfirmDialog = function (ev) {
             var confirm = $mdDialog.confirm()
                 .title('Deseja realmente finalizar a prova?')
-                .textContent('Uma vez finalizada, você não poderá mais editá-la. \n A correção será baseada no que você respondeu até então.')
+                .htmlContent('Uma vez finalizada, você não poderá mais editá-la. <br /> A correção será baseada no que você respondeu até então.')
                 .targetEvent(ev)
+                .theme('default')
                 .ok('Sim')
                 .cancel('Não');
             return $mdDialog.show(confirm);

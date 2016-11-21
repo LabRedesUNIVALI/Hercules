@@ -55,7 +55,9 @@
                 THEME_REQUIRED: "Você deve escolher um conteúdo",
                 THEME_EXISTENT: "Escolha um conteúdo existente",
                 THEME_NOT_FOUND: "Não foi encontrado nenhum conteúdo contendo \"{{value}}\"",
-                TOKEN_PATTERN: "Digite o token corretamente"
+                TOKEN_PATTERN: "Digite o token corretamente",
+                DATE_MIN_TODAY: "A data deve não deve ser posterior à data atual",
+                DATE_VALID: "A data informada é inválida"
             },
             // Users
             USER: {
