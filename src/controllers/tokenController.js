@@ -70,9 +70,7 @@ exports.register = function (server, options, next) {
 
     function findTokenHandler(request, reply) {
 
-        console.log(1);
         request.models.Token.findById(request.params.tokenid)
-            // .populate('studentTest')
             .then((entity) => {
 
                 if (!entity) {
