@@ -25,7 +25,7 @@ exports.register = function (server, options, next) {
                         options: Joi.array().length(5).items(
                             Joi.object().keys({
                                 text: Joi.string().min(1).max(255).required(),
-                                optionNumber: Joi.number().integer().valid([1, 2, 3, 4, 5]).required()
+                                order: Joi.number().integer().valid([1, 2, 3, 4, 5]).required()
                             }).required()
                         ).required()
                     },
@@ -109,7 +109,7 @@ exports.register = function (server, options, next) {
                         options: Joi.array().length(5).items(
                             Joi.object().keys({
                                 text: Joi.string().min(1).max(255).required(),
-                                optionNumber: Joi.number().integer().valid([1, 2, 3, 4, 5]).required()
+                                order: Joi.number().integer().valid([1, 2, 3, 4, 5]).required()
                             }).required()
                         ).required()
                     },
