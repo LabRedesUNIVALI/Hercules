@@ -23,6 +23,19 @@ exports.register = function (server, options, next) {
                 }
             }
         },
+        {
+            method: 'GET',
+            path: '/tokens/{tokenid}',
+            handler: findTokenHandler,
+            config: {
+                auth: 'jwt',
+                validate: {
+                    params: {
+                        tokenid: Joi.string().alphanum()
+                    }
+                }
+            }
+        }
     ];
 
     server.route(routes);
@@ -53,6 +66,23 @@ exports.register = function (server, options, next) {
                     return reply(Boom.wrap(err));
                 });
         });
+    }
+
+    function findTokenHandler(request, reply) {
+
+        request.models.Token.findById(request.params.tokenid)
+            .then((entity) => {
+
+                if (!entity) {
+                    return reply(Boom.notFound());
+                }
+
+                return reply(entity);
+            })
+            .catch((err) => {
+
+                return reply(Boom.wrap(err));
+            });
     }
 
     next();
