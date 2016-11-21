@@ -8,7 +8,7 @@ const optionSchema = new Schema({
         type: String,
         required: true,
     },
-    optionNumber: {
+    order: {
         type: Number,
         required: true
     }
