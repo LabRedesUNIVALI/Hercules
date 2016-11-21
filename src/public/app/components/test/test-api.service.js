@@ -32,8 +32,12 @@
         };
 
         var _saveQuestionAnswer = function (questionId, option) {
-            return $http.put('/api/student/test/answer/' + questionId, option);
-        }
+            return $http.put('/api/student/test/question/' + questionId, option);
+        };
+
+        var _finishTest = function () {
+            return $http.post('/api/student/test');
+        };
 
         var _update = function (id, test) {
             return $http.put('/api/tests/' + id, test);

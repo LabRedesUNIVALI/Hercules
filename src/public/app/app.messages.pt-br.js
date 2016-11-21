@@ -33,7 +33,8 @@
                 LOGOUT: "Sair",
                 DO_TEST: "Realizar prova",
                 SAVE_ANSWER: "Salvar resposta",
-                SKIP: "Pular"
+                SKIP: "Pular",
+                FINISH_TEST: "Finalizar prova"
             },
             // Lists
             LIST: {

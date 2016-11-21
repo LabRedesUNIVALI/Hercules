@@ -12,7 +12,9 @@
             $http.post('/api/auth', credentials)
                 .success(function (response) {
                     if (response.token) {
-                        $cookies.put('accessToken', response.token);
+                        $cookies.put('accessToken', response.token, {
+                            path: '/admin'
+                        });
                         callback(true);
                     } else {
                         callback(false);

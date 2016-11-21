@@ -65,7 +65,7 @@
                                     <span translate="QUESTION.OPTION_NUMBER" translate-values="{ value: option.order }"></span>
                                 </label>
                                 <md-icon class="material-icons">view_headline</md-icon>
-                                <textarea rows="2" required ng-minlength="2" ng-maxlength="255" name="option{{::option.order}}" ng-model="vm.entity.options[option.order].text" ></textarea>
+                                <textarea rows="2" required ng-minlength="2" ng-maxlength="255" name="option{{::option.order}}" ng-model="vm.entity.options[$index].text" ></textarea>
                                 <div ng-messages="questionEditForm['option' + option.order].$error">
                                     <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
                                     <div ng-message="minlength">{{ 'VALIDATION.MIN_LENGTH' | translate:'{ value: 2 }' }}</div>

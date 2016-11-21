@@ -1,16 +1,36 @@
 <div layout="row" layout-align="center center" class="test-content-wrapper" flex>
     <md-content flex="70" layout="column" class="test-content md-whiteframe-8dp md-padding">
+        <div class="test-header">
+            <div layout="row" flex>
+                <h2 class="md-headline">{{::vm.entity.name}}</h2>
+                <span flex></span>
+                <md-button ng-click="vm.finishTest($event)" flex="15" md-theme="success" class="md-primary md-raised">
+                    {{ 'ACTION.FINISH_TEST' | translate }}
+                </md-button>
+            </div>
+            <p>
+                <strong>Professor: </strong>{{::vm.entity.teacher}}
+            </p>
+            <p>
+                <strong>Disciplina: </strong>{{::vm.entity.discipline}}
+            </p>
+            <p>
+                <strong>Aluno: </strong>{{::vm.entity.student}}
+            </p>
+        </div>
+        <br />
         <md-tabs md-dynamic-height md-border-bottom md-autoselect md-selected="vm.selectedTab">
             <md-tab ng-repeat="question in vm.entity.questions track by $index" label="Questão {{::$index + 1}}">
-                <p>{{::question.name}}</p>
+                <p style="word-break: break-all">{{::question.name}}</p>
                 <br />
                 <form name="question{{::$index + 1}}Form" ng-submit="vm.saveAnswer(question)">
                 <md-radio-group ng-model="question.chosenOption" ng-required="true">
                     <div ng-repeat="option in question.options track by option._id" class="option">
                         <div flex layout="row" layout-padding layout-align="start center">
-                            <md-radio-button ng-value="$index" class="md-primary" md-theme="success" style="margin-bottom: 0;">
-                                <strong>{{::vm.letters[$index]}}) </strong>
-                                {{::option.text }}
+                            <md-radio-button ng-value="$index + 1" class="md-primary" md-theme="success" style="margin-bottom: 0;">
+                                <p style="word-break: break-all">
+                                    <strong>{{::vm.letters[$index]}}) </strong>{{::option.text }}
+                                </p>
                             </md-radio-button>
                         </div>
                     </div>
@@ -20,7 +40,7 @@
                     <md-button class="md-primary" ng-click="vm.skipQuestion()">
                         {{ 'ACTION.SKIP' | translate }}
                     </md-button>
-                    <md-button type="submit" class="md-primary md-raised" ng-disabled="question{{::$index + 1}}Form.$invalid">
+                    <md-button type="submit" class="md-primary md-raised" ng-disabled="question{{::$index + 1}}Form.$invalid || vm.processing">
                         {{ 'ACTION.SAVE_ANSWER' | translate }}
                     </md-button>
                 </div>
