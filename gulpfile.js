@@ -93,7 +93,7 @@ gulp.task('copy:index', function () {
 
 gulp.task('clean:trash', function () {
     return del([
-        'src/public/.index.prod.html',
+        'src/public/index.html.dist',
         'src/public/app/**',
         '!src/public/app',
         '!src/public/app/dist',
