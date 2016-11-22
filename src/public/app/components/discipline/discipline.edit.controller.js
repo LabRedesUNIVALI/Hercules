@@ -7,8 +7,8 @@
      * @classdesc Edit controller for discipline entity
      * @ngInject
      */
-    function DisciplineEditController (entity, DisciplineAPIService,
-        hcCommonDialogs, $location) {
+    function DisciplineEditController (entity, CRUDService,
+        CommonDialogs, $location) {
 
         var vm = this;
 
@@ -47,19 +47,18 @@
                 })
             };
 
-            DisciplineAPIService.update(entity._id, updatedEntity)
-                .success(function (result) {
-                    if (result) {
-                        $location.path('admin/disciplines');
-                    } else {
-                        hcCommonDialogs.genericError();
-                        vm.processing = false;
-                    }
-                })
-                .error(function () {
-                    hcCommonDialogs.genericError();
+            CRUDService.update({
+                id: entity._id,
+                entity: updatedEntity,
+                serviceName: 'DisciplineAPIService',
+                desiredPath: 'admin/disciplines'
+            }, function (success) {
+                if (!success) {
+                    CommonDialogs.genericError();
                     vm.processing = false;
-                });
+                }
+            });
+
         };
 
         _init();

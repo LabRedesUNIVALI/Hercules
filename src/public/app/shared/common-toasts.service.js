@@ -8,7 +8,9 @@
      */
     function CommonToasts ($mdToast) {
 
-        this.notice = function (message) {
+        var self = this;
+        
+        self.Notice = function (message) {
             $mdToast.show(
                 $mdToast.simple()
                     .textContent(message)
@@ -17,9 +19,28 @@
             );
         };
 
+        self.notice = {
+            success: {
+                New: function () {
+                    self.Notice('Registro adicionado com sucesso!');
+                },
+                Update: function () {
+                    self.Notice('Registro atualizado com sucesso!');
+                },
+                Delete: function () {
+                    self.Notice('Registro excluído com sucesso!');
+                }
+            },
+            error: {
+                Delete: function () {
+                    self.Notice('Não foi possível excluir o registro.');
+                }
+            }
+        };
+
     }
 
     angular.module('hercules.services')
-        .service('hcCommonToasts', CommonToasts);
+        .service('CommonToasts', CommonToasts);
 
 })();

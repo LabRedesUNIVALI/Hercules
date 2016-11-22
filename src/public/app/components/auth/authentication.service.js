@@ -38,7 +38,7 @@
                     if (response._id) {
                         $cookies.put('studentToken', credentials.token, {
                             path: '/student'
-                        })
+                        });
                         callback(true);
                     } else {
                         callback(false);

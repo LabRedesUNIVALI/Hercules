@@ -7,7 +7,7 @@
      * @classdesc Controller to handle test answers
      * @ngInject
      */
-    function TestAnswerController (entity, TestAPIService, hcCommonToasts, 
+    function TestAnswerController (entity, TestAPIService, CommonToasts, 
         $mdDialog, $cookies) {
 
         var vm = this;
@@ -45,7 +45,7 @@
                 chosenOption: question.chosenOption
             })
                 .success(function (result) {
-                    hcCommonToasts.notice('Questão salva!');
+                    CommonToasts.Notice('Questão salva!');
                     vm.processing = false;
                 })
                 .error(function (result) {

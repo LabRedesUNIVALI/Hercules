@@ -44,6 +44,6 @@
     }
 
     angular.module('hercules.services')
-        .service('hcCommonDialogs', CommonDialogs);
+        .service('CommonDialogs', CommonDialogs);
 
 })();

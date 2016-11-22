@@ -8,7 +8,7 @@
      * @ngInject
      */
     function RegistrationController (UserAPIService, AuthenticationService,
-        hcCommonDialogs, $location) {
+        CommonDialogs, $location) {
 
         var vm = this;
 
@@ -31,12 +31,12 @@
                             $location.path('/admin');
                         });
                     } else {
-                        hcCommonDialogs.genericError();
+                        CommonDialogs.genericError();
                         vm.processing = false;
                     }
                 })
                 .error(function () {
-                    hcCommonDialogs.genericError();
+                    CommonDialogs.genericError();
                     vm.processing = false;
                 });
         };

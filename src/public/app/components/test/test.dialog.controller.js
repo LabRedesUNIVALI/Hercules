@@ -7,7 +7,7 @@
      * @classdesc Dialog controller for test entity
      * @ngInject
      */
-    function TestDialogController (test, hcPDFManager, $mdDialog) {
+    function TestDialogController (test, PDFManager, $mdDialog) {
 
         var vm = this;
 
@@ -27,11 +27,11 @@
         };
 
         var _downloadPdf = function (test) {
-            hcPDFManager.generateTestDocument(test, false);
+            PDFManager.generateTestDocument(test, false);
         };
 
         var _printPdf = function (test) {
-            hcPDFManager.generateTestDocument(test, true);
+            PDFManager.generateTestDocument(test, true);
         };
 
         _init();

@@ -8,7 +8,7 @@
      * @ngInject
      */
     function QuestionNewController (themes, QuestionAPIService,
-        hcCommonDialogs, $location) {
+        CommonDialogs, $location) {
 
         var vm = this;
 
@@ -58,14 +58,17 @@
             QuestionAPIService.save(themeId, entity)
                 .success(function (result) {
                     if (result) {
-                        $location.path("admin/questions");
+                        $location.path('admin/questions');
+                        $timeout(function () {
+                            $rootScope.$broadcast('NEW');
+                        }, 1000);
                     } else {
-                        hcCommonDialogs.genericError();
+                        CommonDialogs.genericError();
                         vm.processing = false;
                     }
                 })
                 .error(function () {
-                    hcCommonDialogs.genericError();
+                    CommonDialogs.genericError();
                     vm.processing = false;
                 });
         };

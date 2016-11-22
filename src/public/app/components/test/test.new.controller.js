@@ -7,8 +7,8 @@
      * @classdesc New controller for test entity
      * @ngInject
      */
-    function TestNewController(disciplines, themes, TestAPIService,
-        QuestionAPIService, hcCommonDialogs, $location) {
+    function TestNewController(disciplines, themes, CRUDService,
+        QuestionAPIService, CommonDialogs, $location) {
 
         var vm = this;
 
@@ -46,7 +46,7 @@
                             vm.questions = vm.questions.concat(result);
                         })
                         .error(function () {
-                            hcCommonDialogs.genericError();
+                            CommonDialogs.genericError();
                         });
                 });
 
@@ -69,23 +69,21 @@
 
             vm.processing = true;
 
-            TestAPIService.save(entity)
-                .success(function (result) {
-                    if (result) {
-                        $location.path('admin/tests');
-                    } else {
-                        hcCommonDialogs.genericError();
-                        vm.processing = false;
-                    }
-                })
-                .error(function () {
-                    hcCommonDialogs.genericError();
+            CRUDService.save({
+                entity: entity,
+                serviceName: 'TestAPIService',
+                desiredPath: 'admin/tests'
+            }, function (success) {
+                if (!success) {
+                    CommonDialogs.genericError();
                     vm.processing = false;
-                });
+                }
+            });
+            
         };
 
         var _showQuestionInfo = function (question, ev) {
-            hcCommonDialogs.questionInfo(question, ev);
+            CommonDialogs.questionInfo(question, ev);
         };
 
         _init();
