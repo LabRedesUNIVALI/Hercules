@@ -9,7 +9,7 @@ var templateCache = require('gulp-angular-templatecache');
 var cssmin = require('gulp-cssmin');
 var rename = require('gulp-rename');
 
-var es = require('event-stream');
+var merge2 = require('merge2');
 var runSequece = require('run-sequence');
 var inquirer = require('inquirer');
 
@@ -21,9 +21,13 @@ var paths = {
             'src/public/app/assets/libs/angular-aria/angular-aria.min.js',
             'src/public/app/assets/libs/angular-cookies/angular-cookies.min.js',
             'src/public/app/assets/libs/angular-material/angular-material.min.js',
+            'src/public/app/assets/libs/angular-material-data-table/dist/md-data-table.min.js',
             'src/public/app/assets/libs/angular-messages/angular-messages.min.js',
             'src/public/app/assets/libs/angular-route/angular-route.min.js',
-            'src/public/app/assets/libs/angular-material-data-table/dist/md-data-table.min.js'
+            'src/public/app/assets/libs/angular-sanitize/angular-sanitize.min.js',
+            'src/public/app/assets/libs/angular-translate/angular-translate.min.js',
+            'src/public/app/assets/libs/angular-ui-mask/dist/mask.min.js',
+            'src/public/app/assets/libs/jspdf/dist/jspdf.min.js'
         ],
         css: [
             'src/public/app/assets/libs/angular-material/angular-material.min.css',
@@ -33,6 +37,7 @@ var paths = {
     scripts: [
         'src/public/app/app.module.js',
         'src/public/app/app.routes.js',
+        'src/public/app/app.messages.pt-br.js',
         'src/public/app/components/**/*.js',
         'src/public/app/shared/*.js'
     ],
@@ -51,20 +56,20 @@ gulp.task('clean:dist', function () {
 });
 
 gulp.task('min:js', ['min:html'], function () {
-    return es.merge([
+    return merge2(
         gulp.src(paths.libs.js),
         gulp.src(paths.scripts).pipe(uglify()),
         gulp.src('src/public/app/dist/templates.js').pipe(uglify())
-    ])
+    )
     .pipe(concat('build.min.js'))
     .pipe(gulp.dest('src/public/app/dist'));
 });
 
 gulp.task('min:css', function () {
-    return es.merge([
+    return merge2(
         gulp.src(paths.libs.css),
         gulp.src(paths.styles).pipe(cssmin())
-    ])
+    )
     .pipe(concat('build.min.css'))
     .pipe(gulp.dest('src/public/app/dist'));
 });
@@ -80,7 +85,7 @@ gulp.task('min:html', function () {
 });
 
 gulp.task('copy:index', function () {
-    return gulp.src('src/public/.index.prod.html')
+    return gulp.src('src/public/index.html.dist')
     .pipe(htmlmin({ collapseWhitespace: true }))
     .pipe(rename('index.html'))
     .pipe(gulp.dest('src/public'));
