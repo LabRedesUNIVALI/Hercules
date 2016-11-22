@@ -50,6 +50,26 @@ const findUserAndAuthenticate = function (request, reply) {
     });
 };
 
+function removeActiveAuthenticationHandler(request, reply) {
+
+    request.models.User.findById(request.auth.credentials.user._id)
+        .then((entity) => {
+
+            entity.authentications.forEach((authentication, index) => {
+                if (authentication._id.toString() === request.auth.credentials.jti.toString()) {
+                    entity.authentications.splice(index, 1);
+                    entity.save();
+                }
+            });
+
+            return reply();
+        })
+        .catch((err) => {
+
+            return reply(Boom.wrap(err));
+        });
+};
+
 exports.register = function (server, options, next) {
 
     const validate = function (decoded, request, callback) {
@@ -58,6 +78,7 @@ exports.register = function (server, options, next) {
             .then((entity) => {
 
                 if ( !entity || !entity.authentications ) {
+                    console.log(1);
                     return callback (Boom.unauthorized(), false);
                 }
 
@@ -67,6 +88,7 @@ exports.register = function (server, options, next) {
                     request.auth.entity = entity;
                     return callback(null, true);
                 } else {
+                    console.log(2);
                     return callback(Boom.unauthorized(), false);
                 }
             })
@@ -93,6 +115,15 @@ exports.register = function (server, options, next) {
                     password: Joi.string().max(30).required()
                 })
             }
+        }
+    });
+
+    server.route({
+        method: 'DELETE',
+        path: '/auth',
+        handler: removeActiveAuthenticationHandler,
+        config: {
+            auth: 'jwt'
         }
     });
 

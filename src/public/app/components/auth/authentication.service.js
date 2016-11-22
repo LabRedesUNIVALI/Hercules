@@ -49,8 +49,8 @@
                 });
         };
 
-        var _adminLogout = function () {
-            $http.delete('api/auth')
+        var _adminLogout = function (callback) {
+            $http.delete('/api/auth')
                 .success(function () {
                     $cookies.remove('accessToken');
                     callback(true);

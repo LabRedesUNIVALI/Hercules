@@ -17,7 +17,7 @@
                         $mdOpenMenu(ev);
                     };
                     this.logout = function () {
-                        AuthenticationService.adminLogout((function (success) {
+                        AuthenticationService.adminLogout(function (success) {
                             if (success) {
                                 $location.path('/admin/login');
                             } else {
