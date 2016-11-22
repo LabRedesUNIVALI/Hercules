@@ -5,7 +5,6 @@
     /**
      * translations - Configure application translations
      * @ngInject
-     *
      */
     function translations ($translateProvider) {
 
@@ -30,7 +29,11 @@
                     PDF: "Baixar como PDF"
                 },
                 SEARCH_THEME: "Procurar conteúdos",
-                LOGOUT: "Sair"
+                LOGOUT: "Sair",
+                DO_TEST: "Realizar prova",
+                SAVE_ANSWER: "Salvar resposta",
+                SKIP: "Pular",
+                FINISH_TEST: "Finalizar prova"
             },
             // Lists
             LIST: {
@@ -50,8 +53,10 @@
                 MATCH_PASSWORDS: "As senhas devem ser iguais",
                 THEME_REQUIRED: "Você deve escolher um conteúdo",
                 THEME_EXISTENT: "Escolha um conteúdo existente",
-                THEME_NOT_FOUND: "Não foi encontrado nenhum conteúdo contendo \"{{value}}\""
-
+                THEME_NOT_FOUND: "Não foi encontrado nenhum conteúdo contendo \"{{value}}\"",
+                TOKEN_PATTERN: "Digite o token corretamente",
+                DATE_MIN_TODAY: "A data deve não deve ser posterior à data atual",
+                DATE_VALID: "A data informada é inválida"
             },
             // Users
             USER: {
@@ -93,7 +98,8 @@
                 OPTIONS: "Alternativas",
                 OPTION_NUMBER: "Alternativa nº {{value}}",
                 CORRECT: "Correta",
-                WRONG: "Errada"
+                WRONG: "Errada",
+                SELECTED_OPTION: "Alternativa selecionada:"
             },
             // Tests
             TEST: {
@@ -111,9 +117,16 @@
                 DISCIPLINE: "Disciplina",
                 QUESTION_NUMBER: "Qtd. de questões",
                 THEMES: "Conteúdos",
-                QUESTIONS: "Questões"
+                QUESTIONS: "Questões",
+                TEACHER: "Professor",
+                STUDENT: "Aluno"
             },
-            DASHBOARD: "Painel"
+            DASHBOARD: "Painel",
+            STUDENT: {
+                TOKEN: "Token de autorização",
+                WELCOME_PHRASE: "Bem vindo! Digite no campo abaixo o token de autorização disponibilizado pelo seu professor para continuar.",
+                TOKEN_FORMAT: "ex.: 20160102-aBcdEf"
+            }
         };
 
         $translateProvider

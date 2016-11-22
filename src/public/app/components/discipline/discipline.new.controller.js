@@ -7,7 +7,7 @@
      * @classdesc New controller for discipline entity
      * @ngInject
      */
-    function DisciplineNewController (DisciplineAPIService, hcCommonDialogs,
+    function DisciplineNewController (CRUDService, CommonDialogs,
         $location) {
 
         var vm = this;
@@ -38,19 +38,16 @@
 
             vm.processing = true;
 
-            DisciplineAPIService.save(entity)
-                .success(function (result) {
-                    if (result) {
-                        $location.path('/admin/disciplines');
-                    } else {
-                        hcCommonDialogs.genericError();
-                        vm.processing = false;
-                    }
-                })
-                .error(function () {
-                    hcCommonDialogs.genericError();
+            CRUDService.save({
+                entity: entity,
+                serviceName: 'DisciplineAPIService',
+                desiredPath: '/admin/disciplines'
+            }, function (success) {
+                if (!success) {
+                    CommonDialogs.genericError();
                     vm.processing = false;
-                });
+                }
+            });
         };
 
         _init();

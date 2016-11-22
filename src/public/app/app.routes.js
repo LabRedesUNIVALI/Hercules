@@ -11,16 +11,16 @@
         $routeProvider
 
             // Register
-            .when('/register', {
+            .when('/admin/register', {
                 templateUrl: 'public/components/registration/registration.view.html',
                 controller: 'RegistrationController',
                 controllerAs: 'vm'
             })
 
             // Login
-            .when('/login', {
-                templateUrl: 'public/components/login/login.view.html',
-                controller: 'LoginController',
+            .when('/admin/login', {
+                templateUrl: 'public/components/login/admin.login.view.html',
+                controller: 'AdminLoginController',
                 controllerAs: 'vm'
             })
 
@@ -194,6 +194,27 @@
                         return ThemeAPIService.getAll();
                     }
                 }
+            })
+
+            // Student
+            .when('/student/login', {
+                templateUrl: 'public/components/login/student.login.view.html',
+                controller: 'StudentLoginController',
+                controllerAs: 'vm'
+            })
+
+            .when('/student/test', {
+                templateUrl: 'public/components/test/test.answer.view.html',
+                controller: 'TestAnswerController',
+                controllerAs: 'vm',
+                resolve: { /* @ngInject */
+                    entity: function (TestAPIService, $cookies) {
+                        var token = $cookies.get('studentToken');
+                        if (token) {
+                            return TestAPIService.getByToken(token);
+                        }
+                    }
+                } 
             })
 
             // Whatever

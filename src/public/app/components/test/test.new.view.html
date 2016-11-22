@@ -45,14 +45,14 @@
                 </md-input-container>
                 <md-input-container flex>
                     <label>{{ 'TEST.DATE.BEGIN' | translate }}</label>
-                    <input type="text" ng-model="vm.entity.beginDate" name="beginDate" required/>
+                    <input type="text" ng-model="vm.entity.beginDate" name="beginDate" ui-mask="99/99/9999 99:99" model-view-value="true" required/>
                     <div ng-messages="testNewForm.beginDate.$error">
                         <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
                     </div>
                 </md-input-container>
                 <md-input-container flex>
                     <label>{{ 'TEST.DATE.END' | translate }}</label>
-                    <input type="text" ng-model="vm.entity.endDate" name="endDate" required/>
+                    <input type="text" ng-model="vm.entity.endDate" name="endDate" ui-mask="99/99/9999 99:99" model-view-value="true" required/>
                     <div ng-messages="testNewForm.endDate.$error">
                         <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
                     </div>

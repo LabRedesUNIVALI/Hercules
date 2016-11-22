@@ -8,7 +8,7 @@
      * @ngInject
      */
     function RegistrationController (UserAPIService, AuthenticationService,
-        hcCommonDialogs, $location) {
+        CommonDialogs, $location) {
 
         var vm = this;
 
@@ -27,16 +27,16 @@
             UserAPIService.createUser(user)
                 .success(function(response){
                     if (response) {
-                        AuthenticationService.login({ email: user.email, password: user.password }, function (success) {
+                        AuthenticationService.adminLogin({ email: user.email, password: user.password }, function (success) {
                             $location.path('/admin');
                         });
                     } else {
-                        hcCommonDialogs.genericError();
+                        CommonDialogs.genericError();
                         vm.processing = false;
                     }
                 })
                 .error(function () {
-                    hcCommonDialogs.genericError();
+                    CommonDialogs.genericError();
                     vm.processing = false;
                 });
         };

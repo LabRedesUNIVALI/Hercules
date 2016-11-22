@@ -1,6 +1,7 @@
 /node_modules/
 /src/public/app/assets/libs/
 .idea/
+.vscode/
 /config/local.js
 /src/public/app/dist/
 npm-debug.log

@@ -8,8 +8,8 @@
      * @ngInject
      */
     function QuestionIndexController (entities, QuestionAPIService,
-        ThemeAPIService, hcCommonToasts, hcCommonDialogs,
-        $mdDialog, $location) {
+        ThemeAPIService, CommonToasts, CommonDialogs,
+        $mdDialog, $location, $scope) {
 
         var vm = this;
 
@@ -23,10 +23,12 @@
             vm.addQuestion = _addQuestion;
             vm.showNoThemesDialog = _showNoThemesDialog;
 
+            _setupListeners();
+
         };
 
         var _delete = function (entity, ev) {
-            hcCommonDialogs.confirmDelete(ev).then(function () {
+            CommonDialogs.confirmDelete(ev).then(function () {
 
                 vm.processing = true;
 
@@ -34,11 +36,11 @@
                     .success(function (result) {
                         var index = vm.entities.indexOf(entity);
                         vm.entities.splice(index, 1);
-                        hcCommonToasts.notice('Registro excluído com sucesso.');
+                        CommonToasts.notice.success.Delete();
                         vm.processing = false;
                     })
                     .error(function () {
-                        hcCommonToasts.notice('Não foi possível excluir o registro.');
+                        CommonToasts.notice.error.Delete();
                         vm.processing = false;
                     });
             }, null);
@@ -50,7 +52,7 @@
                     if (result.length > 0) {
                         $location.path('/admin/questions/new');
                     } else {
-                        showNoThemesDialog(ev);
+                        _showNoThemesDialog(ev);
                     }
                 });
         };
@@ -64,6 +66,15 @@
                     .targetEvent(ev)
                     .ok('Entendi')
             );
+        };
+
+         var _setupListeners = function () {
+            $scope.$on('NEW', function () {
+                CommonToasts.notice.success.New();
+            });
+            $scope.$on('UPDATE', function () {
+                CommonToasts.notice.success.Update();
+            });
         };
 
         _init();

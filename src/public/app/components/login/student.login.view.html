@@ -1,0 +1,37 @@
+<div layout="column" layout-align="center center" class="student-login-page" flex>
+    <div class="logo">
+        <span class="bigger">H</span>ercules
+    </div>
+    <md-card class="md-padding login-card md-whiteframe-8dp">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{ 'ACTION.DO_TEST' | translate }}</span>
+            </md-card-title-text>
+            <md-card-title-media>
+                <div class="md-media-sm">
+                    <span class="material-icons icon">border_color</span>
+                </div>
+            </md-card-title-media>
+        </md-card-title>
+        <form name="loginForm" ng-submit="vm.login(vm.credentials)">
+            <md-card-content>
+                <p>{{ 'STUDENT.WELCOME_PHRASE' | translate }}</p>
+                <br />
+                <md-input-container class="md-block md-icon-float">
+                    <md-icon class="material-icons">credit_card</md-icon>
+                    <label>{{ 'STUDENT.TOKEN' | translate }}</label>
+                    <input type="text" name="token" required ng-model="vm.credentials.token" ui-mask="99999999********" ng-pattern="/[0-9]{8}[A-Za-z0-9]{8}/"/>
+                    <div ng-messages="loginForm.token.$error">
+                        <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                        <div ng-message="ng-pattern">{{ 'VALIDATION.TOKEN_PATTERN' | translate }}</div>
+                    </div>
+                </md-input-container>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button type="submit" class="md-primary">
+                    {{ 'ACTION.LOGIN' | translate }}
+                </md-button>
+            </md-card-actions>
+        </form>
+    </md-card>
+</div>

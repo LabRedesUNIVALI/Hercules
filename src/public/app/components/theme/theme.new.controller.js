@@ -7,7 +7,7 @@
      * @classdesc New controller for theme entity
      * @ngInject
      */
-    function ThemeNewController (ThemeAPIService, hcCommonDialogs, $location) {
+    function ThemeNewController (CRUDService, CommonDialogs, $location) {
 
         var vm = this;
 
@@ -23,19 +23,17 @@
 
             vm.processing = true;
 
-            ThemeAPIService.save(entity)
-                .success(function (result) {
-                    if (result) {
-                        $location.path('admin/themes');
-                    } else {
-                        hcCommonDialogs.genericError();
-                        vm.processing = false;
-                    }
-                })
-                .error(function () {
-                    hcCommonDialogs.genericError();
+            CRUDService.save({
+                entity: entity,
+                serviceName: 'ThemeAPIService',
+                desiredPath: '/admin/themes',
+            }, function (success) {
+                if (!success) {
                     vm.processing = false;
-                });
+                    CommonDialogs.genericError();
+                }
+            });
+            
         };
 
         _init();

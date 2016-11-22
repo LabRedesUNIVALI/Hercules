@@ -59,6 +59,6 @@
     }
 
     angular.module('hercules.services')
-        .service('hcPDFManager', PDFManager);
+        .service('PDFManager', PDFManager);
 
 })();

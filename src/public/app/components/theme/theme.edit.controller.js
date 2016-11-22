@@ -7,8 +7,8 @@
      * @classdesc Edit controller for theme entity
      * @ngInject
      */
-    function ThemeEditController (entity, ThemeAPIService,
-        hcCommonDialogs, $location) {
+    function ThemeEditController (entity, CRUDService,
+        CommonDialogs, $location) {
 
         var vm = this;
 
@@ -29,19 +29,18 @@
                 name: entity.name
             };
 
-            ThemeAPIService.update(entity._id, updatedEntity)
-                .success(function (result) {
-                    if (result) {
-                        $location.path('/admin/themes');
-                    } else {
-                        hcCommonDialogs.genericError();
-                        vm.processing = false;
-                    }
-                })
-                .error(function () {
-                    hcCommonDialogs.genericError();
+            CRUDService.update({
+                id: entity._id,
+                entity: updatedEntity,
+                serviceName: 'ThemeAPIService',
+                desiredPath: '/admin/themes'
+            }, function (success) {
+                if (!success) {
+                    CommonDialogs.genericError();
                     vm.processing = false;
-                });
+                }    
+            });
+
         };
 
         _init();

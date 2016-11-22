@@ -25,10 +25,10 @@
      */
     function authorization ($rootScope, $location, $cookies) {
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
-            var publicPages = ['/login', '/register'];
+            var publicPages = ['/admin/login', '/admin/register', '/student/login', '/student/test'];
             var restrictedPage = publicPages.indexOf($location.path()) === -1;
             if (restrictedPage && !$cookies.get('accessToken')) {
-                $location.path('/login');
+                $location.path('/student/login');
             }
         });
     }
@@ -52,6 +52,30 @@
         );
     }
 
+    /**
+     * masks - Config input masks
+     * @ngInject
+     */
+    function masks (uiMaskConfigProvider) {
+        uiMaskConfigProvider.addDefaultPlaceholder(false);
+        uiMaskConfigProvider.maskDefinitions({ '*': /[a-zA-Z0-9]/ });
+    }
+
+    /**
+     * loadingView - Set up variable to display loading screen
+     * @ngInject
+     */
+    function loadingView ($rootScope) {
+        $rootScope.$on('$routeChangeStart', function (e, curr, prev) {
+            if (curr.$$route && curr.$$route.resolve) {
+                $rootScope.loadingView = true;
+            }
+        });
+        $rootScope.$on('$routeChangeSuccess', function () {
+            $rootScope.loadingView = false;
+        });
+    }
+
     angular.module('hercules.controllers', []);
     angular.module('hercules.services', []);
     angular.module('hercules.directives', []);
@@ -65,17 +89,21 @@
         'ngAria',                       // Angular Aria
         'md.data.table',                // Material Design data tables
         'pascalprecht.translate',       // Angular Translate
-        'ngSanitize',
+        'ngSanitize',                   // Angular Sanitize
+        'ui.mask',                      // Angular UI Mask
         'hercules.controllers',         // Hercules controllers
         'hercules.services',            // Hercules services
         'hercules.directives',          // Hercules directives
         'hercules.filters'              // Hercules filters
     ];
 
+
     angular.module('hercules', dependencies)
         .config(interceptors)
         .config(themes)
+        .config(['uiMask.ConfigProvider', masks])
         .run(authorization)
-        .run(templates);
+        .run(templates)
+        .run(loadingView);
 
 })();

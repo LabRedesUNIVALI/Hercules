@@ -8,7 +8,7 @@
      * @ngInject
      */
     function QuestionEditController (entity, themes, QuestionAPIService,
-        hcCommonDialogs, $location) {
+        CommonDialogs, $location) {
 
         var vm = this;
 
@@ -50,7 +50,8 @@
                 correctOption: entity.correctOption,
                 options: entity.options.map(function (option) {
                     return {
-                        text: option.text
+                        text: option.text,
+                        order: option.order
                     };
                 })
             };
@@ -59,13 +60,16 @@
                 .success(function (result) {
                     if (result) {
                         $location.path('/admin/questions');
+                        $timeout(function () {
+                            $rootScope.$broadcast('NEW');
+                        }, 1000);
                     } else {
-                        hcCommonDialogs.genericError();
+                        CommonDialogs.genericError();
                         vm.processing = false;
                     }
                 })
                 .error(function () {
-                    hcCommonDialogs.genericError();
+                    CommonDialogs.genericError();
                     vm.processing = false;
                 });
         };

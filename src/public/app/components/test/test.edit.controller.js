@@ -7,8 +7,8 @@
      * @classdesc Edit controller for test entity
      * @ngInject
      */
-    function TestEditController(entity, disciplines, themes, TestAPIService,
-        QuestionAPIService, hcCommonDialogs, $filter, $location) {
+    function TestEditController(entity, disciplines, themes, CRUDService,
+        QuestionAPIService, CommonDialogs, $filter, $location) {
 
         var vm = this;
 
@@ -53,7 +53,7 @@
                             vm.questions = result;
                         })
                         .error(function () {
-                            hcCommonDialogs.genericError();
+                            CommonDialogs.genericError();
                         });
                 });
 
@@ -85,23 +85,22 @@
                 questions: entity.questions
             };
 
-            TestAPIService.update(entity._id, updatedEntity)
-                .success(function (result) {
-                    if (result) {
-                        $location.path('/admin/tests');
-                    } else {
-                        hcCommonDialogs.genericError();
-                        vm.processing = false;
-                    }
-                })
-                .error(function () {
-                    hcCommonDialogs.genericError();
+            CRUDService.update({
+                id: entity._id,
+                entity: updatedEntity,
+                serviceName: 'TestAPIService',
+                desiredPath: '/admin/tests'
+            }, function (success) {
+                if (!success) {
+                    CommonDialogs.genericError();
                     vm.processing = false;
-                });
+                } 
+            });
+            
         };
 
         var _showQuestionInfo = function (question, ev) {
-            hcCommonDialogs.questionInfo(question, ev);
+            CommonDialogs.questionInfo(question, ev);
         };
 
         _init();

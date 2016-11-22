@@ -8,7 +8,7 @@
      * @ngInject
      */
      function DisciplineIndexController (entities, DisciplineAPIService,
-         hcCommonToasts, hcCommonDialogs) {
+         CommonToasts, CommonDialogs, $scope) {
 
          var vm = this;
 
@@ -20,11 +20,13 @@
 
              vm.delete = _delete;
 
+             _setupListeners();
+
          };
 
          var _delete = function (entity, ev) {
 
-             hcCommonDialogs.confirmDelete(ev).then(function () {
+             CommonDialogs.confirmDelete(ev).then(function () {
 
                  vm.processing = true;
 
@@ -32,16 +34,25 @@
                      .success(function (result) {
                          var index = vm.entities.indexOf(entity);
                          vm.entities.splice(index, 1);
-                         hcCommonToasts.notice('Registro excluído com sucesso.');
+                         CommonToasts.notice.success.Delete();
                          vm.processing = false;
                      })
                      .error(function () {
-                         hcCommonToasts.notice('Não foi possível excluir o registro.');
+                         CommonToasts.notice.error.Delete();
                          vm.processing = false;
                      });
              }, null);
 
          };
+
+        var _setupListeners = function () {
+            $scope.$on('NEW', function () {
+                CommonToasts.notice.success.New();
+            });
+            $scope.$on('UPDATE', function () {
+                CommonToasts.notice.success.Update();
+            });
+        };
 
          _init();
 
