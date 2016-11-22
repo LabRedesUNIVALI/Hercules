@@ -8,6 +8,7 @@ var htmlmin = require('gulp-htmlmin');
 var templateCache = require('gulp-angular-templatecache');
 var cssmin = require('gulp-cssmin');
 var rename = require('gulp-rename');
+var ngAnnotate = require('gulp-ng-annotate');
 
 var merge2 = require('merge2');
 var runSequece = require('run-sequence');
@@ -58,7 +59,7 @@ gulp.task('clean:dist', function () {
 gulp.task('min:js', ['min:html'], function () {
     return merge2(
         gulp.src(paths.libs.js),
-        gulp.src(paths.scripts).pipe(uglify()),
+        gulp.src(paths.scripts).pipe(ngAnnotate()).pipe(uglify()),
         gulp.src('src/public/app/dist/templates.js').pipe(uglify())
     )
     .pipe(concat('build.min.js'))
@@ -113,7 +114,6 @@ gulp.task('prod', function (callback) {
             return runSequece(
                 'clean:dist',
                 [
-                    'hint:js',
                     'min:js',
                     'min:css',
                     'copy:index'
