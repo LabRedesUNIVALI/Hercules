@@ -17,8 +17,13 @@
                     $mdOpenMenu(ev);
                 };
                 this.logout = function () {
-                    AuthenticationService.logout();
-                    $location.path('/login');
+                    AuthenticationService.logout(function (success) {
+                        if (success) {
+                            $location.path('/login');
+                        } else {
+                            $location.path('/login');
+                        }
+                    });
                 };
             },
             controllerAs: 'vm'

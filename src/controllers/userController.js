@@ -48,6 +48,14 @@ exports.register = function (server, options, next) {
                     }
                 }
             }
+        },
+        {
+            method: 'DELETE',
+            path: '/auth',
+            handler: logoutHandler,
+            config: {
+                auth: 'jwt'
+            }
         }
     ];
 
@@ -120,6 +128,26 @@ exports.register = function (server, options, next) {
                         reply (Boom.wrap(err));
                     });
 
+            })
+            .catch((err) => {
+
+                return reply(Boom.wrap(err));
+            });
+    }
+
+    function logoutHandler(request, reply) {
+
+        request.models.User.findById(request.auth.credentials.user._id)
+            .then((entity) => {
+
+                entity.authentications.forEach((authentication, index) => {
+                    if (authentication._id.toString() === request.auth.credentials.jti.toString()) {
+                        entity.authentications.splice(index, 1);
+                        entity.save();
+                    }
+                });
+
+                return reply();
             })
             .catch((err) => {
 

@@ -23,8 +23,16 @@
                 });
         };
 
-        var _logout = function () {
-            $cookies.remove('accessToken');
+        var _logout = function (callback) {
+            $http.delete('api/auth')
+                .success(function () {
+                    $cookies.remove('accessToken');
+                    callback(true);
+                })
+                .error(function () {
+                    $cookies.remove('accessToken');
+                    callback(false);
+                });
         };
 
         return {
