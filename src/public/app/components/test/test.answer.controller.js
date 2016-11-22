@@ -31,15 +31,15 @@
             } else {
                 vm.selectedTab = 0;
             }
-        }
+        };
 
         var _saveAnswer = function (question) {
             
             vm.processing = true;
 
-            if (!typeof question === "number") { 
+            if (typeof question !== "number") { 
                 _showErrorDialog('Você precisa escolher uma alternativa!'); 
-            };
+            }
 
             TestAPIService.saveQuestionAnswer(question._id, {
                 chosenOption: question.chosenOption
@@ -62,7 +62,7 @@
                     .title('Atenção!')
                     .textContent(message)
                     .ok('Ok')
-            )
+            );
         };
 
         var _finishTest = function (ev) {
@@ -77,7 +77,7 @@
                         })
                         .error(function (result) {
                             _showErrorDialog('Não foi possível finalizar a prova.');
-                        })
+                        });
                 }, null);
         };
 
