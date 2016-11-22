@@ -317,3 +317,20 @@
 .test-content .option:last-child {
     border-bottom: none;
 }
+
+.loading-screen {
+    background: rgba(0,0,0,0.6); 
+    z-index: 999999; 
+    position: absolute; 
+    width: 100%; 
+    height: 100%;
+    transition: all linear 0.5s;
+}
+
+.loading-screen.ng-hide {
+    opacity: 0;
+}
+
+.loading-screen.ng-show {
+    opacity: 100;
+}

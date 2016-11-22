@@ -61,6 +61,21 @@
         uiMaskConfigProvider.maskDefinitions({ '*': /[a-zA-Z0-9]/ });
     }
 
+    /**
+     * loadingView - Set up variable to display loading screen
+     * @ngInject
+     */
+    function loadingView ($rootScope) {
+        $rootScope.$on('$routeChangeStart', function (e, curr, prev) {
+            if (curr.$$route && curr.$$route.resolve) {
+                $rootScope.loadingView = true;
+            }
+        });
+        $rootScope.$on('$routeChangeSuccess', function () {
+            $rootScope.loadingView = false;
+        });
+    }
+
     angular.module('hercules.controllers', []);
     angular.module('hercules.services', []);
     angular.module('hercules.directives', []);
@@ -82,11 +97,13 @@
         'hercules.filters'              // Hercules filters
     ];
 
+
     angular.module('hercules', dependencies)
         .config(interceptors)
         .config(themes)
         .config(['uiMask.ConfigProvider', masks])
         .run(authorization)
-        .run(templates);
+        .run(templates)
+        .run(loadingView);
 
 })();

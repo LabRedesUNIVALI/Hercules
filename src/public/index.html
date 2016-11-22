@@ -18,6 +18,10 @@
     </head>
 
     <body ng-app="hercules" ng-cloak layout="row">
+        
+        <div ng-show="loadingView" class="loading-screen" layout="column" layout-align="space-around center">
+            <md-progress-circular md-mode="indeterminate" class="md-hue-3" md-diameter="150" />
+        </div>
 
         <div ng-view layout="row" flex></div>
 

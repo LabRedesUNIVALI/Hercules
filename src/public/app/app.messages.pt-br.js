@@ -5,7 +5,6 @@
     /**
      * translations - Configure application translations
      * @ngInject
-     *
      */
     function translations ($translateProvider) {
 
