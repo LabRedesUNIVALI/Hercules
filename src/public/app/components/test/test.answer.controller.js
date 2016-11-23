@@ -72,8 +72,10 @@
                     vm.processing = true;
                     TestAPIService.finishTest(token)
                         .success(function (result) {
-                            $cookies.remove('studentToken');
-                            $location.path('/student/login');
+                            _showFinishDialog().finally(function () {
+                                $cookies.remove('studentToken', { path: '/student' });
+                                $location.path('/student/login');
+                            });
                         })
                         .error(function (result) {
                             _showErrorDialog('Não foi possível finalizar a prova.');
@@ -91,6 +93,17 @@
                 .cancel('Não');
             return $mdDialog.show(confirm);
         };
+
+        var _showFinishDialog = function () {
+            return $mdDialog.show(
+                $mdDialog.alert()
+                    .parent(angular.element(document.body))
+                    .clickOutsideToClose(true)
+                    .title('Pronto!')
+                    .htmlContent('Sua prova foi concluída. <br /> Consulte seu professor para mais informações.')
+                    .ok('Ok')
+            );
+        }
 
         _init();
 
