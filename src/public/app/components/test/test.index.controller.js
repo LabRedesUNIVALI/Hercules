@@ -57,7 +57,7 @@
             });
         };
 
-        var _showTokens = function (id, ev) {
+        var _showTokens = function (testName, id, ev) {
 
             TokenAPIService.getAllByTest(id)
                 .success(function (result) {
@@ -68,7 +68,7 @@
                         clickOutsideToClose: true,
                         controller: 'TokenDialogController',
                         controllerAs: 'vm',
-                        locals: { tokens: result }
+                        locals: { tokens: result, test: testName }
                     });
                 });
         };

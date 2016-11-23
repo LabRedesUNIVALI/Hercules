@@ -121,7 +121,12 @@
                 QUESTIONS: "Questões",
                 TEACHER: "Professor",
                 STUDENT: "Aluno",
-                GRADE: "Nota"
+                GRADE: "Nota",
+                STATUSES: {
+                    NOT_STARTED: "Aguardando início",
+                    STARTED_NOT_FINISHED: "Aguardando finalização",
+                    FINISHED: "Finalizada"
+                }
             },
             DASHBOARD: "Painel",
             STUDENT: {

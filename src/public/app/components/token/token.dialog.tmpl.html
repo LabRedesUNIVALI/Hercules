@@ -1,15 +1,15 @@
 <md-dialog aria-label="Tokens">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>{{ 'TOKEN.ENTITY_PLURAL' | translate }}</h2>
+            <h2>{{::vm.test}} - {{ 'TOKEN.ENTITY_PLURAL' | translate }}</h2>
             <span flex></span>
-            <md-button class="md-icon-button" ng-click="vm.donwloadTokens(vm.tokens)">
+            <md-button class="md-icon-button" ng-click="vm.downloadPdf(vm.test, vm.tokens)">
                 <md-tooltip md-direction="bottom">
                     {{ 'ACTION.DOWNLOAD.PDF' | translate }}
                 </md-tooltip>
                 <md-icon class="material-icons">file_download</md-icon>
             </md-button>
-            <md-button class="md-icon-button" ng-click="vm.printTokens(vm.tokens)">
+            <md-button class="md-icon-button" ng-click="vm.printPdf(vm.test, vm.tokens)">
                 <md-tooltip md-direction="bottom">
                     {{ 'ACTION.PRINT' | translate }}
                 </md-tooltip>
@@ -36,7 +36,12 @@
                             <td md-cell>{{::token.student}}</td>
                             <td md-cell>{{::token.value}}</td>
                             <td md-cell>
-                                
+                                <span ng-if="token.message != 'finished'">
+                                    {{ 'TEST.STATUSES.' + (token.message | uppercase) | translate }}
+                                </span>
+                                <span ng-if="token.message == 'finished'">
+                                    {{::token.studentTest.note }}
+                                </span>
                             </td>
                         </tr>
                     </tbody>
