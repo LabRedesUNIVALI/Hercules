@@ -75,7 +75,7 @@ exports.register = function (server, options, next) {
                         if (!entity.studentTest) {
                             hydratedEntity.message = 'not_started';
                         }
-                        else if (entity.studentTest && !entity.studentTest.note) {
+                        else if (entity.studentTest && !entity.studentTest.note && entity.studentTest.note !== 0) {
                             hydratedEntity.message = 'started_not_finished';
                             hydratedEntity.studentTest.note = null;
                         } else {
