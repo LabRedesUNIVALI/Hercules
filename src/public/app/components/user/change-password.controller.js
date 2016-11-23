@@ -3,17 +3,16 @@
     'use strict';
 
     /**
-     * @class ProfileController
-     * @classdesc Controller for user profile
+     * @class PasswordController
+     * @classdesc Controller for changing user password
      * @ngInject
      */
-    function ProfileController (entity) {
+    function PasswordController () {
 
         var vm = this;
 
         var _init = function () {
 
-            vm.entity = entity.data;
             vm.processing = false;
 
         };
@@ -23,6 +22,6 @@
     }
 
     angular.module('hercules.controllers')
-        .controller('ProfileController', ProfileController);
+        .controller('PasswordController', PasswordController);
 
 })();

@@ -66,7 +66,8 @@
                 USERNAME: "Nome de usuário",
                 PASSWORD: "Senha",
                 REPEAT_PASSWORD: "Confirmar senha",
-                PROFILE: "Meus dados"
+                PROFILE: "Meus dados",
+                CHANGE_PASSWORD: "Alterar senha"
             },
             // Disciplines
             DISCIPLINE: {

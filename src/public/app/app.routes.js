@@ -24,16 +24,11 @@
                 controllerAs: 'vm'
             })
 
-            // Profile
-            .when('/admin/profile', {
-                templateUrl: 'public/components/user/profile.view.html',
-                controller: 'ProfileController',
+            // Change password
+            .when('/admin/change-password', {
+                templateUrl: 'public/components/user/change-password.view.html',
+                controller: 'PasswordController',
                 controllerAs: 'vm',
-                resolve: { /* @ngInject */
-                    entity: function (UserAPIService) {
-                        return UserAPIService.getProfile();
-                    }
-                }
             })
 
             // Dashboard
