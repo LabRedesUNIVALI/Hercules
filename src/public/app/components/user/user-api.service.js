@@ -20,10 +20,15 @@
             return $http.get('/api/profile/me');
         };
 
+        var _changePassword = function (credentials) {
+            return $http.put('/api/reset-password', credentials);
+        };
+
         return {
             createUser: _createUser,
             checkEmail: _checkEmail,
-            getProfile: _getProfile
+            getProfile: _getProfile,
+            changePassword: _changePassword
         };
 
     }

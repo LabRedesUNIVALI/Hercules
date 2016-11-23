@@ -66,6 +66,9 @@
                 USERNAME: "Nome de usuário",
                 PASSWORD: "Senha",
                 REPEAT_PASSWORD: "Confirmar senha",
+                CURRENT_PASSWORD: "Senha atual",
+                NEW_PASSWORD: "Nova senha",
+                REPEAT_NEW_PASSWORD: "Confirmar nova senha",
                 PROFILE: "Meus dados",
                 CHANGE_PASSWORD: "Alterar senha"
             },

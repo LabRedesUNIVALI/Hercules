@@ -25,15 +25,17 @@
             })
 
             // Change password
-            .when('/admin/change-password', {
-                templateUrl: 'public/components/user/change-password.view.html',
+            .when('/admin/reset-password', {
+                templateUrl: 'public/components/user/reset-password.view.html',
                 controller: 'PasswordController',
                 controllerAs: 'vm',
             })
 
             // Dashboard
             .when('/admin/dashboard', {
-                templateUrl: 'public/components/dashboard/dashboard.view.html'
+                templateUrl: 'public/components/dashboard/dashboard.view.html',
+                controller: 'DashboardController',
+                controllerAs: 'vm'
             })
 
             // Disciplines

@@ -29,6 +29,9 @@
                 },
                 Delete: function () {
                     self.Notice('Registro excluído com sucesso!');
+                },
+                ResetPassword: function () {
+                    self.Notice('Senha alterada com sucesso!');
                 }
             },
             error: {
