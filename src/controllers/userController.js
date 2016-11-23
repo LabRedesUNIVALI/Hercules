@@ -43,8 +43,8 @@ exports.register = function (server, options, next) {
                 validate: {
                     payload: {
                         password: Joi.string().min(5).max(50).required(),
-                        repeatPassword: Joi.string().min(5).max(50).required(),
-                        newPassword: Joi.string().min(5).max(50).required()
+                        newPassword: Joi.string().min(5).max(50).required(),
+                        repeatNewPassword: Joi.string().min(5).max(50).required()
                     }
                 }
             }
@@ -105,11 +105,11 @@ exports.register = function (server, options, next) {
                     reply (Boom.unauthorized());
                 }
 
-                if (request.payload.password !== request.payload.repeatPassword) {
+                if (request.payload.newPassword !== request.payload.repeatNewPassword) {
                     reply (Boom.unauthorized());
                 }
 
-                entity.password = request.payload.password;
+                entity.password = request.payload.newPassword;
                 entity.save()
                     .then((entity) => {
 
