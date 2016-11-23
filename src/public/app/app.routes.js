@@ -179,23 +179,6 @@
                 }
             })
 
-            .when('/admin/tests/:id', {
-                templateUrl: 'public/components/test/test.detail.view.html',
-                controller: 'TestDetailController',
-                controllerAs: 'vm',
-                resolve: { /* @ngInject */
-                    entity: function (TestAPIService, $route) {
-                        return TestAPIService.getById($route.current.params.id);
-                    },
-                    disciplines: function (DisciplineAPIService) {
-                        return DisciplineAPIService.getAll();
-                    },
-                    themes: function (ThemeAPIService) {
-                        return ThemeAPIService.getAll();
-                    }
-                }
-            })
-
             // Student
             .when('/student/login', {
                 templateUrl: 'public/components/login/student.login.view.html',
@@ -218,7 +201,7 @@
             })
 
             // Whatever
-            .otherwise({ redirectTo: "/admin/dashboard" });
+            .otherwise({ redirectTo: '/admin/dashboard' });
 
         $locationProvider.html5Mode(true);
 

@@ -33,7 +33,8 @@
                 DO_TEST: "Realizar prova",
                 SAVE_ANSWER: "Salvar resposta",
                 SKIP: "Pular",
-                FINISH_TEST: "Finalizar prova"
+                FINISH_TEST: "Finalizar prova",
+                TOKENS: "Ver tokens"
             },
             // Lists
             LIST: {
@@ -119,13 +120,25 @@
                 THEMES: "Conteúdos",
                 QUESTIONS: "Questões",
                 TEACHER: "Professor",
-                STUDENT: "Aluno"
+                STUDENT: "Aluno",
+                GRADE: "Nota",
+                STATUSES: {
+                    NOT_STARTED: "Aguardando início",
+                    STARTED_NOT_FINISHED: "Aguardando finalização",
+                    FINISHED: "Finalizada"
+                }
             },
             DASHBOARD: "Painel",
             STUDENT: {
                 TOKEN: "Token de autorização",
                 WELCOME_PHRASE: "Bem vindo! Digite no campo abaixo o token de autorização disponibilizado pelo seu professor para continuar.",
                 TOKEN_FORMAT: "ex.: 20160102-aBcdEf"
+            },
+            TOKEN: {
+                ENTITY: "Token",
+                ENTITY_PLURAL: "Tokens",
+                STUDENT: "Aluno",
+                VALUE: "Valor"
             }
         };
 

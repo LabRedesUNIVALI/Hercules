@@ -23,11 +23,17 @@
             <div class="md-toolbar-tools">
                 <span>{{ 'LIST.ITEM_SELECTED' | translate }}</span>
                 <span flex></span>
+                <md-button ng-click="vm.showTokens(vm.selected[0].name, vm.selected[0]._id, $event)" class="md-icon-button" ng-disabled="vm.processing">
+                    <md-tooltip md-direction="top">
+                        {{ 'ACTION.TOKENS' | translate }}
+                    </md-tooltip>
+                    <md-icon class="material-icons">assignment</md-icon>
+                </md-button>
                 <md-button ng-click="vm.previewTest(vm.selected[0], $event)" class="md-icon-button" ng-disabled="vm.processing">
                     <md-tooltip md-direction="top">
                         {{ 'ACTION.PREVIEW' | translate }}
                     </md-tooltip>
-                    <md-icon class="material-icons">assignment</md-icon>
+                    <md-icon class="material-icons">remove_red_eye</md-icon>
                 </md-button>
                 <md-button ng-click="vm.downloadPdf(vm.selected[0])" class="md-icon-button" ng-disabled="vm.processing">
                     <md-tooltip md-direction="top">
