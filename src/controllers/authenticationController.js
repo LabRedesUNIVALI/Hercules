@@ -78,7 +78,6 @@ exports.register = function (server, options, next) {
             .then((entity) => {
 
                 if ( !entity || !entity.authentications ) {
-                    console.log(1);
                     return callback (Boom.unauthorized(), false);
                 }
 
@@ -88,7 +87,6 @@ exports.register = function (server, options, next) {
                     request.auth.entity = entity;
                     return callback(null, true);
                 } else {
-                    console.log(2);
                     return callback(Boom.unauthorized(), false);
                 }
             })
