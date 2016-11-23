@@ -8,7 +8,7 @@
      * @ngInject
      */
     function QuestionEditController (entity, themes, QuestionAPIService,
-        CommonDialogs, $location) {
+        CommonDialogs, $location, $timeout) {
 
         var vm = this;
 

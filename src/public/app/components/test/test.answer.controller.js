@@ -8,7 +8,7 @@
      * @ngInject
      */
     function TestAnswerController (entity, TestAPIService, CommonToasts, 
-        $mdDialog, $cookies) {
+        $mdDialog, $cookies, $location) {
 
         var vm = this;
 
@@ -37,7 +37,7 @@
             
             vm.processing = true;
 
-            if (typeof question !== "number") { 
+            if (!typeof(question) === "number") { 
                 _showErrorDialog('Você precisa escolher uma alternativa!'); 
             }
 

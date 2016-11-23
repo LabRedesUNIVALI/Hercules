@@ -25,10 +25,15 @@
      */
     function authorization ($rootScope, $location, $cookies) {
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
-            var publicPages = ['/admin/login', '/admin/register', '/student/login', '/student/test'];
+            var publicPages = ['/admin/login', '/admin/register', '/student/login'];
             var restrictedPage = publicPages.indexOf($location.path()) === -1;
-            if (restrictedPage && !$cookies.get('accessToken')) {
-                $location.path('/student/login');
+            if (restrictedPage) {
+                if ($location.path().includes('/admin') && !$cookies.get('accessToken')) {
+                    $location.path('/admin/login');
+                }
+                if ($location.path().includes('/student') && !$cookies.get('studentToken')) {
+                    $location.path('/student/login');
+                }
             }
         });
     }

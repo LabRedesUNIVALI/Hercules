@@ -56,6 +56,32 @@
 
         };
 
+        this.generateTokensDocument = function (testName, tokens, print) {
+
+            var template = '<h3 style="margin-left: 300px;">' + testName +'</h3><br /> <br />';
+
+            tokens.forEach(function (token) {
+                template += '<p style="font-size: 20px; font-family: sans-serif; letter-spacing: 2px;">' + token.student + '<br /><strong>' + token.value +'</strong></p><br />'
+            });
+
+            var doc = new jsPDF();
+
+            doc.fromHTML(template, 15, 15, {
+                'width': 170
+            });
+
+            if (print) {
+                doc.autoPrint();
+                window.open(doc.output('bloburl'), '_blank');
+            } else {
+                var fileName = testName.toLowerCase().replace(/ /g, '_') + "_tokens_";
+                    fileName += new Date().getTime();
+                    fileName += '.pdf';
+                doc.save(fileName);
+            }
+
+        };
+
     }
 
     angular.module('hercules.services')

@@ -8,7 +8,7 @@
      * @ngInject
      */
     function QuestionNewController (themes, QuestionAPIService,
-        CommonDialogs, $location) {
+        CommonDialogs, $location, $timeout) {
 
         var vm = this;
 
