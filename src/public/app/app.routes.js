@@ -179,18 +179,6 @@
                 }
             })
 
-            // Token
-            .when('/admin/tests/:id/tokens', {
-                templateUrl: 'public/components/token/token.list.view.html',
-                controller: 'TokenListController',
-                controllerAs: 'vm',
-                resolve: { /* @ngInject */
-                    entities: function (TokenAPIService, $route) {
-                        return TokenAPIService.getAllByTest($route.current.params.id);
-                    }
-                }
-            })
-
             // Student
             .when('/student/login', {
                 templateUrl: 'public/components/login/student.login.view.html',
@@ -213,7 +201,7 @@
             })
 
             // Whatever
-            .otherwise({ redirectTo: "/admin/dashboard" });
+            .otherwise({ redirectTo: '/admin/dashboard' });
 
         $locationProvider.html5Mode(true);
 

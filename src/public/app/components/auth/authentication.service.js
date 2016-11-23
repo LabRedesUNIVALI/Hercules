@@ -52,11 +52,11 @@
         var _adminLogout = function (callback) {
             $http.delete('/api/auth')
                 .success(function () {
-                    $cookies.remove('accessToken');
+                    $cookies.remove('accessToken', { path: '/admin' });
                     callback(true);
                 })
                 .error(function () {
-                    $cookies.remove('accessToken');
+                    $cookies.remove('accessToken', { path: '/admin' });
                     callback(false);
                 });
         };

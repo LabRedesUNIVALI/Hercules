@@ -23,7 +23,7 @@
             <div class="md-toolbar-tools">
                 <span>{{ 'LIST.ITEM_SELECTED' | translate }}</span>
                 <span flex></span>
-                <md-button ng-href="/admin/tests/{{vm.selected[0]._id}}/tokens" class="md-icon-button" ng-disabled="vm.processing">
+                <md-button ng-click="vm.showTokens(vm.selected[0]._id)" class="md-icon-button" ng-disabled="vm.processing">
                     <md-tooltip md-direction="top">
                         {{ 'ACTION.TOKENS' | translate }}
                     </md-tooltip>

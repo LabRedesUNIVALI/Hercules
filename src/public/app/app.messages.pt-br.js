@@ -120,7 +120,8 @@
                 THEMES: "Conteúdos",
                 QUESTIONS: "Questões",
                 TEACHER: "Professor",
-                STUDENT: "Aluno"
+                STUDENT: "Aluno",
+                GRADE: "Nota"
             },
             DASHBOARD: "Painel",
             STUDENT: {

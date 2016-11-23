@@ -7,8 +7,8 @@
      * @classdesc Index controller for test entities
      * @ngInject
      */
-    function TestIndexController (entities, TestAPIService, CommonDialogs,
-        CommonToasts, PDFManager, $mdDialog, $scope) {
+    function TestIndexController (entities, TestAPIService, TokenAPIService, 
+        CommonDialogs, CommonToasts, PDFManager, $mdDialog, $scope) {
 
         var vm = this;
 
@@ -22,6 +22,7 @@
             vm.previewTest = _previewTest;
             vm.downloadPdf = _downloadPdf;
             vm.printPdf = _printPdf;
+            vm.showTokens = _showTokens;
 
             _setupListeners();
 
@@ -54,6 +55,22 @@
                 controllerAs: 'vm',
                 locals: { test: test }
             });
+        };
+
+        var _showTokens = function (id, ev) {
+
+            TokenAPIService.getAllByTest(id)
+                .success(function (result) {
+                    $mdDialog.show({
+                        templateUrl: 'public/components/token/token.dialog.tmpl.html',
+                        parent: angular.element(document.body),
+                        targetEvent: ev,
+                        clickOutsideToClose: true,
+                        controller: 'TokenDialogController',
+                        controllerAs: 'vm',
+                        locals: { tokens: result }
+                    });
+                });
         };
 
         var _downloadPdf = function (test) {
