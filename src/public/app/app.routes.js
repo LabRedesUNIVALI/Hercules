@@ -179,19 +179,14 @@
                 }
             })
 
-            .when('/admin/tests/:id', {
-                templateUrl: 'public/components/test/test.detail.view.html',
-                controller: 'TestDetailController',
+            // Token
+            .when('/admin/tests/:id/tokens', {
+                templateUrl: 'public/components/token/token.list.view.html',
+                controller: 'TokenListController',
                 controllerAs: 'vm',
                 resolve: { /* @ngInject */
-                    entity: function (TestAPIService, $route) {
-                        return TestAPIService.getById($route.current.params.id);
-                    },
-                    disciplines: function (DisciplineAPIService) {
-                        return DisciplineAPIService.getAll();
-                    },
-                    themes: function (ThemeAPIService) {
-                        return ThemeAPIService.getAll();
+                    entities: function (TokenAPIService, $route) {
+                        return TokenAPIService.getAllByTest($route.current.params.id);
                     }
                 }
             })
