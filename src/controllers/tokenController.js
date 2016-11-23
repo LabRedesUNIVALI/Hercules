@@ -52,14 +52,41 @@ exports.register = function (server, options, next) {
                 return reply(Boom.forbidden());
             }
 
-            request.models.Token.find({ test: request.pre.test._id })
+            request.models.Token.find({ test: request.pre.test._id }, {
+                _id: 1,
+                value: 1,
+                expired: 1,
+                student: 1,
+                studentTest: 1
+            })
                 .then((entities) => {
 
                     if (!entities) {
                         return reply({});
                     }
+                    
+                    const hydratedEntities = entities.map((entity) => {
+                        let hydratedEntity = {};
+                        hydratedEntity._id = entity._id;
+                        hydratedEntity.value = entity.value;
+                        hydratedEntity.expired = entity.expired;
+                        hydratedEntity.student = entity.student;
+                        hydratedEntity.studentTest = {};
+                        if (!entity.studentTest) {
+                            hydratedEntity.message = 'not_started';
+                        }
+                        else if (entity.studentTest && !entity.studentTest.note) {
+                            hydratedEntity.message = 'started_not_finished';
+                            hydratedEntity.studentTest.note = null;
+                        } else {
+                            hydratedEntity.message = 'finished';
+                            hydratedEntity.studentTest.note = entity.studentTest.note;
+                        }
 
-                    return reply(entities);
+                        return hydratedEntity;
+                    });
+
+                    return reply(hydratedEntities);
                 })
                 .catch((err) => {
 
