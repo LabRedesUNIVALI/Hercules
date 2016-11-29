@@ -218,7 +218,7 @@ exports.register = function (server, options, next) {
                 .catch((err) => {
 
                     return reply(Boom.wrap(err));
-                })
+                });
         });
     }
 
