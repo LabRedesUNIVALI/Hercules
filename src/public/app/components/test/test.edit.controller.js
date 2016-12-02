@@ -33,7 +33,7 @@
             vm.update = _update;
             vm.showQuestionInfo = _showQuestionInfo;
 
-            _getQuestions(entity.data.themes);
+            _getQuestions(vm.entity.themes);
 
         };
 

@@ -90,7 +90,7 @@
                         <md-icon class="material-icons">close</md-icon>
                         {{ 'ACTION.CANCEL' | translate }}
                     </md-button>
-                    <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="testEditForm.$invalid || vm.processing">
+                    <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="testEditForm.$invalid || vm.processing || vm.entity.questions.length > 1 || !vm.entity.discipline">
                         <md-icon class="material-icons">send</md-icon>
                         {{ 'ACTION.SAVE' | translate }}
                     </md-button>
