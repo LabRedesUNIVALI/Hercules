@@ -42,7 +42,7 @@
             }
 
             TestAPIService.saveQuestionAnswer(question._id, {
-                chosenOption: question.chosenOption
+                chosenOption: question.options[question.chosenOption-1].order
             })
                 .success(function (result) {
                     CommonToasts.Notice('Questão salva!');
