@@ -27,11 +27,6 @@ module.exports = exports = {
     registrations: [
         {
             plugin: {
-                register: 'inert'
-            }
-        },
-        {
-            plugin: {
                 register: 'good',
                 options: {
                     ops: {

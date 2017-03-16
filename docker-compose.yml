@@ -1,0 +1,29 @@
+version: '2'
+services:
+    hercules_api:
+        build:
+            context: .
+        container_name: hercules_api
+        ports: 
+            - 3000:3000
+        environment: 
+            NODE_ENV: ${NODE_ENV}
+            PORT: ${NODE_PORT}
+            MONGODB_URL: ${MONGODB_URL}
+        depends_on:
+            - hercules_db
+        links:
+            - hercules_db
+        volumes:
+            - ${HERCULES_PATH}:/usr/src/app
+    hercules_db:
+        image: mongo:3.2
+        container_name: hercules_db
+        volumes: 
+            - data:/data/db
+volumes:
+    data:
+        external: false
+
+    
+        
