@@ -16,11 +16,10 @@ exports.register = function (server, options, next) {
 
                     if (!entity || date < entity.test.beginDate) {
                         return cb(Boom.unauthorized(), false, {});
-                    }
-
-                    if (date > entity.test.endDate) {
+                    } else if (date > entity.test.endDate) {
                         entity.expired = true;
                         entity.save();
+                    } else if (entity.expired === true && date < entity.test.endDate) {
                         return cb(Boom.unauthorized(), false, {})
                     }
 
