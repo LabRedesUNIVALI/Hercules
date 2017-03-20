@@ -7,10 +7,7 @@ services:
         container_name: hercules_api
         ports: 
             - 3000:3000
-        environment: 
-            NODE_ENV: ${HERCULES_NODE_ENV}
-            PORT: ${HERCULES_NODE_PORT}
-            MONGODB_URL: ${HERCULES_MONGODB_URL}
+        env_file: .env
         depends_on:
             - hercules_db
         links:
