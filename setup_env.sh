@@ -30,7 +30,7 @@ getinput() {
     read input_mongodb_url;
 
     if [ ! -z "$input_env" ]; then
-        PORT=$input_env;
+        ENV=$input_env;
     fi;
 
     if [ ! -z "$input_port" ]; then
@@ -47,9 +47,8 @@ while [ "$VALUES_OK" != "true" ]; do
 
     getinput;
 
-    echo "";
-    echo -e "Do you agree with these values? \n";
-    
+    echo -e "\nDo you agree with these values? \n";
+
     echo -e "${FG_BROWN}NODE_ENV${RESET}: ${FG_GREEN}${ENV}";
     echo -e "${FG_BROWN}PORT${RESET}: ${FG_GREEN}${PORT}";
     echo -e "${FG_BROWN}MONGODB_URL${RESET}: ${FG_GREEN}${MONGODB_URL}${RESET}";
@@ -77,5 +76,3 @@ echo "MONGODB_URL=$MONGODB_URL" >> .env;
 echo -e "${FG_GREEN}Created .env file. You're ready to start";
 
 exit 0;
-                                               
-                                               

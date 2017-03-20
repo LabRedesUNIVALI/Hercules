@@ -6,7 +6,7 @@ services:
             dockerfile: Dockerfile.prod
         image: hercules_api:prod
         container_name: hercules_api
-        ports: 
+        ports:
             - 80:3000
         env_file: .env
         depends_on:
@@ -17,12 +17,12 @@ services:
     hercules_db:
         image: mongo:3.2
         container_name: hercules_db
-        volumes: 
+        volumes:
             - data:/data/db
         restart: always
 volumes:
     data:
         external: false
 
-    
-        
+
+

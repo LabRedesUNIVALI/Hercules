@@ -2,7 +2,7 @@
 
 ### TODO
 - [ ] Finish this doc
-- [ ] Create a shell script to automate annoying processes
+- [x] Create a shell script to automate annoying processes
 
 ### Pre-requisites
 You'll need these to get started:
