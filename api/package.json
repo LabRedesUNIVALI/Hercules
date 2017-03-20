@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -25,13 +25,14 @@
     "mongoose-beautiful-unique-validation": "^5.0.1",
     "mongoose-delete": "^0.3.4",
     "mongoose-paginate": "^5.0.0",
-    "ng-annotate": "^1.2.1",
     "nodemailer": "^2.5.0",
     "promise": "^7.1.1",
     "rand-token": "^0.2.1",
     "relish": "^0.2.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bortoluzzi/Hercules.git"

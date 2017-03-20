@@ -12,7 +12,11 @@ const envVarsSchema = joi.object({
         .required()
 });
 
-const { error, value: envVars } = joi.validate(process.env, envVarsSchema);
+const { error, value: envVars } = joi.validate(
+    process.env,
+    envVarsSchema,
+    { allowUnknown: true }
+);
 
 if (error) {
     throw new Error(`Config validation error: ${error.message}`);

@@ -3,10 +3,11 @@ services:
     hercules_api:
         build:
             context: ./api
-        image: hercules_api:dev
+            dockerfile: Dockerfile.prod
+        image: hercules_api:prod
         container_name: hercules_api
         ports: 
-            - 3000:3000
+            - 80:3000
         environment: 
             NODE_ENV: ${HERCULES_NODE_ENV}
             PORT: ${HERCULES_NODE_PORT}
@@ -15,13 +16,13 @@ services:
             - hercules_db
         links:
             - hercules_db
-        volumes:
-            - ${HERCULES_PATH}:/usr/src/app
+        restart: always
     hercules_db:
         image: mongo:3.2
         container_name: hercules_db
         volumes: 
             - data:/data/db
+        restart: always
 volumes:
     data:
         external: false

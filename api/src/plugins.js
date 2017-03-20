@@ -12,7 +12,7 @@ const Relish = require('relish')({
 module.exports = exports = {
     connections: [
         {
-            port: Config.port,
+            port: Config.server.port,
             labels: ['web'],
             routes: {
                 validate: {
@@ -48,7 +48,7 @@ module.exports = exports = {
             plugin: {
                 register: './plugins/mongoose',
                 options: {
-                    mongodb_connection_string: Config.mongodb_connection_string,
+                    mongodbUrl: Config.server.mongodbUrl,
                     plugins: [
                         {
                             require: 'mongoose-paginate'
@@ -127,11 +127,6 @@ module.exports = exports = {
                         }
                     ]
                 }
-            }
-        },
-        {
-            plugin: {
-                register: './controllers/assetsController.js'
             }
         },
         {
