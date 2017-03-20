@@ -23,6 +23,3 @@ services:
 volumes:
     data:
         external: false
-
-
-
