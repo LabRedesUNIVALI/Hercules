@@ -3,17 +3,19 @@ services:
     hercules_api:
         build:
             context: ./api
+            args:
+                port: ${PORT}
         image: hercules_api:dev
         container_name: hercules_api
         ports:
-            - 3000:3000
+            - ${PORT}:${PORT}
         env_file: .env
         depends_on:
             - hercules_db
         links:
             - hercules_db
         volumes:
-            - ${HERCULES_PATH}:/usr/src/app
+            - ./api:/usr/src/api
     hercules_db:
         image: mongo:3.2
         container_name: hercules_db
