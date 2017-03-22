@@ -74,6 +74,6 @@ echo "NODE_ENV=$ENV" >> .env;
 echo "PORT=$PORT" >> .env;
 echo "MONGODB_URL=$MONGODB_URL" >> .env;
 
-echo -e "${FG_GREEN}Created .env file. You're ready to start!";
+echo -e "${FG_GREEN}Created .env file. You're ready to start! ${RESET}❤️";
 
 exit 0;

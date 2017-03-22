@@ -6,7 +6,7 @@
 
 ### Pre-requisites
 You'll need these to get started:
-* A Linux distro :penguin:
+* [A Linux distro](https://en.wikipedia.org/wiki/List_of_Linux_distributions) :penguin:
 * [Docker engine](https://docs.docker.com/engine/installation/linux/) @ latest version :whale:
 * [Docker compose](https://docs.docker.com/compose/install/) :octopus:
 
