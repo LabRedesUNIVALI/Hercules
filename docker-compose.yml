@@ -15,12 +15,14 @@ services:
         links:
             - hercules_db
         volumes:
-            - ./api:/usr/src/api
+            - ./api:/api
     hercules_db:
         image: mongo:3.2
         container_name: hercules_db
         volumes:
             - data:/data/db
+        ports:
+            - 27017:27017
 volumes:
     data:
         external: false

@@ -22,6 +22,8 @@ services:
         volumes:
             - data:/data/db
         restart: always
+        ports:
+            - 27017:27017
 volumes:
     data:
         external: false

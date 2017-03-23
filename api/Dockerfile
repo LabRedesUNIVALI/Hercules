@@ -19,4 +19,4 @@ COPY . .
 EXPOSE $port
 
 # Start app with NPM
-CMD ["npm", "start"] 
+CMD ["npm", "start"]
