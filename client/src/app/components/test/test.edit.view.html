@@ -1,0 +1,103 @@
+<hc-admin-layout layout="row" flex>
+
+    <div layout="row" class="content-header">
+        <div flex="95">
+            <h3 class="md-headline">
+                {{ 'TEST.ENTITY_PLURAL' | translate }}
+            </h3>
+        </div>
+        <div flex>
+            <md-button class="md-fab md-primary" href="/admin/tests">
+                <md-tooltip md-direction="left">
+                    {{ 'ACTION.BACK' | translate }}
+                </md-tooltip>
+                <md-icon class="material-icons">arrow_back</md-icon>
+            </md-button>
+        </div>
+    </div>
+
+    <form layout="row" class="content-form" name="testEditForm" ng-submit="vm.update(vm.entity)">
+
+        <div layout="column" flex="70" class="form-container" layout-fill>
+
+            <md-input-container class="md-block">
+                <label>Nome</label>
+                <input type="text" name="name" ng-model="vm.entity.name" required ng-minlength="2" ng-maxlength="255" placeholder="Nome da prova" />
+                <div ng-messages="testEditForm.name.$error">
+                    <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                    <div ng-message="minlength">{{ 'VALIDATION.MIN_LENGTH' | translate:'{ value: 2 }' }}</div>
+                    <div ng-message="maxlength">{{ 'VALIDATION.MAX_LENGTH' | translate:'{ value: 255 }' }}</div>
+                </div>
+            </md-input-container>
+
+            <div layout="row">
+                <md-input-container class="md-block" flex>
+                    <label>{{ 'TEST.DISCIPLINE' | translate }}</label>
+                    <md-select ng-model="vm.entity.discipline" name="discipline" required>
+                        <md-option ng-value=""><em>{{ 'ACTION.SELECT' | translate }}</em></md-option>
+                        <md-option ng-value="vm.entity.discipline" ng-repeat="discipline in vm.disciplines track by discipline._id">
+                            {{::discipline.name}} {{::discipline.year}}/{{::discipline.semester}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="testEditForm.discipline.$error">
+                        <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{ 'TEST.DATE.BEGIN' | translate }}</label>
+                    <input type="text" ng-model="vm.entity.beginDate" name="beginDate" required/>
+                    <div ng-messages="testEditForm.beginDate.$error">
+                        <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{ 'TEST.DATE.END' | translate }}</label>
+                    <input type="text" ng-model="vm.entity.endDate" name="endDate" required/>
+                    <div ng-messages="testEditForm.endDate.$error">
+                        <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <md-input-container class="md-block">
+                <label>Conteúdos</label>
+                <md-select ng-model="vm.entity.themes" multiple data-md-container-class="select-search" required name="selectedThemes" md-on-close="getQuestions(entity.themes)">
+                    <md-select-header class="select-header">
+                        <input ng-model="themeSearchTerm" ng-keydown="$event.stopPropagation()" type="search" placeholder="Procure por conteúdos" class="select-header-searchbox _md-text" />
+                    </md-select-header>
+                    <md-option ng-value="theme._id" ng-repeat="theme in vm.themes | filter:themeSearchTerm track by theme._id">
+                        {{theme.name}}
+                    </md-option>
+                </md-select>
+                <div ng-messages="testEditForm.selectedThemes.$error">
+                    <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                </div>
+            </md-input-container>
+
+            <md-content>
+                <md-list flex>
+                    <md-list-item ng-repeat="question in vm.questions track by question._id">
+                        <md-checkbox ng-checked="vm.entity.questions.indexOf(question._id) > -1" ng-click="toggleQuestion(question._id, vm.entity.questions)"></md-checkbox>
+                        <p>{{::question.name | ellipsis:50}}</p>
+                        <md-icon class="md-secondary material-icons" ng-click="showQuestionInfo(question, $event)" aria-label="info">info</md-icon>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+
+            <div layout="center center" layout-padding layout-margin>
+                <div layout="row" flex>
+                    <md-button href="/admin/tests" class="md-warn md-raised" flex="30" flex-offset="20">
+                        <md-icon class="material-icons">close</md-icon>
+                        {{ 'ACTION.CANCEL' | translate }}
+                    </md-button>
+                    <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="testEditForm.$invalid || vm.processing || vm.entity.questions.length > 1 || !vm.entity.discipline">
+                        <md-icon class="material-icons">send</md-icon>
+                        {{ 'ACTION.SAVE' | translate }}
+                    </md-button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+</hc-admin-layout>

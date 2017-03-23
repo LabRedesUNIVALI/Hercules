@@ -1,0 +1,59 @@
+<div layout="column" flex class="auth-page">
+
+    <md-toolbar class="md-whiteframe-z2 background-bar">
+        <div class="logo">
+            <span class="bigger">H</span>ercules
+        </div>
+    </md-toolbar>
+
+    <div layout="row" layout-align="center start">
+
+        <md-whiteframe layout="column" flex layout-fill class="md-whiteframe-z2 auth-component" flex-lg="45">
+
+            <div layout-align="center center" class="header">
+                <div class="header-icon">
+                    <span class="material-icons icon">account_circle</span>
+                </div>
+                <div class="header-text">
+                    {{ 'ACTION.LOGIN' | translate }}
+                </div>
+            </div>
+
+            <div layout="column" layout-fill layout-margin layout-padding>
+                <form name="loginForm" layout="column" layout-fill layout-padding ng-submit="vm.login(vm.credentials)">
+                    <md-input-container class="md-icon-float md-block">
+                        <label>{{ 'USER.EMAIL' | translate }}</label>
+                        <md-icon class="material-icons">email</md-icon>
+                        <input type="email" placeholder="{{ 'USER.EMAIL' | translate }}" ng-model="vm.credentials.email" name="email" required />
+                        <div ng-messages="loginForm.email.$error">
+                            <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                            <div ng-message="email">{{ 'VALIDATION.EMAIL' | translate }}</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float md-block">
+                        <label>{{ 'USER.PASSWORD' | translate }}</label>
+                        <md-icon class="material-icons">lock</md-icon>
+                        <input type="password" placeholder="{{ 'USER.PASSWORD' | translate }}" ng-model="vm.credentials.password" name="password" required />
+                        <div ng-messages="loginForm.password.$error">
+                            <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                        </div>
+                    </md-input-container>
+                    <div layout="row" layout-align="center center">
+                        <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="loginForm.$invalid">
+                            <md-icon class="material-icons">send</md-icon>
+                            {{ 'ACTION.LOGIN' | translate }}
+                        </md-button>
+                    </div>
+                    <div layout="column" layout-align="center center">
+                        <md-button href="/admin/register" class="md-no-ink small md-primary">
+                            {{ 'ACTION.REGISTER' | translate }}
+                        </md-button>
+                    </div>
+                </form>
+            </div>
+
+        </md-whiteframe>
+
+    </div>
+
+</div>

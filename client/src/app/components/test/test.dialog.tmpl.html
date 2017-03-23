@@ -1,0 +1,55 @@
+<md-dialog aria-label="Prova" style="min-width: 70%">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>{{ 'TEST.ENTITY' | translate }} - {{::vm.test.name}}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="vm.downloadPdf(vm.test)">
+                <md-tooltip md-direction="bottom">
+                    {{ 'ACTION.DOWNLOAD.PDF' | translate }}
+                </md-tooltip>
+                <md-icon class="material-icons">file_download</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="vm.printPdf(vm.test)">
+                <md-tooltip md-direction="bottom">
+                    {{ 'ACTION.PRINT' | translate }}
+                </md-tooltip>
+                <md-icon class="material-icons">print</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="vm.close()">
+                <md-icon class="material-icons">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div layout-margin class="md-dialog-content">
+            <p>
+                <strong>{{ 'TEST.DISCIPLINE' | translate }}:</strong>
+                {{::vm.test.discipline.name}} {{::vm.test.discipline.year}}/{{::vm.test.discipline.semester}}
+            </p>
+            <p>
+                <strong>{{ 'TEST.DATETIME.BEGIN' | translate }}:</strong>
+                {{::vm.test.beginDate | date:'dd/MM/yyyy HH:mm'}}
+            </p>
+            <p>
+                <strong>{{ 'TEST.DATETIME.END' | translate }}:</strong>
+                {{::vm.test.endDate | date:'dd/MM/yyyy HH:mm'}}
+            </p>
+            <div layout="row" layout-align="center center">
+                <h3>{{::vm.test.name}}</h3>
+            </div>
+            <div ng-repeat="question in vm.test.questions track by question._id">
+                <p>
+                    <strong>{{::$index + 1}}.</strong>
+                    {{::question.name}}
+                </p>
+                <div ng-repeat="option in question.options track by option._id">
+                    <p>
+                        <strong>{{vm.letters[$index]}})</strong>
+                        {{::option.text}}
+                    </p>
+                </div>
+                <md-divider></md-divider>
+            </div>
+        </div>
+    </md-dialog-content>
+</md-dialog>

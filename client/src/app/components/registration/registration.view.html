@@ -1,0 +1,79 @@
+<div layout="column" flex class="auth-page">
+
+    <md-toolbar class="md-whiteframe-z2 background-bar">
+        <div class="logo">
+            <span class="bigger">H</span>ercules
+        </div>
+    </md-toolbar>
+
+    <div layout="row" layout-align="center start">
+
+        <md-whiteframe layout="column" flex layout-fill class="md-whiteframe-z2 auth-component" flex-lg="45">
+
+            <div layout-align="center center" class="header">
+                <div class="header-icon">
+                    <span class="material-icons icon">account_circle</span>
+                </div>
+                <div class="header-text">
+                    {{ 'ACTION.SAVE' | translate }}
+                </div>
+            </div>
+
+            <div layout="column" layout-fill layout-margin layout-padding>
+                <form name="registrationForm" layout="column" layout-fill layout-padding ng-submit="vm.register(vm.registration.user)">
+                    <md-input-container class="md-icon-float md-block">
+                        <label>{{ 'USER.NAME' | translate }}</label>
+                        <md-icon class="material-icons">person</md-icon>
+                        <input type="text" placeholder="{{ 'USER.NAME' | translate }}" ng-model="vm.registration.user.name" name="name" required ng-minlength="2" ng-maxlength="255"/>
+                        <div ng-messages="registrationForm.name.$error">
+                            <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                            <div ng-message="minlength">{{ 'VALIDATION.MIN_LENGTH' | translate:'{ value: 2 }' }}</div>
+                            <div ng-message="maxlength">{{ 'VALIDATION.MAX_LENGTH' | translate:'{ value: 255 }' }}</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float md-block">
+                        <label>{{ 'USER.EMAIL' | translate }}</label>
+                        <md-icon class="material-icons">email</md-icon>
+                        <input type="email" placeholder="{{ 'USER.EMAIL' | translate }}" ng-model="vm.registration.user.email" name="email" required hc-unique-email />
+                        <div ng-messages="registrationForm.email.$error">
+                            <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                            <div ng-message="email">{{ 'VALIDATION.EMAIL' | translate }}</div>
+                            <div ng-message="uniqueEmail">{{ 'VALIDATION.EMAIL_EXISTS' | translate }}</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float md-block">
+                        <label>{{ 'USER.PASSWORD' | translate }}</label>
+                        <md-icon class="material-icons">lock</md-icon>
+                        <input type="password" placeholder="{{ 'USER.PASSWORD' | translate }}" ng-model="vm.registration.user.password" name="password" required ng-minlength="5" ng-maxlength="50" />
+                        <div ng-messages="registrationForm.password.$error">
+                            <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                            <div ng-message="minlength">{{ 'VALIDATION.MIN_LENGTH' | translate:'{ value: 5 }' }}</div>
+                            <div ng-message="maxlength">{{ 'VALIDATION.MAX_LENGTH' | translate:'{ value: 255 }' }}</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float md-block">
+                        <label>{{ 'USER.REPEAT_PASSWORD' | translate }}</label>
+                        <md-icon class="material-icons">lock</md-icon>
+                        <input type="password" placeholder="{{ 'USER.PASSWORD' | translate }}" ng-model="vm.registration.confirmPassword" name="confirmPassword" hc-compare-to="vm.registration.user.password" required />
+                        <div ng-messages="registrationForm.confirmPassword.$error">
+                            <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                            <div ng-message="compareTo">{{ 'VALIDATION.MATCH_PASSWORDS' | translate }}</div>
+                        </div>
+                    </md-input-container>
+                    <div layout="row" layout-align="center center">
+                        <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="registrationForm.$invalid || vm.processing">
+                            <md-icon class="material-icons">send</md-icon>
+                            {{ 'ACTION.SAVE' | translate }}
+                        </md-button>
+                    </div>
+                    <div layout="row" layout-align="center center">
+                        <md-button href="/admin/login" class="md-no-ink small md-primary">
+                            {{ 'ACTION.DO_LOGIN' | translate }}
+                        </md-button>
+                    </div>
+                </form>
+            </div>
+        </md-whiteframe>
+
+    </div>
+</div>

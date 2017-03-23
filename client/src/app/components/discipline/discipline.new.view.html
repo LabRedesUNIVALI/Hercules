@@ -1,0 +1,97 @@
+<hc-admin-layout layout="row" flex>
+
+    <div layout="row" class="content-header">
+        <div flex="95">
+            <h3 class="md-headline">
+                {{ 'DISCIPLINE.ENTITY_PLURAL' | translate }}
+            </h3>
+        </div>
+        <div flex>
+            <md-button class="md-fab md-primary" href="/admin/disciplines">
+                <md-tooltip md-direction="left">
+                    {{ 'ACTION.BACK' | translate }}
+                </md-tooltip>
+                <md-icon class="material-icons">arrow_back</md-icon>
+            </md-button>
+        </div>
+    </div>
+
+    <form layout="row" class="content-form" name="disciplineNewForm" ng-submit="vm.save(vm.entity)">
+
+        <div layout="column" flex="70" class="form-container" layout-fill>
+
+            <md-input-container>
+                <label>{{ 'DISCIPLINE.NAME' | translate }}</label>
+                <input type="text" ng-model="vm.entity.name" name="name" required ng-minlength="2" ng-maxlength="255">
+                <div ng-messages="disciplineNewForm.name.$error">
+                    <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                    <div ng-message="minlength">{{ 'VALIDATION.MIN_LENGTH' | translate:'{ value: 2 }' }}</div>
+                    <div ng-message="maxlength">{{ 'VALIDATION.MAX_LENGTH' | translate:'{ value: 255 }' }}</div>
+                </div>
+            </md-input-container>
+
+            <div layout="row">
+                <md-input-container class="md-block" flex="50">
+                    <label>{{ 'DISCIPLINE.YEAR' | translate }}</label>
+                    <input type="number" ng-model="vm.entity.year" name="year" required ng-minlength="1" ng-maxlength="4" ng-pattern="/^[0-9]{4}$/" ng-min="1900">
+                    <div ng-messages="disciplineNewForm.year.$error">
+                        <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                        <div ng-message="minlength">{{ 'VALIDATION.MIN_LENGTH' | translate:'{ value: 4 }' }}</div>
+                        <div ng-message="maxlength">{{ 'VALIDATION.MAX_LENGTH' | translate:'{ value: 4 }' }}</div>
+                        <div ng-message="pattern">{{ 'VALIDATION.YEAR' | translate }}</div>
+                        <div ng-message="min">{{ 'VALIDATION.MIN' | translate:'{ value: 1900 }' }}</div>
+                    </div>
+                </md-input-container>
+                <span flex></span>
+                <md-input-container class="md-block" flex="45">
+                    <label>{{ 'DISCIPLINE.SEMESTER' | translate }}</label>
+                    <md-select ng-model="vm.entity.semester" name="semester" ng-disabled="disciplineNewForm.year.$invalid" required>
+                        <md-option ng-value=""><em>{{ 'ACTION.SELECT' | translate }}</em></md-option>
+                        <md-option ng-value="1">{{vm.entity.year}}/1</md-option>
+                        <md-option ng-value="2">{{vm.entity.year}}/2</md-option>
+                    </md-select>
+                    <div ng-messages="disciplineNewForm.semester.$error">
+                        <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <h3 class="md-headline">{{ 'DISCIPLINE.STUDENTS' | translate }}</h3>
+
+            <div layout="row" flex="10" layout-align="center center" ng-repeat="student in vm.entity.students track by $index">
+                <md-input-container class="md-block" flex>
+                    <label>{{ 'DISCIPLINE.STUDENT' | translate }}</label>
+                    <input type="text" ng-model="student.name" name="studentName{{$index}}" placeholder="{{ 'DISCIPLINE.STUDENT_NAME' | translate }}" required ng-minlength="2" ng-maxlength="255"/>
+                    <div ng-messages="disciplineNewForm['studentName' + $index].$error">
+                        <div ng-message="required">{{ 'VALIDATION.REQUIRED' | translate }}</div>
+                        <div ng-message="minlength">{{ 'VALIDATION.MIN_LENGTH' | translate:'{ value: 2 }' }}</div>
+                        <div ng-message="maxlength">{{ 'VALIDATION.MAX_LENGTH' | translate:'{ value: 255 }' }}</div>
+                    </div>
+                </md-input-container>
+                <div>
+                    <md-button class="md-icon-button md-primary" ng-click="vm.addStudentField()">
+                        <md-icon class="material-icons">add</md-icon>
+                    </md-button>
+                    <md-button class="md-icon-button md-warn" ng-click="vm.removeStudentField($index)">
+                        <md-icon class="material-icons">delete_forever</md-icon>
+                    </md-button>
+                </div>
+            </div>
+
+            <div layout="center center" layout-padding layout-margin>
+                <div layout="row" flex>
+                    <md-button href="/admin/disciplines" class="md-warn md-raised" flex="30" flex-offset="20">
+                        <md-icon class="material-icons">close</md-icon>
+                        {{ 'ACTION.CANCEL' | translate }}
+                    </md-button>
+                    <md-button type="submit" class="md-raised md-primary" flex="30" ng-disabled="disciplineNewForm.$invalid || vm.processing">
+                        <md-icon class="material-icons">send</md-icon>
+                        {{ 'ACTION.SAVE' | translate }}
+                    </md-button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+</hc-admin-layout>

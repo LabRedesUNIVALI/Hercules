@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
     entry: {
-        app: path.join(__dirname, 'src', 'index.js'),
+        app: path.join(__dirname, 'src', 'app', 'app.module.js'),
         vendor: [
             'angular',
             'angular-animate',

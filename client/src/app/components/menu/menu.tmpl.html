@@ -1,0 +1,27 @@
+<md-sidenav
+    class="md-sidenav-left admin-menu"
+    md-component-id="left"
+    md-is-locked-open="$mdMedia('gt-xs')"
+    md-whiteframe="4"
+>
+
+    <md-toolbar class="md-primary menu-header">
+        <a href="/admin/dashboard">
+            <div class="logo">
+                <span class="bigger">H</span>ercules
+            </div>
+        </a>
+    </md-toolbar>
+
+    <md-content role="navigation" class="menu-body" flex>
+        <ul>
+            <li ng-repeat="section in vm.sections track by $index">
+                <md-button href="{{::section.path}}" class="md-primary md-raised menu-button" ng-class="{'md-hue-2': vm.actualPath.indexOf(section.urlName) > -1}">
+                    <md-icon class="material-icons menu-icon">{{::section.icon}}</md-icon>
+                    <span class="menu-text">{{::section.name}}</span>
+                </md-button>
+            </li>
+        </ul>
+    </md-content>
+
+</md-sidenav>

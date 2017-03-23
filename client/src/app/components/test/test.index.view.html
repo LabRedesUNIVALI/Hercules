@@ -1,0 +1,96 @@
+<hc-admin-layout layout="row" flex>
+
+    <div layout="row" class="content-header">
+        <div flex="90">
+            <h3 class="md-headline">
+                {{ 'TEST.ENTITY_PLURAL' | translate }}
+            </h3>
+        </div>
+        <span flex></span>
+        <div flex="5">
+            <md-button class="md-fab md-accent" href="/admin/tests/new">
+                <md-tooltip md-direction="left">
+                    {{ 'ACTION.ADD' | translate }}
+                </md-tooltip>
+                <md-icon class="material_icons">add</md-icon>
+            </md-button>
+        </div>
+    </div>
+
+    <div flex class="table-container">
+
+        <md-toolbar class="md-table-toolbar alternate" ng-show="vm.selected.length">
+            <div class="md-toolbar-tools">
+                <span>{{ 'LIST.ITEM_SELECTED' | translate }}</span>
+                <span flex></span>
+                <md-button ng-click="vm.showTokens(vm.selected[0].name, vm.selected[0]._id, $event)" class="md-icon-button" ng-disabled="vm.processing">
+                    <md-tooltip md-direction="top">
+                        {{ 'ACTION.TOKENS' | translate }}
+                    </md-tooltip>
+                    <md-icon class="material-icons">assignment</md-icon>
+                </md-button>
+                <md-button ng-click="vm.previewTest(vm.selected[0], $event)" class="md-icon-button" ng-disabled="vm.processing">
+                    <md-tooltip md-direction="top">
+                        {{ 'ACTION.PREVIEW' | translate }}
+                    </md-tooltip>
+                    <md-icon class="material-icons">remove_red_eye</md-icon>
+                </md-button>
+                <md-button ng-click="vm.downloadPdf(vm.selected[0])" class="md-icon-button" ng-disabled="vm.processing">
+                    <md-tooltip md-direction="top">
+                        {{ 'ACTION.DOWNLOAD.PDF' | translate }}
+                    </md-tooltip>
+                    <md-icon class="material-icons">file_download</md-icon>
+                </md-button>
+                <md-button ng-click="vm.printPdf(vm.selected[0])" class="md-icon-button" ng-disabled="vm.processing">
+                    <md-tooltip md-direction="top">
+                        {{ 'ACTION.PRINT' | translate }}
+                    </md-tooltip>
+                    <md-icon class="material-icons">print</md-icon>
+                </md-button>
+                <md-button ng-href="/admin/tests/{{vm.selected[0]._id}}/edit" class="md-icon-button" ng-disabled="vm.processing">
+                    <md-tooltip md-direction="top">
+                        {{ 'ACTION.EDIT' | translate }}
+                    </md-tooltip>
+                    <md-icon class="material-icons">edit</md-icon>
+                </md-button>
+                <md-button ng-click="vm.delete(vm.selected[0], $event)" class="md-icon-button" ng-disabled="vm.processing">
+                    <md-tooltip md-direction="top">
+                        {{ 'ACTION.DELETE' | translate }}
+                    </md-tooltip>
+                    <md-icon class="material-icons">delete_forever</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-table-container>
+
+            <table md-table md-row-select ng-model="vm.selected" class="table">
+
+                <thead md-head>
+                <tr md-row>
+                    <th md-column>{{ 'TEST.NAME' | translate }}</th>
+                    <th md-column>{{ 'TEST.DISCIPLINE' | translate }}</th>
+                    <th md-column>{{ 'TEST.DATE.BEGIN' | translate }}</th>
+                    <th md-column>{{ 'TEST.DATE.END' | translate }}</th>
+                </tr>
+                </thead>
+
+                <tbody md-body>
+                <tr md-row md-select="entity" md-select-id="_id" md-auto-select ng-repeat="entity in vm.entities track by entity._id">
+                    <td md-cell>{{::entity.name}}</td>
+                    <td md-cell>{{::entity.discipline.name}}</td>
+                    <td md-cell>{{::entity.beginDate | date:'dd/MM/yyyy HH:mm'}}</td>
+                    <td md-cell>{{::entity.endDate | date:'dd/MM/yyyy HH:mm'}}</td>
+                </tr>
+                <tr md-row ng-if="vm.entities.length < 1">
+                    <td md-cell colspan="5" class="zero-data">{{ 'LIST.ZERO_DATA' | translate }}</td>
+                </tr>
+                </tbody>
+
+            </table>
+
+        </md-table-container>
+
+    </div>
+
+</hc-admin-layout>
