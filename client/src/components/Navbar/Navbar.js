@@ -7,6 +7,7 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import ExitToAppIcon from 'material-ui/svg-icons/action/exit-to-app';
 import PersonIcon from 'material-ui/svg-icons/social/person';
+import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 
 const Navbar = () => {
 
@@ -14,7 +15,9 @@ const Navbar = () => {
         return (
             <IconMenu
                 iconButtonElement={
-                    <IconButton><MoreVertIcon /></IconButton>
+                    <IconButton iconStyle={{ color: 'white' }}>
+                        <MoreVertIcon />
+                    </IconButton>
                 }
                 targetOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'top' }}>
@@ -24,11 +27,23 @@ const Navbar = () => {
         );
     }
 
+    const renderElementsRight = () => {
+        return (
+            <div>
+                <IconButton iconStyle={{ color: 'white' }}>
+                    <NotificationsIcon />
+                </IconButton>
+                {renderMenu()}
+            </div>
+        );
+    };
+
     return (
         <AppBar
-            title="Hercules"
             zDepth={2}
-            iconElementRight={renderMenu()}
+            iconElementRight={renderElementsRight()}
+            showMenuIconButton={false}
+           
         />
     );
 }

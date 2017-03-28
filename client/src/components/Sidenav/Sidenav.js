@@ -2,20 +2,29 @@ import React from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 
-import DashboardIcon from 'material-ui/svg-icons/action/dashboard';
-import People from 'material-ui/svg-icons/social/people';
-import Description from 'material-ui/svg-icons/action/description';
-import QuestionAnswer from 'material-ui/svg-icons/action/question-answer';
-import Class from 'material-ui/svg-icons/action/class';
+import HomeIcon from 'material-ui/svg-icons/action/home';
+import PeopleIcon from 'material-ui/svg-icons/social/people';
+import DescriptionIcon from 'material-ui/svg-icons/action/description';
+import QuestionAnswerIcon from 'material-ui/svg-icons/action/question-answer';
+import ClassIcon from 'material-ui/svg-icons/action/class';
+
+import './sidenav.css';
 
 const Sidenav = () => {
     return (
-        <Drawer open containerStyle={{ top: 64 }}>
-            <MenuItem leftIcon={<DashboardIcon />}>Visão geral</MenuItem>
-            <MenuItem leftIcon={<People />}>Disciplinas</MenuItem>
-            <MenuItem leftIcon={<Class />}>Conteúdos</MenuItem>
-            <MenuItem leftIcon={<QuestionAnswer />}>Questões</MenuItem>
-            <MenuItem leftIcon={<Description />}>Provas</MenuItem>
+        <Drawer
+            open={true}
+            zDepth={0}
+            containerClassName="sidenav-container">
+            <div className="sidenav-header">
+            </div>
+            <div className="sidenav-items">
+                <MenuItem leftIcon={<HomeIcon />}>Visão geral</MenuItem>
+                <MenuItem leftIcon={<PeopleIcon />}>Disciplinas</MenuItem>
+                <MenuItem leftIcon={<ClassIcon />}>Conteúdos</MenuItem>
+                <MenuItem leftIcon={<QuestionAnswerIcon />}>Questões</MenuItem>
+                <MenuItem leftIcon={<DescriptionIcon />}>Provas</MenuItem>
+            </div>
         </Drawer>
     );
 };

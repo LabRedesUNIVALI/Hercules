@@ -1,0 +1,12 @@
+.sidenav-header {
+    height: 64px;
+    border-bottom: 1px solid rgba(0, 0, 0, .14);
+}
+
+.sidenav-container {
+    border-right: 1px solid rgba(0, 0, 0, .14);
+}
+
+.sidenav-items {
+    padding-top: 10px; 
+}
