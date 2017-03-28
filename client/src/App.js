@@ -4,7 +4,6 @@ import { Router, Route } from 'react-router';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import AppBar from 'material-ui/AppBar';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {
@@ -19,6 +18,7 @@ import {
 } from 'material-ui/styles/colors';
 
 import Sidenav from './components/Sidenav/Sidenav';
+import Navbar from './components/Navbar/Navbar';
 import store, { history } from './store';
 
 injectTapEventPlugin();
@@ -27,8 +27,7 @@ const Dashboard = () => {
     return (
         <div>
             <Sidenav />
-            <AppBar title="Title" zDepth={2} style={{ zIndex: 9999 }} />
-            <AppBar style={{ backgroundColor: lightBlue500 }} />
+            <Navbar />
         </div>
     );
 }
