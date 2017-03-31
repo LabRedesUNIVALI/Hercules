@@ -49,6 +49,8 @@
     "run-sequence": "^1.2.2"
   },
   "scripts": {
+    "start": "NODE_ENV=production && node index.js",
+    "postinstall": "node node_modules/bower/bin/bower install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
