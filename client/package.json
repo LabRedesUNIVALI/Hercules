@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "material-ui": "^0.17.1",
+    "querystring": "^0.2.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",
@@ -11,7 +12,9 @@
     "react-router-redux": "^4.0.8",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
-    "redux-logger": "^3.0.0"
+    "redux-logger": "^3.0.0",
+    "redux-observable": "^0.14.1",
+    "rxjs": "^5.0.0"
   },
   "devDependencies": {
     "autoprefixer": "6.7.2",

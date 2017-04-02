@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'rxjs';
+
 import App from './containers/App';
 import './index.css';
 
