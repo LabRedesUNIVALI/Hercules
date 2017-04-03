@@ -12,6 +12,7 @@ const Relish = require('relish')({
 module.exports = exports = {
     connections: [
         {
+            host: Config.host,
             port: Config.port,
             labels: ['web'],
             routes: {

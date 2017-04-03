@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "bower": "^1.7.9",
     "boom": "^4.0.0",
     "getconfig": "^3.0.0",
     "glue": "^3.4.0",
@@ -22,14 +23,12 @@
     "mongoose-beautiful-unique-validation": "^5.0.1",
     "mongoose-delete": "^0.3.4",
     "mongoose-paginate": "^5.0.0",
-    "ng-annotate": "^1.2.1",
     "nodemailer": "^2.5.0",
     "promise": "^7.1.1",
     "rand-token": "^0.2.1",
     "relish": "^0.2.4"
   },
   "devDependencies": {
-    "bower": "^1.7.9",
     "del": "^2.2.2",
     "event-stream": "^3.3.4",
     "gulp": "^3.9.1",
@@ -43,13 +42,11 @@
     "gulp-ng-annotate": "^2.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^2.0.0",
-    "inquirer": "^1.2.2",
-    "jshint": "^2.9.3",
     "merge2": "^1.0.2",
     "run-sequence": "^1.2.2"
   },
   "scripts": {
-    "start": "NODE_ENV=production && node index.js",
+    "start": "node index.js",
     "postinstall": "HOME=$OPENSHIFT_REPO_DIR bower install || bower install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

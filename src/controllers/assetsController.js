@@ -13,7 +13,7 @@ exports.register = (server, options, next) => {
                 auth: false,
                 handler: {
                     directory: {
-                        path: Path.join(__dirname, '..', 'public', 'app'),
+                        path: Path.join(__dirname, '..', 'public', 'dist'),
                         index: false,
                         listing: false
                     }
@@ -26,7 +26,7 @@ exports.register = (server, options, next) => {
             config: {
                 description: 'Send index file managed by AngularJS.',
                 handler: (request, reply) => {
-                    reply.file(Path.join(__dirname, '..', 'public', 'index.html'));
+                    reply.file(Path.join(__dirname, '..', 'public', 'dist', 'index.html'));
                 }
             }
         }
