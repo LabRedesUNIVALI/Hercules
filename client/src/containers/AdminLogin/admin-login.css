@@ -11,10 +11,10 @@
     margin-top: 16px;
 }
 
-.auth-action-button {
+.admin-login-button {
     float: right;
 }
 
-.auth-action-button.submit {
+.admin-login-button.submit {
     margin-left: 5px;
 }

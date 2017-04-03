@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
+import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 import { createEpicMiddleware } from 'redux-observable';
 import { createLogger } from 'redux-logger';
@@ -8,13 +8,19 @@ import rootEpic from './modules/epics';
 import reducers from './modules/reducers';
 
 const configureStore = () => {
-    
+
     const epicMiddleware = createEpicMiddleware(rootEpic);
 
     const middleware = [
-        createLogger(),
+        routerMiddleware(browserHistory),
         epicMiddleware
     ];
+
+    if (process.env.NODE_ENV === 'development') {
+        middleware.push(createLogger({
+            predicate: (getState, action) => !action.type.includes('@@router')
+        }));
+    }
 
     const rootReducer = combineReducers({
         ...reducers,

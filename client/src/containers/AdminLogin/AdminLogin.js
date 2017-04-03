@@ -78,13 +78,13 @@ class AdminLogin extends Component {
                                     primary
                                     icon={<SendIcon />}
                                     type="submit"
-                                    className="auth-action-button submit"
+                                    className="admin-login-button submit"
                                 />
                                 <Link to="/admin/register">
                                     <FlatButton
                                         label="Criar conta"
                                         primary
-                                        className="auth-action-button"
+                                        className="admin-login-button"
                                     />
                                 </Link>
                                 <div className="clearfix" />

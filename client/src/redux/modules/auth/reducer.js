@@ -1,7 +1,8 @@
 import * as actionTypes from './actionTypes';
 
 const initialState = {
-    token: null
+    token: null,
+    isLoggedIn: false
 };
 
 export default function reducer(state = initialState, action) {
@@ -9,7 +10,14 @@ export default function reducer(state = initialState, action) {
         case actionTypes.LOGIN_SUCCESS:
             return {
                 ...state,
-                token: action.payload.response.token
+                token: action.payload.response.token,
+                isLoggedIn: true
+            };
+        case actionTypes.LOGOUT_SUCCESS:
+            return {
+                ...state,
+                token: null,
+                isLoggedIn: false
             };
         default:
             return state;

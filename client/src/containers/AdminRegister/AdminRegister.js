@@ -41,14 +41,12 @@ class AdminRegister extends Component {
                                     label="Cadastrar"
                                     primary
                                     icon={<SendIcon />}
-                                    style={{ float: 'right', marginLeft: '5px' }}
                                 />
                                 <Link to="/admin/login">
                                     <FlatButton
                                         label="Fazer login"
-                                        primary 
+                                        primary
                                         className="button"
-                                        style={{ float: 'right' }}                  
                                     />
                                 </Link>
                                 <div className="clearfix" />

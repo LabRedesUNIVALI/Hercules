@@ -9,7 +9,7 @@ import ExitToAppIcon from 'material-ui/svg-icons/action/exit-to-app';
 import PersonIcon from 'material-ui/svg-icons/social/person';
 import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 
-const Navbar = () => {
+const Navbar = ({ onClickLogout }) => {
 
     const renderMenu = () => {
         return (
@@ -21,8 +21,15 @@ const Navbar = () => {
                 }
                 targetOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'top' }}>
-                <MenuItem primaryText="Meus dados" rightIcon={<PersonIcon />} />
-                <MenuItem primaryText="Sair" rightIcon={<ExitToAppIcon />} />
+                <MenuItem
+                    primaryText="Meus dados"
+                    rightIcon={<PersonIcon />}
+                />
+                <MenuItem
+                    primaryText="Sair"
+                    rightIcon={<ExitToAppIcon />}
+                    onTouchTap={onClickLogout}
+                />
             </IconMenu>
         );
     }
@@ -43,7 +50,7 @@ const Navbar = () => {
             zDepth={2}
             iconElementRight={renderElementsRight()}
             showMenuIconButton={false}
-           
+
         />
     );
 }
