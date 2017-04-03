@@ -4,7 +4,6 @@ import { Card, CardTitle } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-
 import SendIcon from 'material-ui/svg-icons/content/send';
 
 import './admin-register.css';

@@ -34,7 +34,7 @@ export function createTheme(action$) {
     return action$.ofType(actionTypes.CREATE)
         .map(action => action.payload)
         .switchMap(theme =>
-            ajax.post(`/api/themes`, theme)
+            ajax.post('/api/themes', theme)
                 .map(response => themeActions.createThemeSuccess(response))
                 .catch(error => Observable.of(
                     themeActions.createThemeFailure(error.xhr.response)

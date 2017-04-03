@@ -5,7 +5,7 @@ import { createEpicMiddleware } from 'redux-observable';
 import { createLogger } from 'redux-logger';
 
 import rootEpic from './modules/epics';
-import rootReducer from './modules/reducers';
+import reducers from './modules/reducers';
 
 const configureStore = () => {
     
@@ -15,14 +15,14 @@ const configureStore = () => {
         createLogger(),
         epicMiddleware
     ];
-    
-    const reducers = combineReducers({
-        ...rootReducer,
+
+    const rootReducer = combineReducers({
+        ...reducers,
         routing: routerReducer
-    })
-    
+    });
+
     const store = createStore(
-        reducers,
+        rootReducer,
         applyMiddleware(...middleware)
     );
 
