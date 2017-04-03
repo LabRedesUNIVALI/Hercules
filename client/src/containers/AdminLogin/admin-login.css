@@ -1,0 +1,12 @@
+.admin-login-wrapper {
+    width: 400px;
+    margin: 10% auto;
+}
+
+.admin-login-form {
+    padding: 16px;
+}
+
+.admin-login-actions {
+    margin-top: 16px;
+}
