@@ -1,12 +1,20 @@
-.admin-login-wrapper {
+.admin-register-wrapper {
     width: 400px;
     margin: 10% auto;
 }
 
-.admin-login-form {
+.admin-register-form {
     padding: 16px;
 }
 
-.admin-login-actions {
+.admin-register-actions {
     margin-top: 16px;
+}
+
+.admin-register-button {
+    float: right;
+}
+
+.admin-register-button.submit {
+    margin-left: 5px;
 }

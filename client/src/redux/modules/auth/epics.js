@@ -40,7 +40,13 @@ export function register(action$) {
         .map(action => action.payload)
         .switchMap(user =>
             ajax.post('/api/register', user)
-                .map(response => authActions.registerSuccess(response))
+                .flatMap(response => Observable.concat(
+                    Observable.of(authActions.registerSuccess(response)),
+                    Observable.of(authActions.login({
+                        email: user.email,
+                        password: user.password
+                    }))
+                ))
                 .catch(error => Observable.of(
                     authActions.registerFailure(error.xhr.response)
                 ))

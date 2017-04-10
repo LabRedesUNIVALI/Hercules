@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import SendIcon from 'material-ui/svg-icons/content/send';
 
-import * as authActions from '../../redux/modules/auth/actionCreators'
+import { login } from '../../redux/modules/auth/actionCreators'
 import './admin-login.css';
 
 class AdminLogin extends Component {
@@ -100,5 +100,5 @@ class AdminLogin extends Component {
 
 export default connect(
     null,
-    { login: (credentials) => authActions.login(credentials) }
+    { login: (credentials) => login(credentials) }
 )(AdminLogin);
