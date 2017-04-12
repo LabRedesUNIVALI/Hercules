@@ -47,10 +47,8 @@ const Navbar = ({ onClickLogout }) => {
 
     return (
         <AppBar
-            zDepth={2}
             iconElementRight={renderElementsRight()}
             showMenuIconButton={false}
-
         />
     );
 }

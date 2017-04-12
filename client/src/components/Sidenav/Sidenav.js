@@ -16,8 +16,6 @@ const Sidenav = () => {
             open={true}
             zDepth={0}
             containerClassName="sidenav-container">
-            <div className="sidenav-header">
-            </div>
             <div className="sidenav-items">
                 <MenuItem leftIcon={<HomeIcon />}>Visão geral</MenuItem>
                 <MenuItem leftIcon={<PeopleIcon />}>Disciplinas</MenuItem>

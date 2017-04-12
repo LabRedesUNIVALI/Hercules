@@ -12,8 +12,8 @@ import {
 
 const defaultMuiTheme = getMuiTheme({
     palette: {
-        primary1Color: lightBlue700,
-        primary2Color: lightBlue500,
+        primary1Color: lightBlue500,
+        primary2Color: lightBlue700,
         primary3Color: lightBlue100,
         accent1Color: redA200,
         accent2Color: grey400,
