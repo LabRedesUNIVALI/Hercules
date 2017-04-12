@@ -1,0 +1,12 @@
+.auth-form-wrapper {
+    width: 400px;
+    margin: 56px auto;
+}
+
+.auth-form {
+    padding: 16px;
+}
+
+.auth-form-actions {
+    margin-top: 16px;
+}

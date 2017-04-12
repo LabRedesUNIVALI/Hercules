@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { Card, CardTitle } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import SendIcon from 'material-ui/svg-icons/content/send';
 
+import Topbar from '../../components/Topbar';
+import AuthForm, { AuthFormActions } from '../../components/AuthForm';
 import { register } from '../../redux/modules/auth/actionCreators';
-import './admin-register.css';
 
 class AdminRegister extends Component {
 
@@ -52,61 +52,60 @@ class AdminRegister extends Component {
         const { user } = this.state;
 
         return (
-            <div className="admin-register-wrapper">
-                <Card>
-                    <CardTitle title="Hercules" subtitle="Crie sua conta"/>
-                    <div className="admin-register-form">
-                        <form onSubmit={this.handleSubmit}>
-                            <TextField
-                                name="name"
-                                floatingLabelText="Nome completo"
-                                fullWidth
-                                type="text"
-                                value={user.name}
-                                onChange={this.handleInputChange}
+            <div>
+                <Topbar />
+                <AuthForm
+                    title="Hercules"
+                    subtitle="Cadastre-se já no Hercules!">
+                    <form onSubmit={this.handleSubmit}>
+                        <TextField
+                            name="name"
+                            floatingLabelText="Nome completo"
+                            fullWidth
+                            type="text"
+                            value={user.name}
+                            onChange={this.handleInputChange}
+                        />
+                        <TextField
+                            name="email"
+                            floatingLabelText="E-mail"
+                            fullWidth
+                            type="email"
+                            value={user.email}
+                            onChange={this.handleInputChange}
+                        />
+                        <TextField
+                            name="password"
+                            floatingLabelText="Senha"
+                            fullWidth
+                            type="password"
+                            value={user.password}
+                            onChange={this.handleInputChange}
+                        />
+                        <TextField
+                            name="confirmPassword"
+                            floatingLabelText="Confirme sua senha"
+                            fullWidth
+                            type="password"
+                        />
+                        <AuthFormActions>
+                            <RaisedButton
+                                type="submit"
+                                label="Cadastrar"
+                                primary
+                                icon={<SendIcon />}
+                                style={{ float: 'right', marginLeft: '5px' }}
                             />
-                            <TextField
-                                name="email"
-                                floatingLabelText="E-mail"
-                                fullWidth
-                                type="email"
-                                value={user.email}
-                                onChange={this.handleInputChange}
-                            />
-                            <TextField
-                                name="password"
-                                floatingLabelText="Senha"
-                                fullWidth
-                                type="password"
-                                value={user.password}
-                                onChange={this.handleInputChange}
-                            />
-                            <TextField
-                                name="confirmPassword"
-                                floatingLabelText="Confirme sua senha"
-                                fullWidth
-                                type="password"
-                            />
-                            <div className="admin-register-actions">
-                                <RaisedButton
-                                    type="submit"
-                                    label="Cadastrar"
+                            <Link to="/admin/login">
+                                <FlatButton
+                                    label="Fazer login"
                                     primary
-                                    icon={<SendIcon />}
-                                    className="admin-register-button submit"
+                                    style={{ float: 'right' }}
                                 />
-                                <Link to="/admin/register">
-                                    <FlatButton
-                                        label="Fazer login"
-                                        primary
-                                        className="admin-register-button"
-                                    />
-                                </Link>
-                                <div className="clearfix" />
-                            </div>
-                        </form>
-                    </div>
-                </Card>
+                            </Link>
+                        </AuthFormActions>
+                    </form>
+                </AuthForm>
             </div>
         );
     }
