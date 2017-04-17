@@ -9,13 +9,13 @@ import Sidenav from '../../components/Sidenav';
 class AdminContainer extends Component {
 
     componentDidMount() {
-        if (this.props.isLoggedIn) {
+        if (!this.props.isLoggedIn) {
             this.props.router.push('/admin/login');
         }
     }
 
     render() {
-        if (!this.props.isLoggedIn) {
+        if (this.props.isLoggedIn) {
             return (
                 <div>
                     <Navbar onClickLogout={this.props.logout} />

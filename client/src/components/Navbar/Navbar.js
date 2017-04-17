@@ -9,6 +9,8 @@ import ExitToAppIcon from 'material-ui/svg-icons/action/exit-to-app';
 import PersonIcon from 'material-ui/svg-icons/social/person';
 import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 
+import './navbar.css';
+
 const Navbar = ({ onClickLogout }) => {
 
     const renderMenu = () => {
@@ -49,6 +51,7 @@ const Navbar = ({ onClickLogout }) => {
         <AppBar
             iconElementRight={renderElementsRight()}
             showMenuIconButton={false}
+            className="navbar"
         />
     );
 }

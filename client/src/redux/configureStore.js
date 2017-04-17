@@ -7,6 +7,23 @@ import { createLogger } from 'redux-logger';
 import rootEpic from './modules/epics';
 import reducers from './modules/reducers';
 
+import { getAccessToken } from '../lib/auth';
+
+const getPreloadedState = () => {
+
+    const accessToken = getAccessToken();
+
+    if (accessToken) {
+        return {
+            auth: {
+                token: accessToken,
+                isLoggedIn: true
+            }
+        }
+    }
+
+};
+
 const configureStore = () => {
 
     const epicMiddleware = createEpicMiddleware(rootEpic);
@@ -29,6 +46,7 @@ const configureStore = () => {
 
     const store = createStore(
         rootReducer,
+        getPreloadedState(),
         applyMiddleware(...middleware)
     );
 
