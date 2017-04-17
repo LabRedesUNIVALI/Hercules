@@ -1,7 +1,17 @@
-//import * as actionTypes from './actionTypes';
+import * as actionTypes from './actionTypes';
 
-const initialState = {};
+const initialState = {
+    items: []
+};
 
 export default function reducer(state = initialState, action) {
-    return state;
+    switch (action.type) {
+        case actionTypes.FETCH_ALL_SUCCESS:
+            return {
+                ...state,
+                items: action.payload.response
+            };
+        default:
+            return state;
+    }
 }

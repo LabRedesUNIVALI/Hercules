@@ -35,3 +35,15 @@ export function deleteThemeSucess(payload) {
 export function deleteThemeFailure(payload) {
     return { type: actionTypes.DELETE_FAILURE, payload, error: true };
 }
+
+export function fetchThemes() {
+    return { type: actionTypes.FETCH_ALL };
+}
+
+export function fetchThemesSuccess(payload) {
+    return { type: actionTypes.FETCH_ALL_SUCCESS, payload };
+}
+
+export function fetchThemesFailure(payload) {
+    return { type: actionTypes.FETCH_ALL_FAILURE, payload, error: true };
+}

@@ -2,3 +2,8 @@
     margin-left: 256px;
     padding: 20px 20px 0;
 }
+
+.admin-container-content > div {
+    max-width: 70%;
+    margin: 0 auto;
+}

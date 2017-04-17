@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card } from 'material-ui/Card';
+import { connect } from 'react-redux';
 import {
     Table,
     TableBody,
@@ -8,44 +8,100 @@ import {
     TableRow,
     TableRowColumn
 } from 'material-ui/Table';
+import RaisedButton from 'material-ui/RaisedButton';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
-import GithubIcon from 'material-ui/svg-icons/device/gps-fixed';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+
+import CardTable, {
+    CardTableActions
+} from '../../components/CardTable';
+import { fetchThemes } from '../../redux/modules/themes/actionCreators';
 
 class ThemeList extends Component {
-    render() {
+
+    componentWillMount() {
+        this.props.fetchThemes();
+    }
+
+    renderRow(item) {
         return (
-            <div>
-                <Card>
-                <Table selectable={false} showCheckboxes={false}>
+            <TableRow key={item._id}>
+                <TableRowColumn>
+                    {item._id}
+                </TableRowColumn>
+                <TableRowColumn>
+                    {item.name}
+                </TableRowColumn>
+                <TableRowColumn>
+                    <IconMenu
+                        style={{ float: 'right' }}
+                        iconButtonElement={
+                            <IconButton>
+                                <MoreVertIcon />
+                            </IconButton>
+                        }
+                        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                        targetOrigin={{horizontal: 'right', vertical: 'top'}}>
+                        <MenuItem primaryText="Editar" />
+                        <MenuItem primaryText="Excluir" />
+                    </IconMenu>
+                </TableRowColumn>
+            </TableRow>
+        );
+    }
+
+    render() {
+
+        const { themes } = this.props;
+
+        return (
+            <CardTable>
+                <CardTableActions>
+                    <RaisedButton
+                        label="Novo conteúdo"
+                        primary
+                        style={{ float: 'right' }}
+                    />
+                </CardTableActions>
+                <Table
+                    selectable={false}
+                    showCheckboxes={false}>
                     <TableHeader
                         displaySelectAll={false}
-                        adjustForCheckbox={false}>
+                        adjustForCheckbox={false}
+                        className="card-table-header">
                         <TableRow>
-                            <TableHeaderColumn>Código</TableHeaderColumn>
-                            <TableHeaderColumn>
-                               Ações
+                            <TableHeaderColumn className="card-table-th">
+                                Código
                             </TableHeaderColumn>
+                            <TableHeaderColumn className="card-table-th">
+                                Nome
+                            </TableHeaderColumn>
+                            <TableHeaderColumn />
                         </TableRow>
                     </TableHeader>
                     <TableBody
                         displayRowCheckbox={false}>
-                        <TableRow>
-                            <TableRowColumn>1</TableRowColumn>
-                            <TableRowColumn>
-                                <IconButton>
-                                    <GithubIcon />
-                                </IconButton>
-                                <IconButton>
-                                    <GithubIcon />
-                                </IconButton>
-                            </TableRowColumn>
-                        </TableRow>
+                        {themes && themes.map(this.renderRow)}
                     </TableBody>
                 </Table>
-                </Card>
-            </div>
+            </CardTable>
         );
     }
+
 }
 
-export default ThemeList;
+const mapStateToProps = (state) => ({
+    themes: state.themes.items
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    fetchThemes: () => dispatch(fetchThemes())
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ThemeList);
