@@ -1,49 +1,49 @@
 import * as actionTypes from './actionTypes';
 
-export function createTheme(payload) {
+export function createTest(payload) {
     return { type: actionTypes.CREATE, payload };
 }
 
-export function createThemeSuccess(payload) {
+export function createTestSuccess(payload) {
     return { type: actionTypes.CREATE_SUCCESS, payload };
 }
 
-export function createThemeFailure(payload) {
+export function createTestFailure(payload) {
     return { type: actionTypes.CREATE_FAILURE, payload, error: true };
 }
 
-export function updateTheme(payload) {
+export function updateTest(payload) {
     return { type: actionTypes.DELETE, payload };
 }
 
-export function updateThemeSuccess(payload) {
+export function updateTestSuccess(payload) {
     return { type: actionTypes.UPDATE_SUCCESS, payload };
 }
 
-export function updateThemeFailure(payload) {
+export function updateTestFailure(payload) {
     return { type: actionTypes.UPDATE_FAILURE, payload, error: true };
 }
 
-export function deleteTheme(payload) {
+export function deleteTest(payload) {
     return { type: actionTypes.DELETE, payload };
 }
 
-export function deleteThemeSuccess(payload) {
+export function deleteTestSuccess(payload) {
     return { type: actionTypes.DELETE_SUCCESS, payload };
 }
 
-export function deleteThemeFailure(payload) {
+export function deleteTestFailure(payload) {
     return { type: actionTypes.DELETE_FAILURE, payload, error: true };
 }
 
-export function fetchThemes() {
+export function fetchTests() {
     return { type: actionTypes.FETCH_ALL };
 }
 
-export function fetchThemesSuccess(payload) {
+export function fetchTestsSuccess(payload) {
     return { type: actionTypes.FETCH_ALL_SUCCESS, payload };
 }
 
-export function fetchThemesFailure(payload) {
+export function fetchTestsFailure(payload) {
     return { type: actionTypes.FETCH_ALL_FAILURE, payload, error: true };
 }

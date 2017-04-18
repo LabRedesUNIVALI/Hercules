@@ -16,14 +16,14 @@ export default class Api {
 
     static get(url, { headers, auth } = defaults) {
         return ajax.get(
-            url,
+            `/api${url}`,
             Object.assign({}, headers, auth ? getAuthHeaders() : null)
         );
     }
 
     static put(url, body, { headers, auth } = defaults) {
         return ajax.put(
-            url,
+            `/api${url}`,
             body,
             Object.assign({}, headers, auth ? getAuthHeaders() : null)
         );
@@ -31,7 +31,7 @@ export default class Api {
 
     static post(url, body, { headers, auth } = defaults) {
         return ajax.post(
-            url,
+            `/api${url}`,
             body,
             Object.assign({}, headers, auth ? getAuthHeaders() : null)
         );
@@ -39,7 +39,7 @@ export default class Api {
 
     static delete(url, { headers, auth } = defaults) {
         return ajax.delete(
-            url,
+            `/api${url}`,
             Object.assign({}, headers, auth ? getAuthHeaders() : null)
         );
     }

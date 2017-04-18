@@ -3,7 +3,7 @@ import { combineEpics } from 'redux-observable';
 import { push } from 'react-router-redux';
 
 import * as actionTypes from './actionTypes';
-import * as authActions from './actionCreators';
+import * as actions from './actionCreators';
 
 import Api from '../../../lib/api';
 import { saveAccessToken, removeAccessToken } from '../../../lib/auth';
@@ -12,16 +12,16 @@ export function login(action$) {
     return action$.ofType(actionTypes.LOGIN)
         .map(action => action.payload)
         .switchMap(credentials =>
-            Api.post('/api/auth', credentials)
+            Api.post('/auth', credentials)
                 .flatMap(response => {
                     saveAccessToken(response);
                     return Observable.concat(
-                        Observable.of(authActions.loginSuccess(response)),
+                        Observable.of(actions.loginSuccess(response)),
                         Observable.of(push('/admin'))
                     );
                 })
                 .catch(error => Observable.of(
-                    authActions.loginFailure(error.xhr.response)
+                    actions.loginFailure(error.xhr.response)
                 ))
         );
 }
@@ -29,16 +29,16 @@ export function login(action$) {
 export function logout(action$, store) {
     return action$.ofType(actionTypes.LOGOUT)
         .switchMap(action =>
-            Api.delete('/api/auth', { auth: true })
+            Api.delete('/auth', { auth: true })
                 .flatMap(() => {
                     removeAccessToken();
                     return Observable.concat(
-                        Observable.of(authActions.logoutSuccess()),
+                        Observable.of(actions.logoutSuccess()),
                         Observable.of(push('/admin/login'))
                     );
                 })
                 .catch(error => Observable.of(
-                    authActions.logoutFailure(error.xhr.response)
+                    actions.logoutFailure(error.xhr.response)
                 ))
         );
 }
@@ -47,16 +47,16 @@ export function register(action$) {
     return action$.ofType(actionTypes.REGISTER)
         .map(action => action.payload)
         .switchMap(user =>
-            Api.post('/api/register', user)
+            Api.post('/register', user)
                 .flatMap(response => Observable.concat(
-                    Observable.of(authActions.registerSuccess(response)),
-                    Observable.of(authActions.login({
+                    Observable.of(actions.registerSuccess(response)),
+                    Observable.of(actions.login({
                         email: user.email,
                         password: user.password
                     }))
                 ))
                 .catch(error => Observable.of(
-                    authActions.registerFailure(error.xhr.response)
+                    actions.registerFailure(error.xhr.response)
                 ))
         );
 }

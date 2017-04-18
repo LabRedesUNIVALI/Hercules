@@ -4,16 +4,16 @@ import querystring from 'querystring';
 
 import Api from '../../../lib/api';
 import * as actionTypes from './actionTypes';
-import * as themeActions from './actionCreators';
+import * as actions from './actionCreators';
 
 export function fetchTheme(action$) {
     return action$.ofType(actionTypes.FETCH_ONE)
         .map(action => action.payload)
         .switchMap(id =>
-            Api.get(`/api/themes/${id}`, { auth: true })
-                .map(response => themeActions.fetchThemeSuccess(response))
+            Api.get(`/themes/${id}`, { auth: true })
+                .map(response => actions.fetchThemeSuccess(response))
                 .catch(error => Observable.of(
-                    themeActions.fetchThemeFailure(error.xhr.response)
+                    actions.fetchThemeFailure(error.xhr.response)
                 ))
         );
 }
@@ -22,10 +22,10 @@ export function fetchThemes(action$) {
     return action$.ofType(actionTypes.FETCH_ALL)
         .map(action => action.payload)
         .switchMap(params =>
-            Api.get(`/api/themes?${querystring.stringify(params)}`, { auth: true })
-                .map(response => themeActions.fetchThemesSuccess(response))
+            Api.get(`/themes?${querystring.stringify(params)}`, { auth: true })
+                .map(response => actions.fetchThemesSuccess(response))
                 .catch(error => Observable.of(
-                    themeActions.fetchThemesFailure(error.xhr.response)
+                    actions.fetchThemesFailure(error.xhr.response)
                 ))
         );
 }
@@ -34,10 +34,10 @@ export function createTheme(action$) {
     return action$.ofType(actionTypes.CREATE)
         .map(action => action.payload)
         .switchMap(theme =>
-            Api.post('/api/themes', theme, { auth: true })
-                .map(response => themeActions.createThemeSuccess(response))
+            Api.post('/themes', theme, { auth: true })
+                .map(response => actions.createThemeSuccess(response))
                 .catch(error => Observable.of(
-                    themeActions.createThemeFailure(error.xhr.response)
+                    actions.createThemeFailure(error.xhr.response)
                 ))
         );
 }
@@ -46,10 +46,10 @@ export function updateTheme(action$) {
     return action$.ofType(actionTypes.UPDATE)
         .map(action => action.payload)
         .switchMap(theme =>
-            Api.put(`/api/themes/${theme.id}`, theme, { auth: true })
-                .map(response => themeActions.updateThemeSuccess(response))
+            Api.put(`/themes/${theme.id}`, theme, { auth: true })
+                .map(response => actions.updateThemeSuccess(response))
                 .catch(error => Observable.of(
-                    themeActions.updateThemeFailure(error.xhr.response)
+                    actions.updateThemeFailure(error.xhr.response)
                 ))
         );
 }
@@ -58,10 +58,10 @@ export function deleteTheme(action$) {
     return action$.ofType(actionTypes.UPDATE)
         .map(action => action.payload)
         .switchMap(theme =>
-            Api.delete(`/api/themes/${theme.id}`, { auth: true })
-                .map(response => themeActions.deleteThemeSucess(response))
+            Api.delete(`/themes/${theme.id}`, { auth: true })
+                .map(response => actions.deleteThemeSuccess(response))
                 .catch(error => Observable.of(
-                    themeActions.deleteThemeFailure(error.xhr.response)
+                    actions.deleteThemeFailure(error.xhr.response)
                 ))
         );
 }

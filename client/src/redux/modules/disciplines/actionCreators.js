@@ -35,3 +35,15 @@ export function deleteDisciplineSuccess(payload) {
 export function deleteDisciplineFailure(payload) {
     return { type: actionTypes.DELETE_FAILURE, payload, error: true };
 }
+
+export function fetchDisciplines() {
+    return { type: actionTypes.FETCH_ALL };
+}
+
+export function fetchDisciplinesSuccess(payload) {
+    return { type: actionTypes.FETCH_ALL_SUCCESS, payload };
+}
+
+export function fetchDisciplinesFailure(payload) {
+    return { type: actionTypes.FETCH_ALL_FAILURE, payload, error: true };
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import { Link } from 'react-router';
 
 import HomeIcon from 'material-ui/svg-icons/action/home';
 import PeopleIcon from 'material-ui/svg-icons/social/people';
@@ -17,11 +18,21 @@ const Sidenav = () => {
             zDepth={0}
             containerClassName="sidenav-container">
             <div className="sidenav-items">
-                <MenuItem leftIcon={<HomeIcon />}>Visão geral</MenuItem>
-                <MenuItem leftIcon={<PeopleIcon />}>Disciplinas</MenuItem>
-                <MenuItem leftIcon={<ClassIcon />}>Conteúdos</MenuItem>
-                <MenuItem leftIcon={<QuestionAnswerIcon />}>Questões</MenuItem>
-                <MenuItem leftIcon={<DescriptionIcon />}>Provas</MenuItem>
+                <Link to="/admin">
+                    <MenuItem leftIcon={<HomeIcon />}>Visão geral</MenuItem>
+                </Link>
+                <Link to="/admin/disciplines">
+                    <MenuItem leftIcon={<PeopleIcon />}>Disciplinas</MenuItem>
+                </Link>
+                <Link to="/admin/themes">
+                    <MenuItem leftIcon={<ClassIcon />}>Conteúdos</MenuItem>
+                </Link>
+                <Link to="/admin/questions">
+                    <MenuItem leftIcon={<QuestionAnswerIcon />}>Questões</MenuItem>
+                </Link>
+                <Link to="/admin/tests">
+                    <MenuItem leftIcon={<DescriptionIcon />}>Provas</MenuItem>
+                </Link>
             </div>
         </Drawer>
     );

@@ -1,49 +1,49 @@
 import * as actionTypes from './actionTypes';
 
-export function createTheme(payload) {
+export function createQuestion(payload) {
     return { type: actionTypes.CREATE, payload };
 }
 
-export function createThemeSuccess(payload) {
+export function createQuestionSuccess(payload) {
     return { type: actionTypes.CREATE_SUCCESS, payload };
 }
 
-export function createThemeFailure(payload) {
+export function createQuestionFailure(payload) {
     return { type: actionTypes.CREATE_FAILURE, payload, error: true };
 }
 
-export function updateTheme(payload) {
-    return { type: actionTypes.DELETE, payload };
+export function updateQuestion(payload) {
+    return { type: actionTypes.UPDATE, payload };
 }
 
-export function updateThemeSuccess(payload) {
+export function updateQuestionSuccess(payload) {
     return { type: actionTypes.UPDATE_SUCCESS, payload };
 }
 
-export function updateThemeFailure(payload) {
-    return { type: actionTypes.UPDATE_FAILURE, payload, error: true };
+export function updateQuestionFailure(payload) {
+    return { type: actionTypes.CREATE_FAILURE, payload, error: true };
 }
 
-export function deleteTheme(payload) {
+export function deleteQuestion(payload) {
     return { type: actionTypes.DELETE, payload };
 }
 
-export function deleteThemeSuccess(payload) {
+export function deleteQuestionSuccess(payload) {
     return { type: actionTypes.DELETE_SUCCESS, payload };
 }
 
-export function deleteThemeFailure(payload) {
+export function deleteQuestionFailure(payload) {
     return { type: actionTypes.DELETE_FAILURE, payload, error: true };
 }
 
-export function fetchThemes() {
+export function fetchQuestions() {
     return { type: actionTypes.FETCH_ALL };
 }
 
-export function fetchThemesSuccess(payload) {
+export function fetchQuestionsSuccess(payload) {
     return { type: actionTypes.FETCH_ALL_SUCCESS, payload };
 }
 
-export function fetchThemesFailure(payload) {
+export function fetchQuestionsFailure(payload) {
     return { type: actionTypes.FETCH_ALL_FAILURE, payload, error: true };
 }
