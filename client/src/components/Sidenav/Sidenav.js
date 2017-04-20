@@ -13,7 +13,7 @@ import './sidenav.css';
 
 const Sidenav = () => {
     return (
-        <Drawer open={true} zDepth={0} containerClassName="sidenav-container">
+        <Drawer open zDepth={0} containerClassName="sidenav-container">
             <div className="sidenav-items">
                 <Link to="/admin">
                     <MenuItem leftIcon={<HomeIcon />}>Visão geral</MenuItem>
