@@ -8,12 +8,10 @@ import SendIcon from 'material-ui/svg-icons/content/send';
 
 import Topbar from '../../components/Topbar';
 import AuthForm, { AuthFormActions } from '../../components/AuthForm';
-import { login } from '../../redux/modules/auth/actionCreators'
+import { login } from '../../redux/modules/auth/actionCreators';
 
 class AdminLogin extends Component {
-
     constructor() {
-
         super();
 
         this.state = {
@@ -25,7 +23,6 @@ class AdminLogin extends Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-
     }
 
     handleSubmit(event) {
@@ -34,7 +31,6 @@ class AdminLogin extends Component {
     }
 
     handleInputChange(event) {
-
         const { value, name } = event.target;
 
         this.setState({
@@ -43,11 +39,9 @@ class AdminLogin extends Component {
                 [name]: value
             }
         });
-
     }
 
     render() {
-
         const { credentials } = this.state;
 
         return (
@@ -55,7 +49,8 @@ class AdminLogin extends Component {
                 <Topbar />
                 <AuthForm
                     title="Hercules"
-                    subtitle="Faça seu login no Hercules">
+                    subtitle="Faça seu login no Hercules"
+                >
                     <form onSubmit={this.handleSubmit}>
                         <TextField
                             floatingLabelText="E-mail"
@@ -95,10 +90,8 @@ class AdminLogin extends Component {
             </div>
         );
     }
-
 }
 
-export default connect(
-    null,
-    { login: (credentials) => login(credentials) }
-)(AdminLogin);
+export default connect(null, { login: credentials => login(credentials) })(
+    AdminLogin
+);

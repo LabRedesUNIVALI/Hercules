@@ -3,9 +3,7 @@ import { TableHeader } from 'material-ui/Table';
 
 const CardTableHeader = ({ children }) => {
     return (
-        <TableHeader
-            displaySelectAll={false}
-            adjustForCheckbox={false}>
+        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             {children}
         </TableHeader>
     );

@@ -3,17 +3,16 @@ import { getAccessToken } from './auth';
 
 function getAuthHeaders() {
     return {
-        'Authorization': `Bearer ${getAccessToken()}`
+        Authorization: `Bearer ${getAccessToken()}`
     };
 }
 
 const defaults = {
     headers: {},
     auth: false
-}
+};
 
 export default class Api {
-
     static get(url, { headers, auth } = defaults) {
         return ajax.get(
             `/api${url}`,
@@ -43,5 +42,4 @@ export default class Api {
             Object.assign({}, headers, auth ? getAuthHeaders() : null)
         );
     }
-
 }

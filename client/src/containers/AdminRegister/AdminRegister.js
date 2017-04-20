@@ -11,22 +11,19 @@ import AuthForm, { AuthFormActions } from '../../components/AuthForm';
 import { register } from '../../redux/modules/auth/actionCreators';
 
 class AdminRegister extends Component {
-
     constructor() {
-
         super();
 
         this.state = {
             user: {
                 name: '',
                 email: '',
-                password: '',
+                password: ''
             }
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-
     }
 
     handleSubmit(event) {
@@ -35,7 +32,6 @@ class AdminRegister extends Component {
     }
 
     handleInputChange(event) {
-
         const { name, value } = event.target;
 
         this.setState({
@@ -44,11 +40,9 @@ class AdminRegister extends Component {
                 [name]: value
             }
         });
-
     }
 
     render() {
-
         const { user } = this.state;
 
         return (
@@ -56,7 +50,8 @@ class AdminRegister extends Component {
                 <Topbar />
                 <AuthForm
                     title="Hercules"
-                    subtitle="Cadastre-se já no Hercules!">
+                    subtitle="Cadastre-se já no Hercules!"
+                >
                     <form onSubmit={this.handleSubmit}>
                         <TextField
                             name="name"
@@ -109,10 +104,8 @@ class AdminRegister extends Component {
             </div>
         );
     }
-
 }
 
-export default connect(
-    null,
-    { register: (user) => register(user) }
-)(AdminRegister);
+export default connect(null, { register: user => register(user) })(
+    AdminRegister
+);

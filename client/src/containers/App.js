@@ -14,7 +14,7 @@ class App extends Component {
                 <RootContainer />
             </Provider>
         );
-  }
+    }
 }
 
 export default App;

@@ -12,7 +12,6 @@ import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 import './navbar.css';
 
 const Navbar = ({ onClickLogout }) => {
-
     const renderMenu = () => {
         return (
             <IconMenu
@@ -22,11 +21,9 @@ const Navbar = ({ onClickLogout }) => {
                     </IconButton>
                 }
                 targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-                anchorOrigin={{ horizontal: 'right', vertical: 'top' }}>
-                <MenuItem
-                    primaryText="Meus dados"
-                    rightIcon={<PersonIcon />}
-                />
+                anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+            >
+                <MenuItem primaryText="Meus dados" rightIcon={<PersonIcon />} />
                 <MenuItem
                     primaryText="Sair"
                     rightIcon={<ExitToAppIcon />}
@@ -34,7 +31,7 @@ const Navbar = ({ onClickLogout }) => {
                 />
             </IconMenu>
         );
-    }
+    };
 
     const renderElementsRight = () => {
         return (
@@ -54,6 +51,6 @@ const Navbar = ({ onClickLogout }) => {
             className="navbar"
         />
     );
-}
+};
 
 export default Navbar;

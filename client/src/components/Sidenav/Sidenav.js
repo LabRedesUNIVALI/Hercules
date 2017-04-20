@@ -13,10 +13,7 @@ import './sidenav.css';
 
 const Sidenav = () => {
     return (
-        <Drawer
-            open={true}
-            zDepth={0}
-            containerClassName="sidenav-container">
+        <Drawer open={true} zDepth={0} containerClassName="sidenav-container">
             <div className="sidenav-items">
                 <Link to="/admin">
                     <MenuItem leftIcon={<HomeIcon />}>Visão geral</MenuItem>
@@ -28,7 +25,9 @@ const Sidenav = () => {
                     <MenuItem leftIcon={<ClassIcon />}>Conteúdos</MenuItem>
                 </Link>
                 <Link to="/admin/questions">
-                    <MenuItem leftIcon={<QuestionAnswerIcon />}>Questões</MenuItem>
+                    <MenuItem leftIcon={<QuestionAnswerIcon />}>
+                        Questões
+                    </MenuItem>
                 </Link>
                 <Link to="/admin/tests">
                     <MenuItem leftIcon={<DescriptionIcon />}>Provas</MenuItem>

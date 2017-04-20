@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './admin-container.css'
+import './admin-container.css';
 
 import { logout } from '../../redux/modules/auth/actionCreators';
 import Navbar from '../../components/Navbar';
 import Sidenav from '../../components/Sidenav';
 
 class AdminContainer extends Component {
-
     componentDidMount() {
         if (!this.props.isLoggedIn) {
             this.props.router.push('/admin/login');
@@ -29,18 +28,14 @@ class AdminContainer extends Component {
             return null;
         }
     }
+}
 
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     isLoggedIn: state.auth.isLoggedIn
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     logout: () => dispatch(logout())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AdminContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminContainer);

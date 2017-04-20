@@ -14,13 +14,10 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
-import CardTable, {
-    CardTableActions
-} from '../../components/CardTable';
+import CardTable, { CardTableActions } from '../../components/CardTable';
 import { fetchThemes } from '../../redux/modules/themes/actionCreators';
 
 class ThemeList extends Component {
-
     componentWillMount() {
         this.props.fetchThemes();
     }
@@ -42,8 +39,9 @@ class ThemeList extends Component {
                                 <MoreVertIcon />
                             </IconButton>
                         }
-                        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-                        targetOrigin={{horizontal: 'right', vertical: 'top'}}>
+                        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+                        targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+                    >
                         <MenuItem primaryText="Editar" />
                         <MenuItem primaryText="Excluir" />
                     </IconMenu>
@@ -53,7 +51,6 @@ class ThemeList extends Component {
     }
 
     render() {
-
         const { themes } = this.props;
 
         return (
@@ -65,13 +62,12 @@ class ThemeList extends Component {
                         style={{ float: 'right' }}
                     />
                 </CardTableActions>
-                <Table
-                    selectable={false}
-                    showCheckboxes={false}>
+                <Table selectable={false} showCheckboxes={false}>
                     <TableHeader
                         displaySelectAll={false}
                         adjustForCheckbox={false}
-                        className="card-table-header">
+                        className="card-table-header"
+                    >
                         <TableRow>
                             <TableHeaderColumn className="card-table-th">
                                 Código
@@ -82,26 +78,21 @@ class ThemeList extends Component {
                             <TableHeaderColumn />
                         </TableRow>
                     </TableHeader>
-                    <TableBody
-                        displayRowCheckbox={false}>
+                    <TableBody displayRowCheckbox={false}>
                         {themes && themes.map(this.renderRow)}
                     </TableBody>
                 </Table>
             </CardTable>
         );
     }
-
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     themes: state.themes.items
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     fetchThemes: () => dispatch(fetchThemes())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ThemeList);
+export default connect(mapStateToProps, mapDispatchToProps)(ThemeList);
