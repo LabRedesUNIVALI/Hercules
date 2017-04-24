@@ -49,6 +49,7 @@ const Navbar = ({ onClickLogout }) => {
             iconElementRight={renderElementsRight()}
             showMenuIconButton={false}
             className="navbar"
+            style={{ position: 'fixed' }}
         />
     );
 };

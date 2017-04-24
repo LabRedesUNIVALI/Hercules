@@ -1,6 +1,7 @@
 .admin-container-content {
     margin-left: 256px;
-    padding: 20px 20px 0;
+    padding-top: 104px;
+    padding-bottom: 40px;
 }
 
 .admin-container-content > div {

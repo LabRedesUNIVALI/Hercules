@@ -15,13 +15,10 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 import CardTable, { CardTableActions } from '../../components/CardTable';
 
-const ThemeList = ({ themes }) => {
+const ThemeList = ({ themes, onClickAdd }) => {
     const renderRow = item => {
         return (
             <TableRow key={item._id}>
-                <TableRowColumn>
-                    {item._id}
-                </TableRowColumn>
                 <TableRowColumn>
                     {item.name}
                 </TableRowColumn>
@@ -49,6 +46,7 @@ const ThemeList = ({ themes }) => {
             <CardTableActions>
                 <RaisedButton
                     label="Novo conteúdo"
+                    onTouchTap={onClickAdd}
                     primary
                     style={{ float: 'right' }}
                 />
@@ -60,9 +58,6 @@ const ThemeList = ({ themes }) => {
                     className="card-table-header"
                 >
                     <TableRow>
-                        <TableHeaderColumn className="card-table-th">
-                            Código
-                        </TableHeaderColumn>
                         <TableHeaderColumn className="card-table-th">
                             Nome
                         </TableHeaderColumn>

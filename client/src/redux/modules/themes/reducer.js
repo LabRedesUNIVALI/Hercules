@@ -11,6 +11,11 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 items: action.payload.response
             };
+        case actionTypes.CREATE_SUCCESS:
+            return {
+                ...state,
+                items: [...state.items, action.payload.response]
+            };
         default:
             return state;
     }
