@@ -1,16 +1,35 @@
 'use strict';
 
-const host = process.env.NODE_IP || '127.0.0.1';
-const port = process.env.NODE_PORT || 3000;
+const joi = require('joi');
 
-let mongodb_connection_string = 'mongodb://localhost/hercules';
+const envVarsSchema = joi.object({
+    NODE_ENV: joi.string()
+        .allow(['development', 'production', 'test'])
+        .required(),
+    PORT: joi.number()
+        .required(),
+    MONGODB_URL: joi.string()
+        .required()
+});
 
-if (process.env.MONGODB_URL) {
-    mongodb_connection_string = `${process.env.MONGODB_URL}hercules`;
+const { error, value: envVars } = joi.validate(
+    process.env,
+    envVarsSchema,
+    { allowUnknown: true }
+);
+
+if (error) {
+    throw new Error(`Config validation error: ${error.message}`);
 }
 
-module.exports = {
-    host,
-    port,
-    mongodb_connection_string
+const config = {
+    env: envVars.NODE_ENV,
+    isTest: envVars.NODE_ENV === 'test',
+    isDevelopment: envVars.NODE_ENV === 'development',
+    server: {
+        port: envVars.PORT,
+        mongodbUrl: envVars.MONGODB_URL
+    }
 };
+
+module.exports = config;

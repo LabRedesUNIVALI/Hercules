@@ -1,0 +1,29 @@
+version: '2'
+services:
+    hercules_api:
+        build:
+            context: ..
+            dockerfile: docker/Dockerfile
+            args:
+                port: ${PORT}
+        image: hercules_api:dev
+        container_name: hercules_api
+        ports:
+            - ${PORT}:${PORT}
+        env_file: .env
+        depends_on:
+            - hercules_db
+        links:
+            - hercules_db
+        volumes:
+            - ..:/api
+    hercules_db:
+        image: mongo:3.2
+        container_name: hercules_db
+        volumes:
+            - data:/data/db
+        ports:
+            - 27017:27017
+volumes:
+    data:
+        external: false

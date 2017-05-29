@@ -5,7 +5,7 @@ const Promise = require('promise');
 
 exports.register = function (server, options, next){
 
-    Mongoose.connect(options.mongodb_connection_string);
+    Mongoose.connect(options.mongodbUrl);
 
     //Mongoose's own promise lib is deprecated so i'm using promise as sugested.
     Mongoose.Promise = Promise;

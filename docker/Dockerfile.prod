@@ -1,0 +1,25 @@
+# Base image (Node v6.9 LTS Alpine Linux)
+FROM node:6.9-alpine
+
+# Arguments declaration
+ARG port=80
+
+# Create and enter the application directory
+RUN mkdir -p /usr/src/api
+WORKDIR /usr/src/api
+
+# Instal PM2 globally (http://pm2.keymetrics.io/)
+RUN npm install pm2 -g
+
+# Copy package.json and install dependencies
+COPY package.json .
+RUN npm install --production
+
+# Bundle app source
+COPY . .
+
+# Expose the port where app will run
+EXPOSE $port
+
+# Start app with PM2
+CMD ["pm2-docker", "index.js"] 
