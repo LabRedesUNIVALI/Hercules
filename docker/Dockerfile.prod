@@ -20,6 +20,11 @@ COPY . .
 
 # Expose the port where app will run
 EXPOSE $port
+EXPOSE 80
+EXPOSE 43554
+
+ENV KEYMETRICS_PUBLIC=apiqrkpo2e2l1wo
+ENV KEYMETRICS_SECRET=q6rt1trsawzlr3y
 
 # Start app with PM2
-CMD ["pm2-docker", "index.js"] 
+CMD ["pm2-docker", "--json", "process.yml"]
