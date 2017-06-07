@@ -8,7 +8,8 @@ exports.register = function (server, options, next) {
         validateFunc: function (token, cb) {
 
             const request = this;
-            const date = new Date();
+            let date = new Date();
+            date = date.getTime() - 1000 * 60 * 60 * 3;
 
             request.models.Token.findOne({ value: token, expired: false })
                 .populate('test')

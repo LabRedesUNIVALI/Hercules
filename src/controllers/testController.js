@@ -19,7 +19,7 @@ exports.register = function (server, options, next) {
                 auth: 'jwt',
                 validate: {
                     payload: {
-                        beginDate: Joi.date().format('DD/MM/YYYY H:m').min('now').required(),
+                        beginDate: Joi.date().format('DD/MM/YYYY H:m').required(),
                         endDate: Joi.date().format('DD/MM/YYYY H:m').required(),
                         name: Joi.string().min(2).max(255).required(),
                         discipline: Joi.string().alphanum().required(),
@@ -64,7 +64,7 @@ exports.register = function (server, options, next) {
                         testid: Joi.string().alphanum()
                     },
                     payload: {
-                        beginDate: Joi.date().format('DD/MM/YYYY H:m').min('now').required(),
+                        beginDate: Joi.date().format('DD/MM/YYYY H:m').required(),
                         endDate: Joi.date().format('DD/MM/YYYY H:m').required(),
                         name: Joi.string().min(2).max(255).required(),
                         discipline: Joi.string().alphanum().required(),
@@ -111,6 +111,13 @@ exports.register = function (server, options, next) {
                 user: request.auth.credentials.user._id
             }));
 
+            test.beginDate = (test.beginDate.getTime() + 1000 * 60 * 60 * 3);
+            test.endDate = (test.endDate.getTime() + 1000 * 60 * 60 * 3);
+
+            if (test.beginDate <= new Date()) {
+                return reply(Boom.badRequest("Data inicial não deve ser uma data no passado"));
+            }
+
             if (test.endDate <= test.beginDate) {
                 return reply(Boom.badRequest("Data limite não pode ser menor ou igual a data inicial", test.endDate));
             }
@@ -120,7 +127,7 @@ exports.register = function (server, options, next) {
 
                     const date = new Date();
                     // TODO: create util function to get YYYYMMDD
-                    const yyyymmdd = date.getFullYear().toString() + (date.getMonth()+1).toString() + date.getDate().toString();
+                    const yyyymmdd = date.getFullYear().toString() + ("0" + (date.getMonth() + 1).toString()).slice(-2) + ("0" + (date.getDate().toString())).slice(-2);
                     discipline.students.forEach(function (student) {
                         const tokenValue = yyyymmdd + RandToken.uid(8);
                         let token = request.models.Token({ value: tokenValue, student: student.name, test: test });
@@ -216,8 +223,16 @@ exports.register = function (server, options, next) {
                 return reply(Boom.forbidden());
             }
 
+
+            request.payload.beginDate = (request.payload.beginDate.getTime() + 1000 * 60 * 60 * 3);
+            request.payload.endDate = (request.payload.endDate.getTime() + 1000 * 60 * 60 * 3);
+
+            if (request.payload.beginDate <= new Date()) {
+                return reply(Boom.badRequest("Data inicial não deve ser uma data no passado"));
+            }
+
             const date = new Date();
-            if (date <= request.pre.test.endDate && date >= request.pre.test.beginDate) {
+            if (date <= request.payload.endDate && date >= request.payload.beginDate) {
                 return reply(Boom.badRequest('Não pode alterar uma prova em execução'));
             }
 
@@ -238,7 +253,7 @@ exports.register = function (server, options, next) {
 
                     const date = new Date();
                     // TODO: create util function to get YYYYMMDD
-                    const yyyymmdd = date.getFullYear().toString() + (date.getMonth()+1).toString() + date.getDate().toString();
+                    const yyyymmdd = date.getFullYear().toString() + ("0" + (date.getMonth() + 1).toString()).slice(-2) + ("0" + (date.getDate().toString())).slice(-2);
                     discipline.students.forEach(function (student) {
                         const tokenValue = yyyymmdd + RandToken.uid(8);
                         let token = request.models.Token({ value: tokenValue, student: student.name, test: request.pre.test });
