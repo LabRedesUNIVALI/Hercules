@@ -2,7 +2,7 @@
 
 ### TODO
 - [ ] Finalizar este documento
-- [x] Criar um script shell para automatizar processos irritantes
+- [x] Criar um script shell para automatizar processos chatos
 
 ### Pré-requisitos
 Você vai precisar disto para começar:
@@ -48,3 +48,15 @@ MONGODB_URI | Usado pela aplicação Node.js para conectar com a base de dados M
 Geralmente nós identificamos o host de uma string de conexão como um endereço de IP ou `localhost`. Porém, neste caso, nossa instância do MongoDB não esta rodando no mesmo container do servidor Node.js. Então, não podemos simplesmente especificar `localhost` e esperar que tudo vai rodar. Também, nós não temos um endereço de IP para referência. Você vai notar que nós usamos `hercules_db` para referênciar o servidor da base de dados. E isto é tudo sobre isto, funciona perfeitamente. Containers do docker podem acessar naturalmente um ao outro.
 
 O conteúdo desde arquivo vai ser passado para o `docker-compose` e o contexto dos containers, através da opção `env_file` dentro de [docker-compose.yml](../docker/docker-compose.yml).
+
+Após ter tudo isso configurado, vamos iniciar o processo de construção das imagens e levantamento dos containers. Para construir as imagens necessárias da aplicação, execute o seguinte comando:
+```bash
+docker-compose -f docker/docker-compose.yml build
+```
+O Docker irá atrás de todos os recursos necessários para a construção da imagem, e o fará. Por isso, este processo pode demorar um pouquinho, então vá pegar um café! :coffee:
+
+Após o processo de _build_ ter terminado, vamos subir nossos containers! Execute o seguinte comando:
+```bash
+docker-compose -f docker/docker-compose.yml up
+```
+Pronto! Agora seus containers estão sendo executados pelo Docker, com suas devidas portas expostas para o Docker host.
