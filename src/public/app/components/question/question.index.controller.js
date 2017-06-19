@@ -33,13 +33,12 @@
                 vm.processing = true;
 
                 QuestionAPIService.delete(entity.theme._id, entity._id)
-                    .success(function (result) {
+                    .then(function (result) {
                         var index = vm.entities.indexOf(entity);
                         vm.entities.splice(index, 1);
                         CommonToasts.notice.success.Delete();
                         vm.processing = false;
-                    })
-                    .error(function () {
+                    }, function () {
                         CommonToasts.notice.error.Delete();
                         vm.processing = false;
                     });
@@ -48,7 +47,7 @@
 
         var _addQuestion = function (ev) {
             ThemeAPIService.getAll()
-                .success(function (result) {
+                then(function (result) {
                     if (result.length > 0) {
                         $location.path('/admin/questions/new');
                     } else {

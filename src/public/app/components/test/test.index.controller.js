@@ -32,13 +32,12 @@
             CommonDialogs.confirmDelete(ev).then(function () {
                 vm.processing = true;
                 TestAPIService.delete(entity._id)
-                    .success(function () {
+                    .then(function () {
                         var index = vm.entities.indexOf(entity);
                         vm.entities.splice(index, 1);
                         CommonToasts.notice.success.Delete();
                         vm.processing = false;
-                    })
-                    .error(function () {
+                    }, function () {
                         CommonToasts.notice.success.Delete();
                         vm.processing = false;
                     });
@@ -47,7 +46,7 @@
 
         var _previewTest = function (test, ev) {
             $mdDialog.show({
-                templateUrl: 'public/components/test/test.dialog.tmpl.html',
+                templateUrl: 'test/test.dialog.tmpl.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true,
@@ -60,9 +59,9 @@
         var _showTokens = function (testName, id, ev) {
 
             TokenAPIService.getAllByTest(id)
-                .success(function (result) {
+                .then(function (result) {
                     $mdDialog.show({
-                        templateUrl: 'public/components/token/token.dialog.tmpl.html',
+                        templateUrl: 'token/token.dialog.tmpl.html',
                         parent: angular.element(document.body),
                         targetEvent: ev,
                         clickOutsideToClose: true,

@@ -42,13 +42,12 @@
             }
 
             TestAPIService.saveQuestionAnswer(question._id, {
-                chosenOption: question.options[question.chosenOption-1].order
+                chosenOption: question.options[question.chosenOption - 1].order
             })
-                .success(function (result) {
+                .then(function (result) {
                     CommonToasts.Notice('Questão salva!');
                     vm.processing = false;
-                })
-                .error(function (result) {
+                }, function (result) {
                     _showErrorDialog('Não foi possível salvar a questão.');
                     vm.processing = false;
                 });
@@ -71,13 +70,12 @@
                 .then(function () {
                     vm.processing = true;
                     TestAPIService.finishTest(token)
-                        .success(function (result) {
+                        .then(function (result) {
                             _showFinishDialog().finally(function () {
                                 $cookies.remove('studentToken', { path: '/student' });
                                 $location.path('/student/login');
                             });
-                        })
-                        .error(function (result) {
+                        }, function (result) {
                             _showErrorDialog('Não foi possível finalizar a prova.');
                         });
                 }, null);

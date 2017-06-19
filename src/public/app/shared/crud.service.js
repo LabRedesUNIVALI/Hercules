@@ -13,8 +13,7 @@
             var EntityAPIService = $injector.get(config.serviceName);
 
             EntityAPIService.save(config.entity)
-                .success(function (data, status, headers, conf) {
-                    $log.debug(status);
+                .then(function (data, status, headers, conf) {
                     if (data) {
                         $location.path(config.desiredPath);
                         $timeout(function () {
@@ -23,9 +22,7 @@
                     } else {
                         callback(false);
                     }
-                })
-                .error(function (err) {
-                    $log.error(err);
+                }, function (err) {
                     callback(false);
                 });
 
@@ -36,7 +33,7 @@
             var EntityAPIService = $injector.get(config.serviceName);
 
             EntityAPIService.update(config.id, config.entity)
-                .success(function (data, status, headers, conf) {
+                .then(function (data, status, headers, conf) {
                     $log.debug(status);
                     if (data) {
                         $location.path(config.desiredPath);
@@ -46,8 +43,7 @@
                     } else {
                         callback(false);
                     }
-                })
-                .error(function (err) {
+                }, function (err) {
                     $log.error(err);
                     callback(false);
                 });

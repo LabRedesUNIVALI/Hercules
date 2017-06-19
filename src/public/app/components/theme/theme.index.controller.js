@@ -31,13 +31,12 @@
                 vm.processing = true;
 
                 ThemeAPIService.delete(entity._id)
-                    .success(function () {
+                    .then(function () {
                         var index = vm.entities.indexOf(entity);
                         vm.entities.splice(index, 1);
                         CommonToasts.notice.success.Delete();
                         vm.processing = false;
-                    })
-                    .error(function () {
+                    }, function () {
                         CommonToasts.notice.error.Delete();
                         vm.processing = false;
                     });

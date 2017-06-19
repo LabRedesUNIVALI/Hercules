@@ -1,1 +1,21 @@
-<!DOCTYPE html><html lang="pt-br"><head><base href="/"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hercules</title><link rel="stylesheet" href="public/build.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic"></head><body ng-app="hercules" ng-cloak layout="row"><div ng-show="loadingView" class="loading-screen" layout="column" layout-align="space-around center"><md-progress-circular md-mode="indeterminate" class="md-hue-3" md-diameter="150"></div><div ng-view layout="row" flex></div><script src="public/build.min.js" type="text/javascript"></script></body></html>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <base href="/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Hercules</title>
+    <link rel="stylesheet" href="public/build.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+</head>
+<body ng-app="hercules" ng-cloak layout="row">
+    <div ng-show="loadingView" class="loading-screen" layout="column" layout-align="space-around center">
+        <md-progress-circular md-mode="indeterminate" class="md-hue-3" md-diameter="150">
+    </div>
+    <div ng-view layout="row" flex></div>
+    <script src="public/vendors.min.js" type="text/javascript"></script>
+    <script src="public/app.min.js" type="text/javascript"></script>
+    <script src="public/templates.min.js" type="text/javascript"></script>
+</body>
+</html>

@@ -12,35 +12,35 @@
 
             // Register
             .when('/admin/register', {
-                templateUrl: 'public/components/registration/registration.view.html',
+                templateUrl: 'registration/registration.view.html',
                 controller: 'RegistrationController',
                 controllerAs: 'vm'
             })
 
             // Login
             .when('/admin/login', {
-                templateUrl: 'public/components/login/admin.login.view.html',
+                templateUrl: 'login/admin.login.view.html',
                 controller: 'AdminLoginController',
                 controllerAs: 'vm'
             })
 
             // Change password
             .when('/admin/reset-password', {
-                templateUrl: 'public/components/user/reset-password.view.html',
+                templateUrl: 'user/reset-password.view.html',
                 controller: 'PasswordController',
                 controllerAs: 'vm',
             })
 
             // Dashboard
             .when('/admin/dashboard', {
-                templateUrl: 'public/components/dashboard/dashboard.view.html',
+                templateUrl: 'dashboard/dashboard.view.html',
                 controller: 'DashboardController',
                 controllerAs: 'vm'
             })
 
             // Disciplines
             .when('/admin/disciplines', {
-                templateUrl: 'public/components/discipline/discipline.index.view.html',
+                templateUrl: 'discipline/discipline.index.view.html',
                 controller: 'DisciplineIndexController',
                 controllerAs: 'vm',
                 resolve: { /* @ngInject */
@@ -51,13 +51,13 @@
             })
 
             .when('/admin/disciplines/new', {
-                templateUrl: 'public/components/discipline/discipline.new.view.html',
+                templateUrl: 'discipline/discipline.new.view.html',
                 controller: 'DisciplineNewController',
                 controllerAs: 'vm'
             })
 
             .when('/admin/disciplines/:id/edit', {
-                templateUrl: 'public/components/discipline/discipline.edit.view.html',
+                templateUrl: 'discipline/discipline.edit.view.html',
                 controller: 'DisciplineEditController',
                 controllerAs: 'vm',
                 resolve: { /* @ngInject */
@@ -69,7 +69,7 @@
 
             // Themes
             .when('/admin/themes', {
-                templateUrl: 'public/components/theme/theme.index.view.html',
+                templateUrl: 'theme/theme.index.view.html',
                 controller: 'ThemeIndexController',
                 controllerAs: 'vm',
                 resolve: { /* @ngInject */
@@ -80,13 +80,13 @@
             })
 
             .when('/admin/themes/new', {
-                templateUrl: 'public/components/theme/theme.new.view.html',
+                templateUrl: 'theme/theme.new.view.html',
                 controller: 'ThemeNewController',
                 controllerAs: 'vm'
             })
 
             .when('/admin/themes/:id/edit', {
-                templateUrl: 'public/components/theme/theme.edit.view.html',
+                templateUrl: 'theme/theme.edit.view.html',
                 controller: 'ThemeEditController',
                 controllerAs: 'vm',
                 resolve: { /* @ngInject */
@@ -98,7 +98,7 @@
 
             // Questions
             .when('/admin/questions', {
-                templateUrl: 'public/components/question/question.index.view.html',
+                templateUrl: 'question/question.index.view.html',
                 controller: 'QuestionIndexController',
                 controllerAs: 'vm',
                 resolve: { /* @ngInject */
@@ -109,7 +109,7 @@
             })
 
             .when('/admin/questions/new', {
-                templateUrl: 'public/components/question/question.new.view.html',
+                templateUrl: 'question/question.new.view.html',
                 controller: 'QuestionNewController',
                 controllerAs: 'vm',
                 resolve: { /* @ngInject */
@@ -120,7 +120,7 @@
             })
 
             .when('/admin/questions/:id/edit', {
-                templateUrl: 'public/components/question/question.edit.view.html',
+                templateUrl: 'question/question.edit.view.html',
                 controller: 'QuestionEditController',
                 controllerAs: 'vm',
                 resolve: { /* @ngInject */
@@ -135,7 +135,7 @@
 
             // Test
             .when('/admin/tests/new', {
-                templateUrl: 'public/components/test/test.new.view.html',
+                templateUrl: 'test/test.new.view.html',
                 controller: 'TestNewController',
                 controllerAs: 'vm',
                 resolve: { /* @ngInject */
@@ -149,7 +149,7 @@
             })
 
             .when('/admin/tests', {
-                templateUrl: 'public/components/test/test.index.view.html',
+                templateUrl: 'test/test.index.view.html',
                 controller: 'TestIndexController',
                 controllerAs: 'vm',
                 resolve: { /* @ngInject */
@@ -160,7 +160,7 @@
             })
 
             .when('/admin/tests/:id/edit', {
-                templateUrl: 'public/components/test/test.edit.view.html',
+                templateUrl: 'test/test.edit.view.html',
                 controller: 'TestEditController',
                 controllerAs: 'vm',
                 resolve: { /* @ngInject */
@@ -178,13 +178,13 @@
 
             // Student
             .when('/student/login', {
-                templateUrl: 'public/components/login/student.login.view.html',
+                templateUrl: 'login/student.login.view.html',
                 controller: 'StudentLoginController',
                 controllerAs: 'vm'
             })
 
             .when('/student/test', {
-                templateUrl: 'public/components/test/test.answer.view.html',
+                templateUrl: 'test/test.answer.view.html',
                 controller: 'TestAnswerController',
                 controllerAs: 'vm',
                 resolve: { /* @ngInject */

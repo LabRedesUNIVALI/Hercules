@@ -25,7 +25,7 @@
             vm.processing = true;
 
             UserAPIService.createUser(user)
-                .success(function(response){
+                .then(function(response){
                     if (response) {
                         AuthenticationService.adminLogin({ email: user.email, password: user.password }, function (success) {
                             $location.path('/admin');
@@ -34,8 +34,7 @@
                         CommonDialogs.genericError();
                         vm.processing = false;
                     }
-                })
-                .error(function () {
+                }, function () {
                     CommonDialogs.genericError();
                     vm.processing = false;
                 });
