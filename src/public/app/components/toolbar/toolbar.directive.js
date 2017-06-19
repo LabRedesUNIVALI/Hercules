@@ -10,7 +10,7 @@
         return {
             strict: 'E',
             scope: {},
-            templateUrl: 'public/components/toolbar/toolbar.tmpl.html',
+            templateUrl: 'toolbar/toolbar.tmpl.html',
             controller: /* @ngInject */
                 function (AuthenticationService, $location) {
                     this.openMenu = function ($mdOpenMenu, ev) {

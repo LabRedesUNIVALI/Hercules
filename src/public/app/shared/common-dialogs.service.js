@@ -31,7 +31,7 @@
 
         this.questionInfo = function (question, ev) {
             $mdDialog.show({
-                templateUrl: 'public/components/question/question.dialog.tmpl.html',
+                templateUrl: 'question/question.dialog.tmpl.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true,

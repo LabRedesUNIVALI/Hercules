@@ -65,6 +65,7 @@ typings/
 .vscode/
 
 # Project specific files
-src/public/app/assets/libs/
+src/public/dist/*
+!src/public/dist/index.html
 
 # End of https://www.gitignore.io/api/node

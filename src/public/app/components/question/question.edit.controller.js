@@ -57,7 +57,7 @@
             };
 
             QuestionAPIService.update(entity.theme._id, entity._id, updatedEntity)
-                .success(function (result) {
+                .then(function (result) {
                     if (result) {
                         $location.path('/admin/questions');
                         $timeout(function () {
@@ -67,8 +67,7 @@
                         CommonDialogs.genericError();
                         vm.processing = false;
                     }
-                })
-                .error(function () {
+                }, function () {
                     CommonDialogs.genericError();
                     vm.processing = false;
                 });

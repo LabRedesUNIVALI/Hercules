@@ -1,36 +1,32 @@
-var gulp = require('gulp');
+const gulp = require('gulp');
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
+const htmlmin = require('gulp-htmlmin');
+const templateCache = require('gulp-angular-templatecache');
+const cssmin = require('gulp-cssmin');
+const ngAnnotate = require('gulp-ng-annotate');
+const merge = require('merge2');
+const sourcemaps = require('gulp-sourcemaps');
 
-var del = require('del');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var htmlmin = require('gulp-htmlmin');
-var templateCache = require('gulp-angular-templatecache');
-var cssmin = require('gulp-cssmin');
-var rename = require('gulp-rename');
-var ngAnnotate = require('gulp-ng-annotate');
-
-var merge2 = require('merge2');
-var runSequece = require('run-sequence');
-
-var paths = {
+const paths = {
     libs: {
         js: [
-            'src/public/app/assets/libs/angular/angular.min.js',
-            'src/public/app/assets/libs/angular-animate/angular-animate.min.js',
-            'src/public/app/assets/libs/angular-aria/angular-aria.min.js',
-            'src/public/app/assets/libs/angular-cookies/angular-cookies.min.js',
-            'src/public/app/assets/libs/angular-material/angular-material.min.js',
-            'src/public/app/assets/libs/angular-material-data-table/dist/md-data-table.min.js',
-            'src/public/app/assets/libs/angular-messages/angular-messages.min.js',
-            'src/public/app/assets/libs/angular-route/angular-route.min.js',
-            'src/public/app/assets/libs/angular-sanitize/angular-sanitize.min.js',
-            'src/public/app/assets/libs/angular-translate/angular-translate.min.js',
-            'src/public/app/assets/libs/angular-ui-mask/dist/mask.min.js',
-            'src/public/app/assets/libs/jspdf/dist/jspdf.min.js'
+            'node_modules/angular/angular.min.js',
+            'node_modules/angular-animate/angular-animate.min.js',
+            'node_modules/angular-aria/angular-aria.min.js',
+            'node_modules/angular-cookies/angular-cookies.min.js',
+            'node_modules/angular-route/angular-route.min.js',
+            'node_modules/angular-messages/angular-messages.min.js',
+            'node_modules/angular-sanitize/angular-sanitize.min.js',
+            'node_modules/angular-translate/dist/angular-translate.min.js',
+            'node_modules/angular-ui-mask/dist/mask.min.js',
+            'node_modules/jspdf/dist/jspdf.min.js',
+            'node_modules/angular-material/angular-material.min.js',
+            'node_modules/angular-material-data-table/dist/md-data-table.min.js'
         ],
         css: [
-            'src/public/app/assets/libs/angular-material/angular-material.min.css',
-            'src/public/app/assets/libs/angular-material-data-table/dist/md-data-table.min.css',
+            'node_modules/angular-material/angular-material.min.css',
+            'node_modules/angular-material-data-table/dist/md-data-table.min.css',
         ]
     },
     scripts: [
@@ -42,53 +38,44 @@ var paths = {
     ],
     styles: 'src/public/app/assets/css/app.css',
     templates: 'src/public/app/components/**/*.html',
-    dist: 'src/public/dist'
+    dist: 'src/public/dist',
 };
 
-gulp.task('clean:dist', function () {
-    return del([paths.dist]);
-});
+gulp.task('min:js:vendors', () =>
+    gulp.src(paths.libs.js)
+        .pipe(concat('vendors.min.js'))
+        .pipe(gulp.dest(paths.dist))
+);
 
-gulp.task('min:js', ['min:html'], function () {
-    return merge2(
-        gulp.src(paths.libs.js),
-        gulp.src(paths.scripts).pipe(ngAnnotate()).pipe(uglify()),
-        gulp.src(`${paths.dist}/templates.js`).pipe(uglify())
-    )
-    .pipe(concat('build.min.js'))
-    .pipe(gulp.dest(paths.dist));
-});
+gulp.task('min:js:app', () =>
+    gulp.src(paths.scripts)
+        .pipe(ngAnnotate())
+        .pipe(sourcemaps.init())
+        .pipe(uglify())
+        .pipe(concat('app.min.js'))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(paths.dist))
+);
 
-gulp.task('min:css', function () {
-    return merge2(
+gulp.task('min:css', () =>
+    merge(
         gulp.src(paths.libs.css),
-        gulp.src(paths.styles).pipe(cssmin())
+        gulp.src(paths.styles)
+            .pipe(cssmin())
     )
-    .pipe(concat('build.min.css'))
-    .pipe(gulp.dest(paths.dist));
-});
+        .pipe(concat('build.min.css'))
+        .pipe(gulp.dest(paths.dist))
+);
 
-gulp.task('min:html', function () {
-    return gulp.src(paths.templates)
-    .pipe(htmlmin({ collapseWhitespace: true }))
-    .pipe(templateCache({
-        root: 'public/components',
-        module: 'hercules'
-    }))
-    .pipe(gulp.dest(paths.dist));
-});
+gulp.task('min:html', () =>
+    gulp.src(paths.templates)
+        .pipe(htmlmin({ collapseWhitespace: true }))
+        .pipe(templateCache({
+            module: 'hercules',
+            filename: 'templates.min.js'
+        }))
+        .pipe(uglify())
+        .pipe(gulp.dest(paths.dist))
+);
 
-gulp.task('copy:index', function () {
-    return gulp.src('src/public/index.html.dist')
-    .pipe(htmlmin({ collapseWhitespace: true }))
-    .pipe(rename('index.html'))
-    .pipe(gulp.dest(paths.dist));
-});
-
-gulp.task('prod', function (callback) {
-    return runSequece(
-        'clean:dist',
-        ['min:js', 'min:css', 'copy:index'],
-        callback
-    );
-});
+gulp.task('prod', ['min:js:vendors', 'min:js:app', 'min:html', 'min:css']);

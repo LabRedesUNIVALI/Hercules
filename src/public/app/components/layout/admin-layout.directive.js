@@ -11,7 +11,7 @@
             scope: {},
             strict: 'E',
             transclude: true,
-            templateUrl: 'public/components/layout/admin-layout.tmpl.html'
+            templateUrl: 'layout/admin-layout.tmpl.html'
         };
 
     }

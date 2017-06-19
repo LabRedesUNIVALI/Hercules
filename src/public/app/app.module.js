@@ -99,7 +99,8 @@
         'hercules.controllers',         // Hercules controllers
         'hercules.services',            // Hercules services
         'hercules.directives',          // Hercules directives
-        'hercules.filters'              // Hercules filters
+        'hercules.filters',             // Hercules filters
+        'hercules'
     ];
 
 

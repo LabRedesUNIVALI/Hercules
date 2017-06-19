@@ -31,13 +31,12 @@
                  vm.processing = true;
 
                  DisciplineAPIService.delete(entity._id)
-                     .success(function (result) {
+                     .then(function (result) {
                          var index = vm.entities.indexOf(entity);
                          vm.entities.splice(index, 1);
                          CommonToasts.notice.success.Delete();
                          vm.processing = false;
-                     })
-                     .error(function () {
+                     }, function () {
                          CommonToasts.notice.error.Delete();
                          vm.processing = false;
                      });

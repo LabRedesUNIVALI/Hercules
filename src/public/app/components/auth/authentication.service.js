@@ -10,7 +10,7 @@
 
         var _adminLogin = function (credentials, callback) {
             $http.post('/api/auth', credentials)
-                .success(function (response) {
+                .then(function (response) {
                     if (response.token) {
                         $cookies.put('accessToken', response.token, {
                             path: '/admin'
@@ -19,8 +19,7 @@
                     } else {
                         callback(false);
                     }
-                })
-                .error(function (err) {
+                }, function (err) {
                     callback(false);
                 });
         };
@@ -34,7 +33,7 @@
                 }
             };
             $http(req)
-                .success(function (response) {
+                .then(function (response) {
                     if (response._id) {
                         $cookies.put('studentToken', credentials.token, {
                             path: '/student'
@@ -43,19 +42,17 @@
                     } else {
                         callback(false);
                     }
-                })
-                .error(function () {
+                }, function (err) {
                     callback(false);
                 });
         };
 
         var _adminLogout = function (callback) {
             $http.delete('/api/auth')
-                .success(function () {
+                .then(function () {
                     $cookies.remove('accessToken', { path: '/admin' });
                     callback(true);
-                })
-                .error(function () {
+                } ,function () {
                     $cookies.remove('accessToken', { path: '/admin' });
                     callback(false);
                 });

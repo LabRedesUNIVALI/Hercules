@@ -49,10 +49,9 @@
 
                 themes.forEach(function (item) {
                     QuestionAPIService.getAllByTheme(item)
-                        .success(function (result) {
+                        .then(function (result) {
                             vm.questions = result;
-                        })
-                        .error(function () {
+                        }, function () {
                             CommonDialogs.genericError();
                         });
                 });

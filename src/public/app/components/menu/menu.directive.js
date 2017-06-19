@@ -10,7 +10,7 @@
         return {
             scope: {},
             strict: 'E',
-            templateUrl: 'public/components/menu/menu.tmpl.html',
+            templateUrl: 'menu/menu.tmpl.html',
             controller: /* @ngInject */
                 function (MenuService, $location) {
                     this.actualPath = $location.url();

@@ -56,7 +56,7 @@
             delete entity.theme;
 
             QuestionAPIService.save(themeId, entity)
-                .success(function (result) {
+                .then(function (result) {
                     if (result) {
                         $location.path('admin/questions');
                         $timeout(function () {
@@ -66,8 +66,7 @@
                         CommonDialogs.genericError();
                         vm.processing = false;
                     }
-                })
-                .error(function () {
+                }, function () {
                     CommonDialogs.genericError();
                     vm.processing = false;
                 });
