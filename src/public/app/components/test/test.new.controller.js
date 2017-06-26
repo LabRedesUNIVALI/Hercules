@@ -43,7 +43,7 @@
                 themes.forEach(function (item) {
                     QuestionAPIService.getAllByTheme(item)
                         .then(function (result) {
-                            vm.questions = vm.questions.concat(result);
+                            vm.questions = vm.questions.concat(result.data);
                         }, function () {
                             CommonDialogs.genericError();
                         });

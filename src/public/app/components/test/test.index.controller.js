@@ -41,7 +41,7 @@
                         CommonToasts.notice.success.Delete();
                         vm.processing = false;
                     });
-            }, null);
+            }, function() {});
         };
 
         var _previewTest = function (test, ev) {

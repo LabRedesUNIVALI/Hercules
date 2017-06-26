@@ -5,7 +5,7 @@ services:
             context: ..
             dockerfile: docker/Dockerfile
             args:
-                port: ${PORT}
+                PORT: ${PORT}
         image: hercules_api:dev
         container_name: hercules_api
         ports:
@@ -16,7 +16,7 @@ services:
         links:
             - hercules_db
         volumes:
-            - ..:/api
+            - ..:/usr/src/api
     hercules_db:
         image: mongo:3.2
         container_name: hercules_db

@@ -40,7 +40,7 @@
                          CommonToasts.notice.error.Delete();
                          vm.processing = false;
                      });
-             }, null);
+             }, function() {});
 
          };
 

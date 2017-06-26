@@ -42,13 +42,13 @@
                         CommonToasts.notice.error.Delete();
                         vm.processing = false;
                     });
-            }, null);
+            }, function() {});
         };
 
         var _addQuestion = function (ev) {
             ThemeAPIService.getAll()
-                then(function (result) {
-                    if (result.length > 0) {
+                .then(function (result) {
+                    if (result.data && result.data.length > 0) {
                         $location.path('/admin/questions/new');
                     } else {
                         _showNoThemesDialog(ev);

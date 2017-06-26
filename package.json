@@ -58,7 +58,8 @@
   },
   "scripts": {
     "start": "node index.js",
-    "build": "gulp prod"
+    "build": "gulp build:prod",
+    "build:dev:watch": "gulp build:dev:watch"
   },
   "repository": {
     "type": "git",

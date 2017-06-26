@@ -2,7 +2,7 @@
 FROM node:6.9-alpine
 
 # Arguments declaration
-ARG port=3000
+ARG PORT=3000
 
 # Install GIT
 RUN apk update && \
@@ -19,10 +19,9 @@ RUN npm install
 
 # Bundle app source
 COPY . .
-RUN npm run build
 
 # Expose the port where app will run
-EXPOSE $port
+EXPOSE $PORT
 
 # Start app with NPM
 CMD ["npm", "start"]

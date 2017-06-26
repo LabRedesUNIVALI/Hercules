@@ -6,13 +6,13 @@
      * AuthenticationService - Service to handle login and logout.
      * @ngInject
      */
-    function AuthenticationService($http, $cookies) {
+    function AuthenticationService($http, $cookies, $log) {
 
         var _adminLogin = function (credentials, callback) {
             $http.post('/api/auth', credentials)
                 .then(function (response) {
-                    if (response.token) {
-                        $cookies.put('accessToken', response.token, {
+                    if (response.data && response.data.token) {
+                        $cookies.put('accessToken', response.data.token, {
                             path: '/admin'
                         });
                         callback(true);
@@ -34,7 +34,7 @@
             };
             $http(req)
                 .then(function (response) {
-                    if (response._id) {
+                    if (response.data && response.data._id) {
                         $cookies.put('studentToken', credentials.token, {
                             path: '/student'
                         });

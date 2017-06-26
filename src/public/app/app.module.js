@@ -16,7 +16,7 @@
      */
     function themes ($mdThemingProvider) {
         $mdThemingProvider.theme('success')
-            .primaryPalette('green', {'default': '800'});
+            .primaryPalette('green', { 'default': '800' });
     }
 
     /**
@@ -85,6 +85,7 @@
     angular.module('hercules.services', []);
     angular.module('hercules.directives', []);
     angular.module('hercules.filters', []);
+    angular.module('hercules.templates', []);
 
     var dependencies = [
         'ngMaterial',                   // Angular Material
@@ -100,7 +101,7 @@
         'hercules.services',            // Hercules services
         'hercules.directives',          // Hercules directives
         'hercules.filters',             // Hercules filters
-        'hercules'
+        'hercules.templates'            // Hercules templates
     ];
 
 

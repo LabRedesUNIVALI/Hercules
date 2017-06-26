@@ -78,4 +78,15 @@ gulp.task('min:html', () =>
         .pipe(gulp.dest(paths.dist))
 );
 
-gulp.task('prod', ['min:js:vendors', 'min:js:app', 'min:html', 'min:css']);
+gulp.task('build:prod', [
+    'min:js:vendors',
+    'min:js:app',
+    'min:html',
+    'min:css'
+]);
+
+gulp.task('build:dev:watch', ['build:prod'], () => {
+    gulp.watch(paths.styles, ['min:css']);
+    gulp.watch(paths.templates, ['min:html']);
+    gulp.watch(paths.scripts, ['min:js:app'])
+});
